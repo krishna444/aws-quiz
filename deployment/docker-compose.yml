@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  aws-quiz-app:
+    build:
+      context: ..
+      dockerfile: deployment/Dockerfile
+    container_name: aws_practice_quiz
+    ports:
+      - "8932:3000"
+    volumes:
+      # Mount exams folder to sync JSON updates dynamically
+      - ../exams:/app/exams:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "npx", "serve", "--version"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
