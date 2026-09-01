@@ -238,4 +238,7 @@ async function downloadExam(index) {
         }
 }
 
-downloadExam(5);
+for (let i = 11; i <= TOTAL_EXAMS; i++) {
+    downloadExam(i);
+}
+//downloadExam(10);

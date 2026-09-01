@@ -1,0 +1,692 @@
+[
+  {
+    "examId": 22,
+    "question": "A company operating in the AWS Cloud requires separate invoices for specific environments, such as development, testing, and production. <br/> How can this be achieved?",
+    "options": [
+      "A. Use multiple AWS accounts",
+      "B. Use resource tagging",
+      "C. Use multiple VPCs",
+      "D. Use Cost Explorer"
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": "**AWS Domain:** Billing, Pricing & Support\n\n**Detailed Explanation:**\nAWS generates a single consolidated bill for all resources within a single AWS account. To receive completely separate invoices for different environments, the company must isolate those environments into separate AWS accounts, which can then be managed via AWS Organizations.\n\n**Why Other Options are Incorrect:**\n* **B:** Resource tagging allows you to categorize and track costs within a single bill using Cost Allocation Tags, but it does not generate separate legal invoices.\n* **C:** VPCs provide network isolation for resources, but all resources across all VPCs in one account are billed together on a single invoice.\n* **D:** Cost Explorer is a visualization tool used to analyze and forecast spending patterns, but it cannot split a single account's billing into multiple separate invoices.\n\n**💡 Exam Tip:**\nWhenever you see a requirement for \"separate invoices\" or \"hard billing isolation,\" the answer is almost always \"Multiple AWS Accounts.\"\n\n**⚠️ Trap Alert:**\nDo not confuse \"Cost Tracking\" with \"Separate Invoicing.\" Tagging and Cost Explorer are for tracking and analysis, while multiple accounts are for actual billing separation."
+  },
+  {
+    "examId": 22,
+    "question": "Which AWS service can be used in the application deployment process?",
+    "options": [
+      "A. AWS AppSync",
+      "B. AWS Batch",
+      "C. AWS CodePipeline",
+      "D. AWS DataSync"
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": "**AWS Domain:** Cloud Technology & Services\n\n**Detailed Explanation:**\nAWS CodePipeline is a continuous delivery service that automates the build, test, and deploy phases of your release process. It enables rapid delivery cycles by orchestrating the flow of code changes from a source provider through various stages until they are deployed to a production environment.\n\n**Why Other Options are Incorrect:**\n* **A:** AWS AppSync is a managed GraphQL service used to create APIs that connect applications to data, not for automating deployment pipelines.\n* **B:** AWS Batch enables developers to run hundreds of thousands of batch computing jobs across AWS Compute resources, focusing on workload execution rather than application deployment.\n* **C:** This is the correct answer as it is specifically designed to automate the software release pipeline.\n* **D:** AWS DataSync is an online data transfer service that simplifies and accelerates moving data between on-premises storage and AWS storage services.\n\n**💡 Exam Tip:**\nWhenever you see keywords like \"Continuous Delivery,\" \"CI/CD,\" \"Release Pipeline,\" or \"Automating Deployment,\" look for the \"AWS Code\" suite of tools (CodeCommit, CodeBuild, CodeDeploy, and CodePipeline).\n\n**⚠️ Trap Alert:**\nDo not confuse AWS CodePipeline with AWS CodeDeploy; CodePipeline is the *orchestrator* that manages the entire workflow, while CodeDeploy is the specific service that *installs* the application onto the servers."
+  },
+  {
+    "examId": 22,
+    "question": "What can be used to reduce the cost of running Amazon EC2 instances? (Choose two.)",
+    "options": [
+      "A. Spot Instances for stateless and flexible workloads",
+      "B. Memory optimized instances for high-compute workloads",
+      "C. On-Demand Instances for high-cost and sustained workloads",
+      "D. Reserved Instances for sustained workloads",
+      "E. Spend limits set using AWS Budgets"
+    ],
+    "correct": [],
+    "explanation": "**AWS Domain:** Billing, Pricing & Support\n\n**Detailed Explanation:**\nAmazon EC2 offers various pricing models to optimize costs based on the predictability and nature of the workload. By committing to a specific term (Reserved Instances) or utilizing spare AWS capacity (Spot Instances), users can achieve significant discounts compared to the standard hourly On-Demand rate.\n\n**Correct Answer(s):** A and D\n\n**Why Other Options are Incorrect:**\n* **B:** Memory optimized instances are designed for performance (RAM-intensive apps), not for cost reduction; choosing the wrong instance family can actually increase costs.\n* **C:** On-Demand Instances are the most expensive option because they provide maximum flexibility without a long-term commitment.\n* **E:** AWS Budgets allows you to monitor and alert on spending, but it does not actually reduce the cost of the running resources themselves.\n\n**💡 Exam Tip:**\nLook for keywords: \"Sustained/Predictable\" $\\rightarrow$ Reserved Instances; \"Flexible/Stateless/Fault-tolerant\" $\\rightarrow$ Spot Instances.\n\n**⚠️ Trap Alert:**\nDo not confuse \"Cost Management\" (Budgets/Cost Explorer) with \"Cost Reduction\" (Pricing Models). Budgets tell you that you are spending money, but Reserved/Spot instances actually lower the price per hour."
+  },
+  {
+    "examId": 22,
+    "question": "A company is launching an e-commerce site that will store and process credit card data. The company requires information about AWS compliance reports and AWS agreements. <br/> Which AWS service provides on-demand access to these items?",
+    "options": [
+      "A. AWS Certificate Manager",
+      "B. AWS Config",
+      "C. AWS Artifact",
+      "D. AWS CloudTrail"
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": "**AWS Domain:** Security & Compliance\n\n**Detailed Explanation:**\nAWS Artifact is a central resource for compliance-related information that provides on-demand access to AWS's security and compliance reports. It allows customers to download AWS SOC reports, PCI reports, and other certifications, as well as review and accept AWS agreements like the Business Associate Addendum (BAA).\n\n**Why Other Options are Incorrect:**\n* **A:** AWS Certificate Manager is used to provision, manage, and deploy SSL/TLS certificates for websites, not for accessing compliance documentation.\n* **B:** AWS Config is a service that enables you to assess, audit, and evaluate the configurations of your AWS resources for compliance with internal guidelines.\n* **D:** AWS CloudTrail is a logging service that records API calls and account activity for auditing and security monitoring, rather than providing compliance reports.\n\n**💡 Exam Tip:**\nWhenever you see keywords like \"compliance reports,\" \"SOC reports,\" \"PCI reports,\" or \"AWS agreements\" in a question, the answer is almost always AWS Artifact.\n\n**⚠️ Trap Alert:**\nDo not confuse AWS Artifact with AWS Config; Artifact provides the *official reports* (PDFs/Documents) from AWS, while Config *monitors your specific resource settings* to ensure they stay compliant."
+  },
+  {
+    "examId": 22,
+    "question": "Which AWS service or feature allows the user to manage cross-region application traffic?",
+    "options": [
+      "A. Amazon AppStream 2.0",
+      "B. Amazon VPC",
+      "C. Elastic Load Balancer",
+      "D. Amazon Route 53"
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": "**AWS Domain:** Cloud Technology & Services\n\n**Detailed Explanation:**\nAmazon Route 53 is a highly available and scalable cloud Domain Name System (DNS) web service. It allows users to route internet traffic to resources across multiple AWS regions using advanced routing policies such as Latency-based routing, Geolocation routing, and Failover routing to ensure high availability and disaster recovery.\n\n**Why Other Options are Incorrect:**\n* **A:** Amazon AppStream 2.0 is a fully managed non-persistent application streaming service that allows users to access desktop applications from a web browser, not a traffic management tool.\n* **B:** Amazon VPC provides a logically isolated section of the AWS Cloud to launch resources, but it defines the network boundary rather than managing the global routing of traffic between regions.\n* **C:** Elastic Load Balancer (ELB) distributes incoming application traffic across multiple targets (such as EC2 instances) within a single region, but it cannot route traffic across different AWS regions.\n\n**💡 Exam Tip:**\nWhenever you see keywords like \"Cross-Region,\" \"DNS,\" \"Global Routing,\" or \"Health Checks\" in a traffic-related question, look for Amazon Route 53.\n\n**⚠️ Trap Alert:**\nDo not confuse Elastic Load Balancer (ELB) with Route 53; remember that ELB is a **Regional** service (distributing traffic within one region), while Route 53 is a **Global** service (routing traffic between regions)."
+  },
+  {
+    "examId": 22,
+    "question": "Which AWS service can be used to track unauthorized API calls?",
+    "options": [
+      "A. AWS Config",
+      "B. AWS CloudTrail",
+      "C. AWS Trusted Advisor",
+      "D. Amazon Inspector"
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": "**AWS Domain:** Security & Compliance\n\n**Detailed Explanation:**\nAWS CloudTrail is a service that records all API calls made within an AWS account, providing a complete audit trail of activities. It captures who made the request, the time of the request, the source IP address, and whether the request was successful or failed due to unauthorized access.\n\n**Why Other Options are Incorrect:**\n* **A:** AWS Config is used to assess, audit, and evaluate the configurations of your AWS resources over time, not to track individual API calls.\n* **C:** AWS Trusted Advisor provides recommendations to help you follow AWS best practices regarding cost, performance, security, and fault tolerance.\n* **D:** Amazon Inspector is an automated vulnerability management service that scans EC2 instances and container images for software vulnerabilities and unintended network exposure.\n\n**💡 Exam Tip:**\nWhenever you see keywords like \"Audit,\" \"API calls,\" \"Who did what,\" or \"Governance,\" your mind should immediately go to AWS CloudTrail.\n\n**⚠️ Trap Alert:**\nDo not confuse CloudTrail with Amazon CloudWatch; CloudTrail tracks \"who did what\" (API logs), while CloudWatch tracks \"how the system is performing\" (metrics and performance logs)."
+  },
+  {
+    "examId": 22,
+    "question": "A user needs to regularly audit and evaluate the setup of all AWS resources, identify non-compliant accounts, and be notified when a resource changes. <br/> Which AWS service can be used to meet these requirements?",
+    "options": [
+      "A. AWS Trusted Advisor",
+      "B. AWS Config",
+      "C. AWS Resource Access Manager",
+      "D. AWS Systems Manager"
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": "**AWS Domain:** Security & Compliance\n\n**Detailed Explanation:**\nAWS Config is a service that enables you to assess, audit, and evaluate the configurations of your AWS resources. It continuously monitors and records configuration changes and allows you to automate the evaluation of these changes against desired \"rules\" to identify non-compliant resources.\n\n**Why Other Options are Incorrect:**\n* **A:** AWS Trusted Advisor provides recommendations to optimize your AWS environment based on best practices (cost, performance, security), but it does not track historical configuration changes or provide detailed resource auditing.\n* **C:** AWS Resource Access Manager (RAM) is used to share AWS resources across multiple AWS accounts and organizations, not for auditing or compliance monitoring.\n* **D:** AWS Systems Manager is a management service used to automate operational tasks, patch software, and configure OS-level settings, rather than auditing the AWS resource configuration state.\n\n**💡 Exam Tip:**\nWhenever you see keywords like \"audit,\" \"evaluate configuration,\" \"non-compliant,\" or \"track changes to resources,\" the answer is almost always AWS Config.\n\n**⚠️ Trap Alert:**\nDo not confuse AWS Config with AWS CloudTrail. CloudTrail records \"who did what\" (API calls/logs), while AWS Config records \"what the resource looks like\" (configuration state/compliance)."
+  },
+  {
+    "examId": 22,
+    "question": "A user is planning to launch two additional Amazon EC2 instances to increase availability. <br/> Which action should the user take?",
+    "options": [
+      "A. Launch the instances across multiple Availability Zones in a single AWS Region.",
+      "B. Launch the instances as EC2 Reserved Instances in the same AWS Region and the same Availability Zone.",
+      "C. Launch the instances in multiple AWS Regions, but in the same Availability Zone.",
+      "D. Launch the instances as EC2 Spot Instances in the same AWS Region, but in different Availability Zones."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": "**AWS Domain:** Cloud Technology & Services\n\n**Detailed Explanation:**\nHigh availability is achieved by distributing workloads across multiple Availability Zones (AZs) to ensure that if one data center fails, the application remains operational in another. By launching EC2 instances in different AZs within a single Region, you eliminate a single point of failure at the data center level.\n\n**Why Other Options are Incorrect:**\n* **A:** This is the correct answer because distributing instances across multiple AZs provides the redundancy necessary to maintain availability during a localized outage.\n* **B:** Reserved Instances are a billing model, not a deployment strategy, and placing all instances in the same AZ creates a single point of failure.\n* **C:** This option is technically impossible because an Availability Zone is a physical location within a specific Region; you cannot have the same AZ across different Regions.\n* **D:** Spot Instances can be reclaimed by AWS with two minutes' notice, which decreases availability rather than increasing it, regardless of the AZ placement.\n\n**💡 Exam Tip:**\nWhenever you see \"High Availability\" or \"Fault Tolerance\" in a question, look for keywords like \"Multi-AZ,\" \"Cross-Region,\" or \"Redundancy.\"\n\n**⚠️ Trap Alert:**\nDo not confuse \"Billing Models\" (Reserved, Spot, On-Demand) with \"Deployment Strategies\" (Multi-AZ, Multi-Region). A Reserved Instance is still just an EC2 instance; its pricing model does not provide any technical availability benefits."
+  },
+  {
+    "examId": 22,
+    "question": "A company must store critical business data in Amazon S3 with a backup to another AWS Region. <br/> How can this be achieved?",
+    "options": [
+      "A. Use an Amazon CloudFront Content Delivery Network (CDN) to cache data globally",
+      "B. Set up Amazon S3 cross-region replication to another AWS Region",
+      "C. Configure the AWS Backup service to back up to the data to another AWS Region",
+      "D. Take Amazon S3 bucket snapshots and copy that data to another AWS Region"
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": "**AWS Domain:** Cloud Technology & Services\n\n**Detailed Explanation:**\nAmazon S3 Cross-Region Replication (CRR) is a native bucket-level feature that automatically and asynchronously copies new objects across buckets in different AWS Regions. This ensures data durability and availability by maintaining a real-time backup copy in a geographically separate location to protect against regional failures.\n\n**Why Other Options are Incorrect:**\n* **A:** Amazon CloudFront is a Content Delivery Network used for caching content closer to end-users to reduce latency, not for data backup or durable storage.\n* **C:** While AWS Backup supports many services, S3 Cross-Region Replication is the primary, native mechanism specifically designed for continuous, automatic object-level replication between S3 buckets.\n* **D:** Amazon S3 is an object storage service and does not use \"snapshots\" in the same way that Amazon EBS (block storage) does; versioning and replication are used instead.\n\n**💡 Exam Tip:**\nWhenever you see \"S3\" and \"Another Region\" in the same question, look for \"Cross-Region Replication (CRR)\" as the primary answer for data redundancy.\n\n**⚠️ Trap Alert:**\nDo not confuse S3 Replication with CloudFront. CloudFront *delivers* data (read-only cache), whereas Replication *stores* data (permanent backup)."
+  },
+  {
+    "examId": 22,
+    "question": "Which AWS Cloud service can send alerts to customers if custom spending thresholds are exceeded?",
+    "options": [
+      "A. AWS Budgets",
+      "B. AWS Cost Explorer",
+      "C. AWS Cost Allocation Tags",
+      "D. AWS Organizations"
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": "**AWS Domain:** Billing, Pricing & Support\n\n**Detailed Explanation:**\nAWS Budgets allows users to set custom budgets that track their AWS costs and usage. It can trigger notifications via email or SNS when actual or forecasted costs exceed the predefined thresholds.\n\n**Why Other Options are Incorrect:**\n* **B:** AWS Cost Explorer is used for visualizing, understanding, and analyzing your historical cost and usage patterns, but it does not send proactive alerts.\n* **C:** AWS Cost Allocation Tags are used to organize and track costs by assigning metadata to resources, helping you categorize spending rather than alerting you to it.\n* **D:** AWS Organizations is a management service used to centrally manage multiple AWS accounts, including consolidated billing, but it is not a monitoring or alerting tool.\n\n**💡 Exam Tip:**\nWhenever you see keywords like \"alerts,\" \"thresholds,\" or \"notifications\" regarding spending, look for **AWS Budgets**.\n\n**⚠️ Trap Alert:**\nDo not confuse Cost Explorer with AWS Budgets; remember that Cost Explorer is for **analysis (looking back)**, while AWS Budgets is for **monitoring and alerting (looking forward/current)**."
+  },
+  {
+    "examId": 22,
+    "question": "What is the recommended method to request penetration testing on AWS resources?",
+    "options": [
+      "A. Open a support case",
+      "B. Fill out the Penetration Testing Request Form",
+      "C. Request a penetration test from your technical account manager",
+      "D. Contact your AWS sales representative"
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": "**AWS Domain:** Security & Compliance\n\n**Detailed Explanation:**\nAWS allows customers to conduct security assessments and penetration tests against certain resources to ensure their environments are secure. While many common services no longer require prior approval, specific high-impact tests or legacy requirements are managed through a formal request process to ensure AWS security teams are aware of the activity and do not mistake it for a real attack.\n\n**Why Other Options are Incorrect:**\n* **A:** Opening a general support case is for technical issues or billing inquiries and is not the standardized workflow for security testing authorizations.\n* **B:** This is the correct answer as it is the official mechanism provided by AWS to document and approve specific penetration testing activities.\n* **C:** A Technical Account Manager (TAM) provides strategic guidance and optimization but does not have the authority to unilaterally approve penetration tests.\n* **D:** Sales representatives handle commercial contracts and account onboarding, not the technical security authorizations required for penetration testing.\n\n**💡 Exam Tip:**\nRemember that for most \"Permitted Services\" (like Amazon EC2, RDS, and Lambda), you no longer need to notify AWS; however, if the question asks for the *method to request* or *formal process*, the request form is the key answer.\n\n**⚠️ Trap Alert:**\nDo not confuse \"Penetration Testing\" (which tests your own security) with \"AWS Security Audits\" (which AWS performs to ensure the cloud infrastructure itself is secure)."
+  },
+  {
+    "examId": 22,
+    "question": "A user needs to automatically discover, classify, and protect sensitive data stored in Amazon S3. <br/> Which AWS service can meet these requirements?",
+    "options": [
+      "A. Amazon Inspector",
+      "B. Amazon Macie",
+      "C. Amazon GuardDuty",
+      "D. AWS Secrets Manager"
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": "**AWS Domain:** Security & Compliance\n\n**Detailed Explanation:**\nAmazon Macie is a fully managed data security and data privacy service that uses machine learning and pattern matching to discover and protect sensitive data in Amazon S3. It automatically scans buckets to identify Personally Identifiable Information (PII), such as credit card numbers or social security numbers, and alerts administrators to security risks like publicly accessible buckets.\n\n**Why Other Options are Incorrect:**\n* **A:** Amazon Inspector is an automated vulnerability management service that scans EC2 instances, container images, and Lambda functions for software vulnerabilities and unintended network exposure, not S3 data content.\n* **C:** Amazon GuardDuty is a threat detection service that monitors for malicious activity and unauthorized behavior across your AWS accounts by analyzing VPC Flow Logs, CloudTrail, and DNS logs.\n* **D:** AWS Secrets Manager is used to rotate, manage, and retrieve database credentials, API keys, and other secrets, rather than scanning S3 buckets for sensitive data.\n\n**💡 Exam Tip:**\nWhenever you see the keywords \"Sensitive Data,\" \"PII (Personally Identifiable Information),\" and \"Amazon S3\" in the same question, the answer is almost always Amazon Macie.\n\n**⚠️ Trap Alert:**\nDo not confuse Macie with GuardDuty; GuardDuty looks for \"threats\" and \"attacks\" (behavioral analysis), while Macie looks for \"sensitive data\" (content analysis)."
+  },
+  {
+    "examId": 22,
+    "question": "Which components are required to build a successful site-to-site VPN connection on AWS? (Choose two.)",
+    "options": [
+      "A. Internet gateway",
+      "B. NAT gateway",
+      "C. Customer gateway",
+      "D. Transit gateway",
+      "E. Virtual private gateway"
+    ],
+    "correct": [],
+    "explanation": "**AWS Domain:** Cloud Technology & Services\n\n**Detailed Explanation:**\nA Site-to-Site VPN creates a secure, encrypted tunnel between an on-premises network and an AWS VPC over the public internet. To establish this connection, AWS requires a physical or software appliance on the customer side (Customer Gateway) and a VPN concentrator on the AWS side (Virtual Private Gateway) to anchor the connection.\n\n**Why Other Options are Incorrect:**\n* **A:** An Internet Gateway allows communication between VPC resources and the internet, but it is not the specific component used to terminate a VPN tunnel.\n* **B:** A NAT Gateway allows instances in a private subnet to connect to the internet while preventing the internet from initiating connections with those instances.\n* **D:** While a Transit Gateway can be used to connect multiple VPNs across multiple VPCs, it is an optional scaling component and not a basic requirement for a standard site-to-site VPN.\n\n**Correct Answers:** C, E\n\n**💡 Exam Tip:**\nRemember the \"Two Gateways\" rule for VPNs: The **Customer Gateway (CGW)** is the \"on-prem side\" and the **Virtual Private Gateway (VGW)** is the \"AWS side.\"\n\n**⚠️ Trap Alert:**\nDo not confuse a **Virtual Private Gateway** with an **Internet Gateway**. An IGW is for general public internet traffic, whereas a VGW is specifically for private, encrypted connections like VPNs or Direct Connect."
+  },
+  {
+    "examId": 22,
+    "question": "Which Amazon EC2 pricing option is best suited for applications with short-term, spiky, or unpredictable workloads that cannot be interrupted?",
+    "options": [
+      "A. Spot Instances",
+      "B. Dedicated Hosts",
+      "C. On-Demand Instances",
+      "D. Reserved Instances"
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": "**AWS Domain:** Cloud Technology & Services\n\n**Detailed Explanation:**\nAmazon EC2 On-Demand Instances allow you to pay for compute capacity by the hour or second with no long-term commitments or upfront payments. This flexibility makes them ideal for workloads that are unpredictable or spiky, as you can scale up or down instantly without risking instance termination.\n\n**Why Other Options are Incorrect:**\n* **A:** Spot Instances offer the lowest cost but can be reclaimed by AWS with a two-minute warning, making them unsuitable for workloads that cannot be interrupted.\n* **B:** Dedicated Hosts are physical servers dedicated to a single customer, typically used for specific licensing requirements or regulatory compliance rather than handling spiky workloads.\n* **D:** Reserved Instances require a 1-year or 3-year commitment to achieve discounts, making them best for steady-state, predictable workloads rather than short-term or unpredictable ones.\n\n**💡 Exam Tip:**\nLook for the keywords \"unpredictable,\" \"short-term,\" and \"no commitment\" to identify On-Demand Instances as the correct choice.\n\n**⚠️ Trap Alert:**\nDo not confuse \"unpredictable\" with \"fault-tolerant.\" If the question says the workload is unpredictable BUT can be interrupted, the answer would be Spot Instances; however, since this workload \"cannot be interrupted,\" Spot is eliminated."
+  },
+  {
+    "examId": 22,
+    "question": "Which AWS cloud architecture principle states that systems should reduce interdependencies?",
+    "options": [
+      "A. Scalability",
+      "B. Services, not servers",
+      "C. Removing single points of failure",
+      "D. Loose coupling"
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": "**AWS Domain:** Cloud Technology & Services\n\n**Detailed Explanation:**\nLoose coupling is a design principle where components are independent and communicate through well-defined interfaces, often using a message queue like Amazon SQS. This ensures that if one component fails or is updated, it does not cause a cascading failure across the entire system. By reducing interdependencies, the architecture becomes more resilient, flexible, and easier to scale.\n\n**Why Other Options are Incorrect:**\n* **A:** Scalability refers to the ability of a system to handle increased load by adding resources, rather than the structural relationship between components.\n* **B:** Services, not servers focuses on using managed services (like Lambda or S3) to remove the operational burden of managing underlying OS and hardware.\n* **C:** Removing single points of failure involves redundancy and multi-AZ deployments to ensure availability, which is a goal of loose coupling but not the definition of reducing interdependencies.\n\n**💡 Exam Tip:**\nWhenever you see keywords like \"reduce interdependencies,\" \"decouple,\" or \"asynchronous communication,\" immediately look for \"Loose Coupling\" or \"Amazon SQS\" in the options.\n\n**⚠️ Trap Alert:**\nDo not confuse \"Loose Coupling\" with \"Removing Single Points of Failure.\" While loose coupling helps remove single points of failure, the specific act of reducing dependencies is the definition of loose coupling."
+  },
+  {
+    "examId": 22,
+    "question": "What is the MOST effective resource for staying up to date on AWS security announcements?",
+    "options": [
+      "A. AWS Personal Health Dashboard",
+      "B. AWS Secrets Manager",
+      "C. AWS Security Bulletins",
+      "D. Amazon Inspector"
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": "**AWS Domain:** Security & Compliance\n\n**Detailed Explanation:**\nAWS Security Bulletins are the official communication channel used by AWS to notify customers about security vulnerabilities and the necessary actions required to mitigate them. These bulletins provide a centralized, public-facing resource for tracking security advisories across all AWS services.\n\n**Why Other Options are Incorrect:**\n* **A:** The AWS Personal Health Dashboard provides alerts and remediation guidance for events specifically affecting your own account's resources, not general global security announcements.\n* **B:** AWS Secrets Manager is a service used to rotate, manage, and retrieve secrets (like API keys and passwords), not a communication tool for security news.\n* **D:** Amazon Inspector is an automated vulnerability management service that scans your EC2 instances and container images for software vulnerabilities, rather than a source of general announcements.\n\n**💡 Exam Tip:**\nWhenever you see keywords like \"announcements,\" \"advisories,\" or \"bulletins\" in the context of security updates, look for the option that describes a communication channel rather than a technical tool.\n\n**⚠️ Trap Alert:**\nDo not confuse the \"Personal Health Dashboard\" with \"Security Bulletins.\" The Health Dashboard is for *your* specific environment (personalized), while Security Bulletins are for *general* AWS security updates (global)."
+  },
+  {
+    "examId": 22,
+    "question": "Which AWS service offers persistent storage for a file system?",
+    "options": [
+      "A. Amazon S3",
+      "B. Amazon EC2 instance store",
+      "C. Amazon Elastic Block Store (Amazon EBS)",
+      "D. Amazon ElastiCache"
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": "**AWS Domain:** Cloud Technology & Services\n\n**Detailed Explanation:**\nAmazon Elastic Block Store (EBS) provides block-level storage volumes that can be attached to Amazon EC2 instances to act as virtual hard drives. Unlike temporary storage, EBS is persistent, meaning the data remains intact even if the associated EC2 instance is stopped or terminated.\n\n**Why Other Options are Incorrect:**\n* **A:** Amazon S3 is an object storage service used for storing files as objects in buckets, not as a block-level file system for OS installation or database storage.\n* **B:** Amazon EC2 instance store provides ephemeral (temporary) storage that is physically attached to the host computer and is deleted when the instance is stopped or terminated.\n* **D:** Amazon ElastiCache is an in-memory caching service (Redis or Memcached) used to improve application performance, not for persistent file system storage.\n\n**💡 Exam Tip:**\nWhenever you see the keywords \"block-level storage,\" \"virtual hard drive,\" or \"persistent storage for EC2,\" think of Amazon EBS.\n\n**⚠️ Trap Alert:**\nDo not confuse \"Persistent\" with \"Durable.\" While S3 is highly durable, it is not a \"file system\" in the traditional sense (block storage) that an operating system can boot from or mount as a local drive."
+  },
+  {
+    "examId": 22,
+    "question": "Which of the following allows AWS users to manage cost allocations for billing?",
+    "options": [
+      "A. Tagging resources",
+      "B. Limiting who can create resources",
+      "C. Adding a secondary payment method",
+      "D. Running all operations on a single AWS account"
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": "**AWS Domain:** Billing, Pricing & Support\n\n**Detailed Explanation:**\nCost allocation tags allow AWS users to organize and track costs by assigning metadata to AWS resources. By enabling these tags in the Billing Console, users can generate detailed cost reports that categorize spending by department, project, or environment, enabling precise cost allocation.\n\n**Why Other Options are Incorrect:**\n* **B:** Limiting resource creation is a security or governance measure (via IAM policies) but does not provide a mechanism to categorize or allocate costs for resources already in use.\n* **C:** Adding a secondary payment method ensures billing continuity and prevents account suspension, but it does not help in managing or allocating costs between different business units.\n* **D:** Running operations on a single account without organization tools actually makes cost allocation more difficult, as it blends all expenses into one monolithic bill.\n\n**💡 Exam Tip:**\nWhenever you see \"cost allocation,\" \"tracking spend by department,\" or \"categorizing resources\" in a question, look for \"Cost Allocation Tags\" or \"AWS Cost Explorer\" as the primary answers.\n\n**⚠️ Trap Alert:**\nDo not confuse \"Tagging\" (for cost/organization) with \"IAM Policies\" (for permissions); while both use tags for logic, the context of \"billing\" specifically points to Cost Allocation Tags."
+  },
+  {
+    "examId": 22,
+    "question": "Which AWS service allows users to download security and compliance reports about the AWS infrastructure on demand?",
+    "options": [
+      "A. Amazon GuardDuty",
+      "B. AWS Security Hub",
+      "C. AWS Artifact",
+      "D. AWS Shield"
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": "**AWS Domain:** Security & Compliance\n\n**Detailed Explanation:**\nAWS Artifact is the central resource for AWS's compliance-related information, providing on-demand access to security and compliance reports. It allows customers to download AWS SOC reports, PCI reports, and other certifications to prove that the AWS infrastructure meets specific regulatory standards.\n\n**Why Other Options are Incorrect:**\n* **A:** Amazon GuardDuty is a threat detection service that continuously monitors for malicious activity and unauthorized behavior using machine learning.\n* **B:** AWS Security Hub provides a comprehensive view of security alerts and compliance status across AWS accounts, but it does not provide downloadable third-party audit reports.\n* **D:** AWS Shield is a managed Distributed Denial of Service (DDoS) protection service that safeguards applications running on AWS.\n\n**💡 Exam Tip:**\nWhenever you see keywords like \"compliance reports,\" \"SOC reports,\" \"PCI reports,\" or \"on-demand download of certifications,\" the answer is almost always AWS Artifact.\n\n**⚠️ Trap Alert:**\nDo not confuse AWS Artifact with AWS Security Hub; Security Hub monitors your *current* configuration for compliance, while Artifact provides the *official documentation* proving AWS's own infrastructure compliance."
+  },
+  {
+    "examId": 22,
+    "question": "Which of the following AWS services are serverless? (Choose two.)",
+    "options": [
+      "A. AWS Lambda",
+      "B. Amazon Elasticsearch Service",
+      "C. AWS Elastic Beanstalk",
+      "D. Amazon DynamoDB",
+      "E. Amazon Redshift"
+    ],
+    "correct": [],
+    "explanation": "**AWS Domain:** Cloud Technology & Services\n\n**Detailed Explanation:**\nServerless computing allows users to run applications and store data without managing the underlying infrastructure, such as servers, patching, or scaling. In a serverless model, AWS handles all resource provisioning and scaling automatically, and users typically pay only for the resources consumed.\n\n**Why Other Options are Incorrect:**\n* **A:** This is a correct answer because AWS Lambda is a function-as-a-service (FaaS) that runs code only when triggered without requiring server management.\n* **B:** Amazon Elasticsearch Service (now OpenSearch) typically requires the selection of specific instance types and sizes to manage the cluster.\n* **C:** AWS Elastic Beanstalk is a Platform-as-a-Service (PaaS) that automates deployment, but it still provisions and manages EC2 instances that the user can access.\n* **D:** This is a correct answer because Amazon DynamoDB is a NoSQL database where AWS manages the infrastructure and scales capacity automatically.\n* **E:** Amazon Redshift is a data warehouse that generally requires the selection of specific node types and cluster configurations.\n\n**💡 Exam Tip:**\nWhen looking for \"Serverless\" services, look for keywords like \"automatic scaling,\" \"no infrastructure management,\" and \"pay-for-use\" (e.g., Lambda, DynamoDB, S3, Fargate, and API Gateway).\n\n**⚠️ Trap Alert:**\nDo not confuse \"Managed Services\" with \"Serverless Services.\" While Elastic Beanstalk is a managed service that simplifies deployment, it is NOT serverless because it still relies on underlying EC2 instances that are visible to the user."
+  },
+  {
+    "examId": 22,
+    "question": "Which AWS managed services can be used to extend an on-premises data center to the AWS network? (Choose two.)",
+    "options": [
+      "A. AWS VPN",
+      "B. NAT gateway",
+      "C. AWS Direct Connect",
+      "D. Amazon Connect",
+      "E. Amazon Route 53"
+    ],
+    "correct": [],
+    "explanation": "**AWS Domain:** Cloud Technology & Services\n\n**Detailed Explanation:**\nExtending an on-premises data center to AWS requires establishing a secure, reliable network connection between a local environment and an AWS Virtual Private Cloud (VPC). This is achieved through hybrid connectivity solutions that allow resources in both locations to communicate as if they were on the same network.\n\n**Correct Answers:** A and C\n\n**Why Other Options are Incorrect:**\n* **A:** This is a correct answer because AWS VPN creates an encrypted tunnel over the public internet to connect on-premises networks to AWS.\n* **B:** NAT Gateway allows instances in a private subnet to connect to the internet but does not provide a connection back to an on-premises data center.\n* **C:** This is a correct answer because AWS Direct Connect establishes a dedicated, private physical network connection that bypasses the public internet for consistent performance.\n* **D:** Amazon Connect is a cloud-based contact center (customer service) solution and has nothing to do with network infrastructure.\n* **E:** Amazon Route 53 is a scalable Domain Name System (DNS) web service used for routing end-users to applications, not for extending data centers.\n\n**💡 Exam Tip:**\nWhen you see \"Hybrid Cloud\" or \"On-premises to AWS,\" immediately look for **AWS VPN** (fast to set up, uses public internet) or **AWS Direct Connect** (expensive, private, high bandwidth).\n\n**⚠️ Trap Alert:**\nDo not confuse **NAT Gateway** with **VPN**. A NAT Gateway is for \"outbound-only\" internet access for private instances, whereas a VPN is for \"two-way\" secure communication between two distinct networks."
+  },
+  {
+    "examId": 22,
+    "question": "Which requirement must be met for a member account to be unlinked from an AWS Organizations account?",
+    "options": [
+      "A. The linked account must be actively compliant with AWS System and Organization Controls (SOC).",
+      "B. The payer and the linked account must both create AWS Support cases to request that the member account be unlinked from the organization.",
+      "C. The member account must meet the requirements of a standalone account.",
+      "D. The payer account must be used to remove the linked account from the organization."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": "**AWS Domain:** Billing, Pricing & Support\n\n**Detailed Explanation:**\nAWS Organizations allows multiple accounts to be managed centrally, but removing a member account requires that account to function independently. To be unlinked, the member account must transition from a managed state to a standalone state, meaning it must have its own payment method and contact information.\n\n**Why Other Options are Incorrect:**\n* **A:** SOC compliance is a security auditing standard and has no technical bearing on the administrative process of unlinking accounts from an organization.\n* **B:** Unlinking is a self-service administrative action performed via the AWS Management Console or CLI and does not require manual Support cases for authorization.\n* **D:** While the management (payer) account can remove a member, the member account can also leave the organization provided it meets the standalone requirements.\n\n**💡 Exam Tip:**\nWhenever you see \"unlinking\" or \"leaving an organization,\" look for keywords like \"standalone account,\" \"payment method,\" or \"verified phone number.\"\n\n**⚠️ Trap Alert:**\nDo not confuse \"removing an account\" with \"closing an account.\" Removing an account from an organization simply makes it a standalone account; it does not delete the account or its resources."
+  },
+  {
+    "examId": 22,
+    "question": "What AWS benefit refers to a customer's ability to deploy applications that scale up and down the meet variable demand?",
+    "options": [
+      "A. Elasticity",
+      "B. Agility",
+      "C. Security",
+      "D. Scalability"
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": "**AWS Domain:** Cloud Concepts\n\n**Detailed Explanation:**\nScalability is the ability of a system to handle growing workloads by adding resources to the infrastructure. In AWS, this allows applications to scale up (vertical scaling) or scale out (horizontal scaling) to maintain performance as demand increases or decreases.\n\n**Why Other Options are Incorrect:**\n* **A:** Elasticity refers specifically to the automatic, real-time scaling of resources to match current demand, whereas scalability is the broader capability of the system to handle the growth.\n* **B:** Agility refers to the speed and ease with which IT resources can be provisioned, allowing developers to innovate and experiment faster.\n* **C:** Security refers to the protection of data and infrastructure through the Shared Responsibility Model and various AWS security tools.\n\n**💡 Exam Tip:**\nLook for keywords like \"handle growth,\" \"increase capacity,\" or \"meet demand\" to identify Scalability; look for \"automatic,\" \"real-time,\" or \"dynamic\" to identify Elasticity.\n\n**⚠️ Trap Alert:**\nStudents often confuse Scalability and Elasticity; remember that Scalability is the *ability* to grow, while Elasticity is the *automation* of that growth and shrinkage."
+  },
+  {
+    "examId": 22,
+    "question": "During a compliance review, one of the auditors requires a copy of the AWS SOC 2 report. <br/> Which service should be used to submit this request?",
+    "options": [
+      "A. AWS Personal Health Dashboard",
+      "B. AWS Trusted Advisor",
+      "C. AWS Artifact",
+      "D. Amazon S3"
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": "**AWS Domain:** Security & Compliance\n\n**Detailed Explanation:**\nAWS Artifact is the central resource for on-demand access to AWS’s security and compliance reports and select online agreements. It provides a self-service portal where customers can download SOC (Service Organization Control) reports, PCI reports, and other third-party audit certifications to prove AWS's compliance with global standards.\n\n**Why Other Options are Incorrect:**\n* **A:** AWS Personal Health Dashboard provides alerts and guidance regarding the status of the specific AWS services affecting your account, not compliance documentation.\n* **B:** AWS Trusted Advisor provides recommendations to help you follow AWS best practices regarding cost optimization, security, fault tolerance, and performance.\n* **D:** Amazon S3 is a scalable object storage service used for storing data, but it is not the mechanism used to request or retrieve official AWS compliance reports.\n\n**💡 Exam Tip:**\nWhenever you see keywords like \"SOC report,\" \"PCI compliance,\" \"ISO certification,\" or \"compliance audit documents,\" the answer is almost always **AWS Artifact**.\n\n**⚠️ Trap Alert:**\nDo not confuse AWS Artifact with AWS Trusted Advisor; remember that Artifact is for **official legal/compliance documents**, while Trusted Advisor is for **optimization recommendations**."
+  },
+  {
+    "examId": 22,
+    "question": "A company wants to set up a highly available workload in AWS with a disaster recovery plan that will allow the company to recover in case of a regional service interruption. <br/> Which configuration will meet these requirements?",
+    "options": [
+      "A. Run on two Availability Zones in one AWS Region, using the additional Availability Zones in the AWS Region for the disaster recovery site.",
+      "B. Run on two Availability Zones in one AWS Region, using another AWS Region for the disaster recovery site.",
+      "C. Run on two Availability Zones in one AWS Region, using a local AWS Region for the disaster recovery site.",
+      "D. Run across two AWS Regions, using a third AWS Region for the disaster recovery site."
+    ],
+    "correct": [],
+    "explanation": "**AWS Domain:** Cloud Technology & Services\n\n**Detailed Explanation:**\nHigh availability is achieved by distributing workloads across multiple Availability Zones (AZs) to protect against data center failures. To protect against a total regional service interruption, a disaster recovery (DR) plan must involve a geographically separate AWS Region, as AZs are located within the same region and could be affected by the same large-scale regional disaster.\n\n**Why Other Options are Incorrect:**\n* **A:** This option fails because all Availability Zones are located within a single Region; if that Region suffers a service interruption, both the primary workload and the DR site would fail simultaneously.\n* **B:** This is the correct configuration because it provides high availability via multiple AZs for local failures and a separate Region for catastrophic regional failures.\n* **C:** \"Local AWS Region\" is not a standard AWS architectural term, and if it implies a region in the same vicinity, it does not provide the necessary geographic separation required for a regional disaster recovery plan.\n* **D:** While this provides extreme redundancy, it is an over-engineered and costly solution that exceeds the basic requirement of having a highly available workload with a DR plan.\n\n**💡 Exam Tip:**\nWhenever you see the phrase \"regional service interruption\" or \"regional failure,\" the answer must involve a **Multi-Region** strategy. AZs protect against data center failure, but only separate Regions protect against regional failure.\n\n**⚠️ Trap Alert:**\nDo not confuse \"High Availability\" (Multi-AZ) with \"Disaster Recovery\" (Multi-Region). A common mistake is thinking that using three AZs in one region is enough for disaster recovery; it is not, because one regional event can take down all AZs in that specific region."
+  },
+  {
+    "examId": 22,
+    "question": "Explanation: <https://aws.amazon.com/blogs/startups/large-scale-disaster-recovery-using-aws-regions/> Option D increased complexity and cost. A company has a 500 TB image repository that needs to be transported to AWS for processing. <br/> Which AWS service can import this data MOST cost-effectively?",
+    "options": [
+      "A. AWS Snowball",
+      "B. AWS Direct Connect",
+      "C. AWS VPN",
+      "D. Amazon S3"
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": "**AWS Domain:** Cloud Technology & Services\n\n**Detailed Explanation:**\nAWS Snowball is a physical data transport device used to move massive amounts of data into the AWS Cloud when network bandwidth is limited or too costly. For a 500 TB dataset, shipping a physical appliance is significantly faster and more cost-effective than attempting to upload the data over the internet or a dedicated line.\n\n**Why Other Options are Incorrect:**\n* **B:** AWS Direct Connect provides a dedicated network connection for consistent bandwidth, but the initial setup time and monthly costs for a line capable of moving 500 TB quickly would be prohibitively expensive compared to a Snowball device.\n* **C:** AWS VPN creates an encrypted tunnel over the public internet, which is unsuitable for 500 TB of data due to limited bandwidth, high latency, and the extreme amount of time required to complete the transfer.\n* **D:** Amazon S3 is the destination storage service, not the transport mechanism; while data ends up in S3, uploading 500 TB directly via the internet (S3 Put requests) would be slow and potentially unstable.\n\n**💡 Exam Tip:**\nWhenever you see \"large-scale data migration,\" \"petabytes,\" or \"limited bandwidth\" in a question, look for the **AWS Snow family** (Snowcone, Snowball, Snowmobile) as the primary answer.\n\n**⚠️ Trap Alert:**\nDo not confuse the *destination* with the *transport*. Amazon S3 is where the data is stored, but AWS Snowball is the *service used to import* the data into S3."
+  },
+  {
+    "examId": 22,
+    "question": "Explanation: <https://aws.amazon.com/blogs/storage/migrating-hundreds-of-tb-of-data-to-amazon-s3-with-aws-datasync/> Which AWS service can run a managed PostgreSQL database that provides online transaction processing (OLTP)?",
+    "options": [
+      "A. Amazon DynamoDB",
+      "B. Amazon Athena",
+      "C. Amazon RDS",
+      "D. Amazon EMR"
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": "**AWS Domain:** Cloud Technology & Services\n\n**Detailed Explanation:**\nAmazon Relational Database Service (RDS) is a managed service that simplifies the setup, operation, and scaling of relational databases in the cloud. It supports several engines, including PostgreSQL, allowing users to run Online Transaction Processing (OLTP) workloads which require high consistency and ACID compliance.\n\n**Why Other Options are Incorrect:**\n* **A:** Amazon DynamoDB is a NoSQL database designed for key-value and document data structures, not for relational PostgreSQL databases.\n* **B:** Amazon Athena is an interactive query service that analyzes data directly in Amazon S3 using standard SQL, but it is not a database engine for OLTP.\n* **D:** Amazon EMR is a managed cluster platform for big data frameworks like Apache Spark and Hadoop, used for processing massive datasets rather than running transactional databases.\n\n**💡 Exam Tip:**\nWhenever you see \"Relational,\" \"SQL,\" \"PostgreSQL,\" \"MySQL,\" or \"OLTP\" in a question, look for Amazon RDS or Amazon Aurora as the primary answers.\n\n**⚠️ Trap Alert:**\nDo not confuse Amazon Athena with Amazon RDS; Athena is for *analyzing* existing data (OLAP), while RDS is for *storing and managing* transactional data (OLTP)."
+  },
+  {
+    "examId": 22,
+    "question": "Explanation: <https://aws.amazon.com/rds/postgresql/> Which of the following assist in identifying costs by department? (Choose two.)",
+    "options": [
+      "A. Using tags on resources",
+      "B. Using multiple AWS accounts",
+      "C. Using an account manager",
+      "D. Using AWS Trusted Advisor",
+      "E. Using Consolidated Billing"
+    ],
+    "correct": [],
+    "explanation": "**AWS Domain:** Billing, Pricing & Support\n\n**Detailed Explanation:**\nCost allocation is the process of categorizing and tracking AWS spend to assign costs to specific business units, departments, or projects. To achieve this, AWS provides mechanisms to label resources for granular tracking and organizational structures to isolate billing streams.\n\n**Why Other Options are Incorrect:**\n* **A:** This is a correct answer because Cost Allocation Tags allow you to assign metadata to resources, which can then be used in AWS Cost Explorer to filter and group costs by department.\n* **B:** This is a correct answer because placing different departments into separate AWS accounts provides a natural billing boundary, making it easy to identify exactly how much each account (department) is spending.\n* **C:** An account manager is a human representative from AWS who provides strategic guidance but does not provide a technical mechanism for automated cost identification.\n* **D:** AWS Trusted Advisor provides recommendations to reduce costs and improve security, but it does not categorize or allocate existing costs by department.\n* **E:** Consolidated Billing is a feature of AWS Organizations that aggregates payments into one bill, but by itself, it does not identify which department spent what without the use of tags or separate accounts.\n\n**💡 Exam Tip:**\nWhenever you see \"identifying costs,\" \"tracking spend,\" or \"cost allocation\" in a question, immediately look for \"Tags\" or \"AWS Organizations/Multiple Accounts\" in the options.\n\n**⚠️ Trap Alert:**\nDo not confuse Consolidated Billing with Cost Allocation. Consolidated Billing simplifies *payment* (one invoice), while Tags and Multiple Accounts provide the *visibility* needed to see who spent the money."
+  },
+  {
+    "examId": 22,
+    "question": "A company wants to allow full access to an Amazon S3 bucket for a particular user. <br/> Which element in the S3 bucket policy holds the user details that describe who needs access to the S3 bucket?",
+    "options": [
+      "A. Principal",
+      "B. Action",
+      "C. Resource",
+      "D. Statement"
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": "**AWS Domain:** Security & Compliance\n\n**Detailed Explanation:**\nAn Amazon S3 bucket policy is a JSON-based access control mechanism used to grant or restrict permissions to your buckets and the objects within them. The \"Principal\" element specifically defines the entity (user, account, service, or group) that is allowed or denied access to the specified resources.\n\n**Why Other Options are Incorrect:**\n* **B:** The Action element specifies the specific operation being allowed or denied, such as `s3:GetObject` or `s3:PutObject`, rather than identifying the user.\n* **C:** The Resource element identifies the specific S3 bucket or objects (using ARNs) that the policy applies to, not the identity of the user.\n* **D:** The Statement is the top-level container that wraps all the elements (Principal, Action, Resource, and Effect) into a single rule; it is not a specific field for user details.\n\n**💡 Exam Tip:**\nRemember the \"PARC\" acronym for IAM/Bucket policies: Principal (Who), Action (What), Resource (Where), and Condition (When/How). If the question asks \"Who,\" the answer is always Principal.\n\n**⚠️ Trap Alert:**\nDo not confuse \"Bucket Policies\" with \"IAM User Policies.\" IAM policies are attached to the user and do not require a Principal element because the policy is already associated with the identity; however, Bucket Policies are attached to the resource and MUST specify the Principal."
+  },
+  {
+    "examId": 22,
+    "question": "Explanation: <https://docs.aws.amazon.com/AmazonS3/latest/dev/walkthrough1.html> Which AWS service allows for effective cost management of multiple AWS accounts?",
+    "options": [
+      "A. AWS Organizations",
+      "B. AWS Trusted Advisor",
+      "C. AWS Direct Connect",
+      "D. Amazon Connect"
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": "**AWS Domain:** Billing, Pricing & Support\n\n**Detailed Explanation:**\nAWS Organizations is an account management service that enables you to consolidate multiple AWS accounts into an organization. It allows for centralized cost management through Consolidated Billing, which provides a single payment method and the ability to leverage volume discounts across all accounts.\n\n**Why Other Options are Incorrect:**\n* **B:** AWS Trusted Advisor is an online tool that provides real-time guidance to help you provision your resources following AWS best practices for cost optimization, security, and performance, but it does not manage multiple accounts.\n* **C:** AWS Direct Connect is a networking service that establishes a dedicated private network connection from your on-premises data center to AWS, which is unrelated to account or cost management.\n* **D:** Amazon Connect is an omnichannel cloud contact center service used to provide customer service and support, having no functionality for AWS account billing or management.\n\n**💡 Exam Tip:**\nWhenever you see keywords like \"multiple accounts,\" \"consolidated billing,\" or \"centralized management,\" the answer is almost always AWS Organizations.\n\n**⚠️ Trap Alert:**\nDo not confuse AWS Organizations with AWS Trusted Advisor; while Trusted Advisor can *suggest* ways to save money (cost optimization), only AWS Organizations can *manage the billing* for multiple accounts."
+  },
+  {
+    "examId": 22,
+    "question": "Explanation: <https://aws.amazon.com/blogs/aws/aws-organizations-policy-based-management-for-multiple-aws-accounts/> A company is piloting a new customer-facing application on Amazon Elastic Compute Cloud (Amazon EC2) for one month. <br/> What pricing model is appropriate?",
+    "options": [
+      "A. Reserved Instances",
+      "B. Spot Instances",
+      "C. On-Demand Instances",
+      "D. Dedicated Hosts"
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": "**AWS Domain:** Billing, Pricing & Support\n\n**Detailed Explanation:**\nThe scenario describes a short-term pilot project lasting only one month, which requires flexibility and a low commitment level. On-Demand Instances are ideal for short-term, unpredictable workloads because they allow you to pay for compute capacity by the hour or second with no long-term contracts.\n\n**Why Other Options are Incorrect:**\n* **A:** Reserved Instances require a commitment of 1 or 3 years, which is inappropriate for a pilot project lasting only one month.\n* **B:** Spot Instances can be reclaimed by AWS with only two minutes' notice, making them unsuitable for a customer-facing application that requires stability.\n* **D:** Dedicated Hosts are expensive physical servers used for specific licensing or regulatory requirements and are overkill for a simple one-month pilot.\n\n**💡 Exam Tip:**\nLook for keywords like \"short-term,\" \"pilot,\" \"unpredictable,\" or \"new application\" to identify On-Demand pricing; look for \"steady-state\" or \"long-term\" for Reserved Instances.\n\n**⚠️ Trap Alert:**\nDo not confuse \"cost-effectiveness\" with \"lowest price.\" While Spot Instances are the cheapest, they are not \"appropriate\" for customer-facing apps unless the architecture is specifically designed to handle sudden interruptions."
+  },
+  {
+    "examId": 22,
+    "question": "Explanation: <https://aws.amazon.com/ec2/pricing/> Which AWS tools automatically forecast future AWS costs?",
+    "options": [
+      "A. AWS Support Center",
+      "B. AWS Total Cost of Ownership (TCO) Calculator",
+      "C. AWS Simple Monthly Calculator",
+      "D. Cost Explorer"
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": "**AWS Domain:** Billing, Pricing & Support\n\n**Detailed Explanation:**\nAWS Cost Explorer is a tool that allows users to visualize, understand, and manage their AWS costs and usage over time. It provides a forecasting feature that uses historical data to predict future spending, helping organizations plan their budgets and identify trends.\n\n**Why Other Options are Incorrect:**\n* **A:** AWS Support Center is used for managing support cases and communicating with AWS technical support, not for financial forecasting.\n* **B:** The TCO Calculator is used to compare the cost of running an on-premises environment versus AWS, rather than forecasting future monthly spend.\n* **C:** The Simple Monthly Calculator is a legacy tool used to estimate costs for a new architecture before deployment, not to forecast based on actual usage.\n\n**💡 Exam Tip:**\nWhenever you see keywords like \"forecast,\" \"visualize trends,\" or \"analyze historical spend,\" the answer is almost always AWS Cost Explorer.\n\n**⚠️ Trap Alert:**\nDo not confuse \"Estimating\" (calculating costs before you start) with \"Forecasting\" (predicting future costs based on existing usage). Calculators estimate; Cost Explorer forecasts."
+  },
+  {
+    "examId": 22,
+    "question": "Explanation: <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/ce-forecast.html> Under the AWS shared responsibility model, which of the following is a responsibility of AWS?",
+    "options": [
+      "A. Enabling server-side encryption for objects stored in S3",
+      "B. Applying AWS IAM security policies",
+      "C. Patching the operating system on an Amazon EC2 instance",
+      "D. Applying updates to the hypervisor"
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": "**AWS Domain:** Security & Compliance\n\n**Detailed Explanation:**\nThe AWS Shared Responsibility Model divides security tasks between AWS (\"Security OF the Cloud\") and the customer (\"Security IN the Cloud\"). AWS is responsible for the physical infrastructure, hardware, and the virtualization layer (hypervisor) that powers cloud services.\n\n**Why Other Options are Incorrect:**\n* **A:** Enabling server-side encryption is a customer configuration choice for data protection, making it a responsibility \"in\" the cloud.\n* **B:** Managing IAM users, groups, and policies is the customer's responsibility to ensure the principle of least privilege is applied.\n* **C:** For Amazon EC2 (an IaaS service), the customer is responsible for managing the guest operating system, including patching and updates.\n\n**💡 Exam Tip:**\nRemember the mantra: AWS is responsible for the \"Infrastructure\" (Hardware, Global Infrastructure, Hypervisor), while the Customer is responsible for \"Data and Configuration\" (OS, Firewall/Security Groups, IAM, Encryption).\n\n**⚠️ Trap Alert:**\nDo not confuse EC2 with RDS or Lambda; while the customer patches the OS on EC2, AWS handles the OS patching for \"Managed Services\" like RDS or Fargate."
+  },
+  {
+    "examId": 22,
+    "question": "Explanation: <https://aws.amazon.com/compliance/shared-responsibility-model/?ref=wellarchitected> A user is able to set up a master payer account to view consolidated billing reports through:",
+    "options": [
+      "A. AWS Budgets.",
+      "B. Amazon Macie.",
+      "C. Amazon QuickSight.",
+      "D. AWS Organizations."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": "**AWS Domain:** Billing, Pricing & Support\n\n**Detailed Explanation:**\nAWS Organizations is a central account management service that enables you to create a hierarchy of AWS accounts and manage them centrally. It allows for the creation of a management account (formerly called the master payer account) to implement consolidated billing, which aggregates costs across all member accounts into a single payment method.\n\n**Why Other Options are Incorrect:**\n* **A:** AWS Budgets is used to set custom budgets that alert you when your costs or usage exceed specified thresholds, but it cannot manage multiple accounts or consolidate billing.\n* **B:** Amazon Macie is a data security and privacy service that uses machine learning to discover and protect sensitive data in Amazon S3, having no relation to billing.\n* **C:** Amazon QuickSight is a business intelligence (BI) service used to visualize data and create dashboards, and while it can visualize billing data, it cannot set up the payer account structure.\n\n**💡 Exam Tip:**\nWhenever you see keywords like \"consolidated billing,\" \"centralized management,\" or \"multiple AWS accounts,\" the answer is almost always AWS Organizations.\n\n**⚠️ Trap Alert:**\nDo not confuse AWS Budgets with AWS Organizations; Budgets *track* the money, but Organizations *structure* how the money is billed and paid across accounts."
+  },
+  {
+    "examId": 22,
+    "question": "Explanation: <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/consolidated-billing.html> Performing operations as code is a design principle that supports which pillar of the AWS Well-Architected Framework?",
+    "options": [
+      "A. Performance efficiency",
+      "B. Operational excellence",
+      "C. Reliability",
+      "D. Security"
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": "**AWS Domain:** Cloud Concepts\n\n**Detailed Explanation:**\nPerforming operations as code involves using Infrastructure as Code (IaC) and automation to manage resources, which reduces human error and ensures consistency. This practice is a core design principle of the Operational Excellence pillar, as it allows organizations to evolve their systems predictably and recover from failures quickly.\n\n**Why Other Options are Incorrect:**\n* **A:** Performance efficiency focuses on using computing resources efficiently to meet requirements and scaling to maintain that efficiency, rather than the method of deployment.\n* **C:** Reliability focuses on the ability of a workload to perform its intended function correctly and consistently, specifically regarding recovery from disruptions.\n* **D:** Security focuses on protecting information and systems through risk assessments and mitigation strategies, such as identity management and data encryption.\n\n**💡 Exam Tip:**\nWhenever you see keywords like \"Operations as Code,\" \"Automation,\" \"Frequent Small Changes,\" or \"Observability,\" immediately look for the **Operational Excellence** pillar.\n\n**⚠️ Trap Alert:**\nDo not confuse \"Operations as Code\" with \"Security.\" While automating security patches (DevSecOps) improves security, the act of treating operations as code is fundamentally a management and operational strategy."
+  },
+  {
+    "examId": 22,
+    "question": "Explanation: <https://aws.amazon.com/blogs/apn/the-5-pillars-of-the-aws-well-architected-framework/> Which design principle is achieved by following the reliability pillar of the AWS Well-Architected Framework?",
+    "options": [
+      "A. Vertical scaling",
+      "B. Manual failure recovery",
+      "C. Testing recovery procedures",
+      "D. Changing infrastructure manually"
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": "**AWS Domain:** Cloud Concepts\n\n**Detailed Explanation:**\nThe Reliability pillar focuses on ensuring a workload performs its intended function correctly and consistently when expected. A core design principle of this pillar is to \"Test recovery procedures\" to verify that the system can recover from failures automatically or manually within the required timeframes.\n\n**Why Other Options are Incorrect:**\n* **A:** Vertical scaling (increasing the size of a single resource) creates a single point of failure, whereas the Reliability pillar emphasizes horizontal scaling and redundancy.\n* **B:** Manual failure recovery is inefficient and prone to human error; the framework advocates for automation to reduce the Time to Recover (TTR).\n* **D:** Changing infrastructure manually leads to \"configuration drift\" and inconsistency; the framework promotes Infrastructure as Code (IaC) for predictable and repeatable deployments.\n\n**💡 Exam Tip:**\nWhenever you see \"Reliability\" in a question, look for keywords like \"Automation,\" \"Horizontal Scaling,\" \"Self-healing,\" and \"Testing/Verification of recovery.\"\n\n**⚠️ Trap Alert:**\nDo not confuse \"Reliability\" with \"Performance Efficiency.\" While both improve the user experience, Reliability is specifically about *availability and recovery from failure*, whereas Performance Efficiency is about *optimizing resources and speed*."
+  },
+  {
+    "examId": 22,
+    "question": "Explanation: <https://aws.amazon.com/blogs/apn/the-5-pillars-of-the-aws-well-architected-framework/> What is a characteristic of Convertible Reserved Instances (RIs)?",
+    "options": [
+      "A. Users can exchange Convertible RIs for other Convertible RIs from a different instance family with an equal or higher value than the Convertible Reserved Instances that you are exchanging.",
+      "B. Users can exchange Convertible RIs for other Convertible RIs in different AWS Regions.",
+      "C. Users can sell and buy Convertible RIs on the AWS Marketplace.",
+      "D. Users can shorten the term of their Convertible RIs by merging them with other Convertible RIs."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": "**AWS Domain:** Billing, Pricing & Support\n\n**Detailed Explanation:**\nConvertible Reserved Instances (RIs) provide a flexible pricing model that allows users to change the instance attributes of their commitment over time. Unlike Standard RIs, Convertible RIs allow you to exchange them for another instance configuration, provided the new commitment is of equal or greater value. This is ideal for workloads where the instance type or family requirements may evolve as the application scales.\n\n**Why Other Options are Incorrect:**\n* **A:** This is the correct statement as it accurately describes the ability to change instance families provided the value remains equal or increases.\n* **B:** Reserved Instances are scoped to a specific AWS Region and cannot be exchanged for RIs in a different Region.\n* **C:** Only Standard Reserved Instances can be sold on the AWS Reserved Instance Marketplace; Convertible RIs are not eligible for sale.\n* **D:** The term of a Reserved Instance (1 or 3 years) is fixed at the time of purchase and cannot be shortened or merged to reduce the commitment duration.\n\n**💡 Exam Tip:**\nRemember the \"Value Rule\": When converting RIs, the new RI must be of **equal or greater value**. You cannot \"downsize\" the total monetary value of your commitment during an exchange.\n\n**⚠️ Trap Alert:**\nDo not confuse **Convertible RIs** with **Standard RIs**. Standard RIs offer a higher discount but limited flexibility (cannot change families), while Convertible RIs offer a lower discount but high flexibility (can change families). Only Standard RIs can be sold on the Marketplace."
+  },
+  {
+    "examId": 22,
+    "question": "Explanation: <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ri-convertible-exchange.html> The user is fully responsible for which action when running workloads on AWS?",
+    "options": [
+      "A. Patching the infrastructure components",
+      "B. Implementing controls to route application traffic",
+      "C. Maintaining physical and environmental controls",
+      "D. Maintaining the underlying infrastructure components"
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": "**AWS Domain:** Security & Compliance\n\n**Detailed Explanation:**\nThis question tests your knowledge of the AWS Shared Responsibility Model, which defines which security and operational tasks are handled by AWS and which are handled by the customer. In the \"Responsibility for the Cloud\" (AWS) vs. \"Responsibility in the Cloud\" (Customer) framework, the customer is responsible for managing their own data, application configurations, and network traffic routing. Implementing controls to route application traffic (such as configuring Load Balancers or Route 53) falls under the customer's responsibility to ensure their application is accessible and secure.\n\n**Why Other Options are Incorrect:**\n* **A:** Patching the infrastructure components (such as the hypervisor or physical server hardware) is the responsibility of AWS, not the customer.\n* **C:** Maintaining physical and environmental controls (such as guards, cameras, and cooling) is a core responsibility of AWS as the cloud provider.\n* **D:** Maintaining the underlying infrastructure components (such as the physical disks and network cables) is managed entirely by AWS.\n\n**💡 Exam Tip:**\nRemember the mantra: \"AWS is responsible for the security **OF** the cloud, and the customer is responsible for security **IN** the cloud.\" If the option involves physical hardware, global infrastructure, or the virtualization layer, it is almost always AWS's responsibility.\n\n**⚠️ Trap Alert:**\nDo not confuse \"Patching the Guest OS\" with \"Patching the Infrastructure.\" If you are using EC2, you are responsible for patching the Operating System (Guest OS), but AWS is responsible for patching the underlying physical host (Infrastructure). Always read carefully to see if the option refers to the \"Guest\" or the \"Infrastructure.\""
+  },
+  {
+    "examId": 22,
+    "question": "An architecture design includes Amazon EC2, an Elastic Load Balancer, and Amazon RDS. <br/> What is the BEST way to get a monthly cost estimation for this architecture?",
+    "options": [
+      "A. Open an AWS Support case, provide the architecture proposal, and ask for a monthly cost estimation.",
+      "B. Collect the published prices of the AWS services and calculate the monthly estimate.",
+      "C. Use the AWS Simple Monthly Calculator to estimate the monthly cost.",
+      "D. Use the AWS Total Cost of Ownership (TCO) Calculator to estimate the monthly cost."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": "**AWS Domain:** Billing, Pricing & Support\n\n**Detailed Explanation:**\nThe AWS Pricing Calculator (formerly known as the Simple Monthly Calculator) is the official web-based tool designed to provide quick, estimated monthly costs for AWS services based on specific configuration inputs. It allows users to model their architecture by selecting instance types, storage volumes, and data transfer rates to generate a cost projection before deploying resources.\n\n**Why Other Options are Incorrect:**\n* **A:** AWS Support is intended for technical issues and account management, not for performing manual cost calculations for standard architecture proposals.\n* **B:** Manually calculating costs from published price lists is inefficient, prone to human error, and fails to account for complex variables like tiered pricing or regional differences.\n* **D:** The TCO (Total Cost of Ownership) calculator is used to compare the cost of running an on-premises data center versus moving to the AWS Cloud, rather than estimating the monthly cost of specific AWS services.\n\n**💡 Exam Tip:**\nWhenever you see a question asking for a \"cost estimate\" or \"pricing projection\" for a specific set of AWS services, look for the **AWS Pricing Calculator** (or Simple Monthly Calculator in older exam versions).\n\n**⚠️ Trap Alert:**\nDo not confuse the **AWS Pricing Calculator** (pre-deployment estimation) with **AWS Cost Explorer** (post-deployment analysis of actual spend). If the question mentions \"estimating\" or \"planning,\" use the Calculator; if it mentions \"analyzing\" or \"optimizing\" current spend, use Cost Explorer."
+  },
+  {
+    "examId": 22,
+    "question": "Explanation: <https://docs.aws.amazon.com/pricing-calculator/latest/userguide/aws-pc.pdf> Which are benefits of using Amazon RDS over Amazon EC2 when running relational databases on AWS? (Choose two.)",
+    "options": [
+      "A. Automated backups",
+      "B. Schema management",
+      "C. Indexing of tables",
+      "D. Software patching",
+      "E. Extract, transform, and load (ETL) management"
+    ],
+    "correct": [],
+    "explanation": "**AWS Domain:** Cloud Technology & Services\n\n**Detailed Explanation:**\nAmazon RDS is a managed service that handles the \"undifferentiated heavy lifting\" of database administration, such as hardware provisioning, patching, and backups. In contrast, running a database on Amazon EC2 is a self-managed approach where the user is responsible for the entire software stack, including the OS and the database engine.\n\n**Why Other Options are Incorrect:**\n* **A:** This is a correct answer because RDS provides automated snapshots and point-in-time recovery, whereas on EC2, you must manually configure backup scripts or snapshots.\n* **B:** This is incorrect because schema management (defining tables, columns, and relationships) is a developer task and must be done manually regardless of whether you use RDS or EC2.\n* **C:** This is incorrect because indexing is a performance tuning task performed within the database engine; RDS does not automatically index your tables for you.\n* **D:** This is a correct answer because RDS automatically applies software patches to the DB engine and underlying OS, while EC2 requires the user to manually update and patch the instance.\n* **E:** This is incorrect because ETL is a data integration process typically handled by services like AWS Glue or Amazon EMR, not by the database hosting layer.\n\n**💡 Exam Tip:**\nWhenever you see \"RDS vs EC2\" for databases, think \"Managed vs Unmanaged.\" If the option describes a tedious administrative task (patching, backups, scaling), it is likely a benefit of RDS.\n\n**⚠️ Trap Alert:**\nDo not confuse \"Managed Service\" with \"Automatic Everything.\" RDS manages the *infrastructure* and *engine*, but it does not manage your *data* (like schema design, query optimization, or indexing)."
+  },
+  {
+    "examId": 22,
+    "question": "Explanation: <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html> What does the Amazon S3 Intelligent-Tiering storage class offer?",
+    "options": [
+      "A. Payment flexibility by reserving storage capacity",
+      "B. Long-term retention of data by copying the data to an encrypted Amazon Elastic Block Store (Amazon EBS) volume",
+      "C. Automatic cost savings by moving objects between tiers based on access pattern changes",
+      "D. Secure, durable, and lowest cost storage for data archival"
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": "**AWS Domain:** Cloud Technology & Services\n\n**Detailed Explanation:**\nAmazon S3 Intelligent-Tiering is a storage class designed to optimize costs by automatically moving data between two access tiers—Frequent Access and Infrequent Access—based on the object's usage patterns. It is the only S3 storage class that delivers automatic cost savings without requiring manual lifecycle policies or impacting performance.\n\n**Why Other Options are Incorrect:**\n* **A:** This describes a \"Reserved Capacity\" model typically associated with compute (EC2) or specific database services, not the S3 Intelligent-Tiering storage class.\n* **B:** S3 is an object storage service and does not copy data to Amazon EBS, which is a block storage service used primarily for EC2 root and data volumes.\n* **D:** This describes the S3 Glacier Deep Archive storage class, which is the lowest-cost option specifically designed for long-term archival with retrieval times of hours.\n\n**💡 Exam Tip:**\nWhenever you see keywords like \"automatic cost savings,\" \"access patterns,\" or \"unknown/changing access patterns\" in an S3 question, the answer is almost always S3 Intelligent-Tiering.\n\n**⚠️ Trap Alert:**\nDo not confuse S3 Intelligent-Tiering with S3 Standard-IA (Infrequent Access). Standard-IA requires you to manually know the access pattern and move data; Intelligent-Tiering does this automatically."
+  },
+  {
+    "examId": 22,
+    "question": "Explanation: <https://aws.amazon.com/about-aws/whats-new/2018/11/s3-intelligent-tiering/> A company has multiple data sources across the organization and wants to consolidate data into one data warehouse. <br/> Which AWS service can be used to meet this requirement?",
+    "options": [
+      "A. Amazon DynamoDB",
+      "B. Amazon Redshift",
+      "C. Amazon Athena",
+      "D. Amazon QuickSight"
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": "**AWS Domain:** Cloud Technology & Services\n\n**Detailed Explanation:**\nAmazon Redshift is a fully managed, petabyte-scale data warehouse service that allows you to store and analyze large volumes of data using SQL. It is specifically designed to consolidate data from multiple disparate sources into a single centralized repository for complex analytical querying and business intelligence.\n\n**Why Other Options are Incorrect:**\n* **A:** Amazon DynamoDB is a NoSQL key-value database designed for high-performance applications and single-digit millisecond latency, not for consolidated data warehousing or complex analytical queries.\n* **C:** Amazon Athena is an interactive query service that lets you analyze data directly in Amazon S3 using standard SQL, but it is a query engine rather than a dedicated data warehouse for consolidated storage.\n* **D:** Amazon QuickSight is a business intelligence (BI) visualization tool used to create dashboards and reports, meaning it consumes data from a warehouse rather than acting as the warehouse itself.\n\n**💡 Exam Tip:**\nWhenever you see the keywords \"Data Warehouse,\" \"Complex Analytical Queries,\" or \"OLAP\" (Online Analytical Processing), Amazon Redshift should be your primary answer.\n\n**⚠️ Trap Alert:**\nDo not confuse Athena with Redshift; remember that Athena is \"serverless querying of files in S3\" (no data loading required), while Redshift is a \"structured data warehouse\" (where data is typically loaded into tables)."
+  },
+  {
+    "examId": 22,
+    "question": "Explanation: <https://aws.amazon.com/redshift/faqs/> Which AWS service can be used to track resource changes and establish compliance?",
+    "options": [
+      "A. Amazon CloudWatch",
+      "B. AWS Config",
+      "C. AWS CloudTrail",
+      "D. AWS Trusted Advisor"
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": "**AWS Domain:** Security & Compliance\n\n**Detailed Explanation:**\nAWS Config is a service that provides a detailed inventory of your AWS resources and tracks how their configurations change over time. It allows users to automate compliance checks by evaluating whether resource settings adhere to internal guidelines or industry standards.\n\n**Why Other Options are Incorrect:**\n* **A:** Amazon CloudWatch is a monitoring and observability service focused on performance metrics, logs, and alarms rather than configuration history or compliance auditing.\n* **C:** AWS CloudTrail records API calls and user activity (who did what), whereas AWS Config records the state of the resource (what the resource looks like).\n* **D:** AWS Trusted Advisor provides recommendations to optimize your environment for cost, performance, and security, but it does not track historical resource changes.\n\n**💡 Exam Tip:**\nLook for keywords like \"configuration history,\" \"compliance,\" \"resource inventory,\" or \"track changes\" to quickly identify AWS Config as the correct answer.\n\n**⚠️ Trap Alert:**\nDo not confuse CloudTrail with Config; remember that CloudTrail is about \"Actions/Events\" (the *Who/When/What* of an API call), while Config is about \"State/Configuration\" (the *How* a resource is set up)."
+  },
+  {
+    "examId": 22,
+    "question": "Explanation: <https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config.html> A user has underutilized on-premises resources. <br/> Which AWS Cloud concept can BEST address this issue?",
+    "options": [
+      "A. High availability",
+      "B. Elasticity",
+      "C. Security",
+      "D. Loose coupling"
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": "**AWS Domain:** Cloud Concepts\n\n**Detailed Explanation:**\nElasticity is the ability to acquire resources as you need them and release them when they are no longer required. In this scenario, underutilized on-premises resources indicate a lack of flexibility to scale down, whereas AWS allows a user to scale resources dynamically to match actual demand, eliminating waste.\n\n**Why Other Options are Incorrect:**\n* **A:** High availability ensures that a system remains operational and accessible even if a component fails, but it does not solve the problem of resource underutilization.\n* **C:** Security refers to the protection of data and infrastructure through controls and policies, which is unrelated to the efficiency of resource utilization.\n* **D:** Loose coupling is an architectural design where components are independent and communicate via intermediaries (like SQS), reducing dependencies rather than managing resource capacity.\n\n**💡 Exam Tip:**\nWhenever you see keywords like \"underutilized,\" \"over-provisioned,\" \"scaling up/down,\" or \"matching demand,\" look for **Elasticity** as the primary answer.\n\n**⚠️ Trap Alert:**\nDo not confuse **Elasticity** with **Scalability**. Scalability is the *ability* of a system to handle growth (adding more power), while Elasticity is the *automatic* adjustment of resources in real-time to avoid paying for unused capacity."
+  },
+  {
+    "examId": 22,
+    "question": "Explanation: <https://www.gremlin.com/blog/implementing-cost-saving-strategies-on-amazon-ec-2-with-chaos-engineering/> A user has a stateful workload that will run on Amazon EC2 for the next 3 years. <br/> What is the MOST cost-effective pricing model for this workload?",
+    "options": [
+      "A. On-Demand Instances",
+      "B. Reserved Instances",
+      "C. Dedicated Instances",
+      "D. Spot Instances"
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": "**AWS Domain:** Billing, Pricing & Support\n\n**Detailed Explanation:**\nThe scenario describes a workload with two critical characteristics: it is stateful (cannot be interrupted) and has a predictable duration of 3 years. Reserved Instances (RIs) provide a significant discount compared to On-Demand pricing in exchange for a commitment to a consistent instance configuration for a 1 or 3-year term.\n\n**Why Other Options are Incorrect:**\n* **A:** On-Demand Instances are the most expensive option and are intended for short-term, unpredictable workloads rather than long-term commitments.\n* **C:** Dedicated Instances are physically isolated hardware used for specific compliance or licensing requirements and do not inherently provide a cost-saving pricing model for long-term use.\n* **D:** Spot Instances offer the lowest price but can be reclaimed by AWS with a 2-minute notice, making them unsuitable for stateful workloads that cannot handle interruptions.\n\n**💡 Exam Tip:**\nLook for keywords like \"predictable,\" \"steady-state,\" \"1 year,\" or \"3 years\" to identify Reserved Instances or Savings Plans as the correct answer.\n\n**⚠️ Trap Alert:**\nDo not be tempted by Spot Instances just because they are the \"cheapest\" overall; always check if the workload is \"fault-tolerant\" or \"stateless\" before selecting Spot."
+  },
+  {
+    "examId": 22,
+    "question": "A cloud practitioner needs an Amazon EC2 instance to launch and run for 7 hours without interruptions. <br/> What is the most suitable and cost-effective option for this task?",
+    "options": [
+      "A. On-Demand Instance",
+      "B. Reserved Instance",
+      "C. Dedicated Host",
+      "D. Spot Instance"
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": "**AWS Domain:** Cloud Technology & Services\n\n**Detailed Explanation:**\nAmazon EC2 On-Demand instances allow you to pay for compute capacity by the hour or second with no long-term commitments. This is the ideal choice for short-term, unpredictable workloads that require guaranteed availability without the risk of interruption.\n\n**Why Other Options are Incorrect:**\n* **B:** Reserved Instances require a commitment of 1 or 3 years, making them far too expensive and restrictive for a task lasting only 7 hours.\n* **C:** Dedicated Hosts are physical servers dedicated to a single customer, typically used for strict licensing or compliance needs, and are the most expensive option.\n* **D:** Spot Instances offer the lowest cost but can be reclaimed by AWS with a 2-minute warning, failing the requirement for \"without interruptions.\"\n\n**💡 Exam Tip:**\nWhen you see keywords like \"short-term,\" \"no commitment,\" or \"unpredictable,\" think **On-Demand**. When you see \"interruption-tolerant\" or \"fault-tolerant,\" think **Spot**.\n\n**⚠️ Trap Alert:**\nDo not be tempted by \"cost-effective\" to choose Spot Instances; always prioritize the \"without interruptions\" requirement first, as Spot Instances cannot guarantee uptime."
+  },
+  {
+    "examId": 22,
+    "question": "Which of the following are benefits of using AWS Trusted Advisor? (Choose two.)",
+    "options": [
+      "A. Providing high-performance container orchestration",
+      "B. Creating and rotating encryption keys",
+      "C. Detecting underutilized resources to save costs",
+      "D. Improving security by proactively monitoring the AWS environment",
+      "E. Implementing enforced tagging across AWS resources"
+    ],
+    "correct": [],
+    "explanation": "**AWS Domain:** Cloud Technology & Services\n\n**Detailed Explanation:**\nAWS Trusted Advisor is an online tool that provides real-time guidance to help you provision your resources following AWS best practices. It analyzes your AWS environment across five categories: Cost Optimization, Security, Fault Tolerance, Performance, and Service Limits to provide recommendations for improvement.\n\n**Why Other Options are Incorrect:**\n* **A:** This describes Amazon Elastic Kubernetes Service (EKS) or Amazon ECS, not a monitoring and advisory tool.\n* **B:** This is the primary function of AWS Key Management Service (KMS), which handles the lifecycle of encryption keys.\n* **C:** This is a correct answer as Trusted Advisor identifies idle or underutilized resources (like unassociated Elastic IP addresses) to reduce costs.\n* **D:** This is a correct answer as Trusted Advisor checks for security gaps, such as open ports or missing MFA on the root account.\n* **E:** Tagging enforcement is typically handled via AWS Organizations (Tag Policies) or AWS Config, not Trusted Advisor.\n\n**💡 Exam Tip:**\nWhenever you see \"Best Practices,\" \"Cost Optimization,\" or \"Service Limits\" in a question, think of AWS Trusted Advisor. Remember the five pillars it monitors: Cost, Security, Fault Tolerance, Performance, and Service Limits.\n\n**⚠️ Trap Alert:**\nDo not confuse Trusted Advisor with AWS Config. Trusted Advisor provides *recommendations* based on best practices, whereas AWS Config *records* resource configurations and evaluates them against specific compliance rules."
+  },
+  {
+    "examId": 22,
+    "question": "Explanation: <https://aws.amazon.com/about-aws/whats-new/2016/06/aws-support-enables-tagging-capabilities-for-trusted-advisor/> A developer has been hired by a large company and needs AWS credentials. <br/> Which are security best practices that should be followed? (Choose two.)",
+    "options": [
+      "A. Grant the developer access to only the AWS resources needed to perform the job.",
+      "B. Share the AWS account root user credentials with the developer.",
+      "C. Add the developer to the administrator's group in AWS IAM.",
+      "D. Configure a password policy that ensures the developer's password cannot be changed.",
+      "E. Ensure the account password policy requires a minimum length."
+    ],
+    "correct": [],
+    "explanation": "**AWS Domain:** Security & Compliance\n\n**Detailed Explanation:**\nThe core concept here is the Principle of Least Privilege (PoLP), which dictates that users should be granted only the minimum permissions necessary to complete their tasks. Additionally, implementing a strong password policy is a fundamental security layer to prevent unauthorized access via brute-force or credential-guessing attacks.\n\n**Why Other Options are Incorrect:**\n* **A:** This is a correct answer because granting only necessary access minimizes the \"blast radius\" if credentials are compromised.\n* **B:** This is incorrect because the root user has unrestricted access to the entire account and should never be shared; instead, IAM users should be created.\n* **C:** This is incorrect because adding a developer to an administrator group violates the principle of least privilege by granting unnecessary full control over the account.\n* **D:** This is incorrect because security best practices require passwords to be changed periodically or upon suspicion of compromise to maintain account integrity.\n* **E:** This is a correct answer because enforcing a minimum password length reduces the likelihood of successful brute-force attacks.\n\n**💡 Exam Tip:**\nWhenever you see \"security best practices\" and \"credentials\" in a question, immediately look for keywords like \"Least Privilege,\" \"IAM User,\" \"MFA,\" and \"Password Policy.\"\n\n**⚠️ Trap Alert:**\nDo not confuse \"Administrator\" access with \"Developer\" access; in the AWS exam, giving a developer admin rights is almost always the wrong answer unless the scenario explicitly states they are the sole account owner."
+  },
+  {
+    "examId": 22,
+    "question": "Which AWS storage service is designed to transfer petabytes of data in and out of the cloud?",
+    "options": [
+      "A. AWS Storage Gateway",
+      "B. Amazon S3 Glacier Deep Archive",
+      "C. Amazon Lightsail",
+      "D. AWS Snowball"
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": "**AWS Domain:** Cloud Technology & Services\n\n**Detailed Explanation:**\nAWS Snowball is a data transport solution that uses physical hardware devices to move massive amounts of data into and out of the AWS Cloud. It is specifically designed to overcome the limitations of network bandwidth when transferring petabytes of data, providing a faster and more cost-effective alternative to online transfers.\n\n**Why Other Options are Incorrect:**\n* **A:** AWS Storage Gateway is a hybrid cloud storage service that provides on-premises applications access to virtually unlimited cloud storage via a network connection, rather than physical bulk transport.\n* **B:** Amazon S3 Glacier Deep Archive is a low-cost storage class for long-term data archiving and backup, focusing on data retention rather than the mechanism of data transfer.\n* **C:** Amazon Lightsail is a simplified Virtual Private Server (VPS) offering designed for launching simple websites or applications, and it is not a data migration or storage service.\n\n**💡 Exam Tip:**\nWhenever you see keywords like \"petabytes,\" \"physical device,\" \"offline transfer,\" or \"limited network bandwidth,\" the answer is almost always a member of the AWS Snow Family (Snowcone, Snowball, or Snowmobile).\n\n**⚠️ Trap Alert:**\nDo not confuse \"Storage Gateway\" with \"Snowball.\" Storage Gateway is for *continuous* hybrid connectivity, while Snowball is for *one-time or bulk* migrations of massive datasets."
+  },
+  {
+    "examId": 22,
+    "question": "Explanation: <https://docs.aws.amazon.com/snowball/latest/ug/transfer-petabytes.html> Which service provides a user the ability to warehouse data in the AWS Cloud?",
+    "options": [
+      "A. Amazon EFS",
+      "B. Amazon Redshift",
+      "C. Amazon RDS",
+      "D. Amazon VPC"
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": "**AWS Domain:** Cloud Technology & Services\n\n**Detailed Explanation:**\nAmazon Redshift is a fully managed, petabyte-scale data warehouse service that allows users to analyze large volumes of structured data using standard SQL. It is specifically designed for Online Analytical Processing (OLAP), enabling complex queries across massive datasets for business intelligence and reporting.\n\n**Why Other Options are Incorrect:**\n* **A:** Amazon EFS (Elastic File System) is a scalable network file system for EC2 instances, providing shared storage rather than a data warehousing analytical engine.\n* **C:** Amazon RDS (Relational Database Service) is designed for Online Transaction Processing (OLTP) and operational workloads, not for the large-scale analytical warehousing provided by Redshift.\n* **D:** Amazon VPC (Virtual Private Cloud) is a networking service used to isolate a section of the AWS Cloud to launch resources in a defined virtual network, not a data storage or warehousing service.\n\n**💡 Exam Tip:**\nWhenever you see the keywords \"Data Warehouse,\" \"OLAP,\" \"Complex Queries,\" or \"Business Intelligence (BI)\" in a question, Amazon Redshift is almost always the correct answer.\n\n**⚠️ Trap Alert:**\nDo not confuse Amazon RDS with Amazon Redshift. While both are relational and use SQL, RDS is for \"running\" an application (transactional), whereas Redshift is for \"analyzing\" data (analytical)."
+  }
+]
