@@ -1,0 +1,29 @@
+{
+  "public": ".",
+  "directoryListing": false,
+  "headers": [
+    {
+      "source": "exams/**/*.json",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "inline"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "exams/",
+      "destination": "/404"
+    },
+    {
+      "source": "exams/**/",
+      "destination": "/404"
+    }
+  ]
+}

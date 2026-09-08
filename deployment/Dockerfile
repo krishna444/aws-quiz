@@ -14,8 +14,9 @@ COPY index.html /app/index.html
 COPY styles/quiz.css /app/styles/quiz.css
 COPY quiz_category.html /app/quiz_category.html
 COPY exams/ /app/exams/
+COPY serve.json /app/serve.json
 
 # Install serve globally or execute via npx
 EXPOSE 3000
 
-CMD ["npx", "serve", "-s", ".", "-l", "3000"]
+CMD ["npx", "serve", "-s", "-c","serve.json",".", "-l", "3000"]
