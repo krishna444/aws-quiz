@@ -1,0 +1,1709 @@
+[
+  {
+    "examId": 6,
+    "question": "You have set up consolidated billing for several AWS accounts. One of the accounts has purchased a number of reserved instances for 3 years. Which of the following is true regarding this scenario?",
+    "options": [
+      "A. The Reserved Instance discounts can only be shared with the master account.",
+      "B. All accounts can receive the hourly cost benefit of the Reserved Instances.",
+      "C. The purchased instances will have better performance than On-demand instances.",
+      "D. There are no cost benefits from using consolidated billing; It is for informational purposes only."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 9,
+    "question": "A company has an AWS Enterprise Support plan. They want quick and efficient guidance with their billing and account inquiries. Which of the following should the company use?",
+    "options": [
+      "A. AWS Health Dashboard.",
+      "B. AWS Support Concierge.",
+      "C. AWS Customer Service.",
+      "D. AWS Operations Support."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 16,
+    "question": "Which of the following helps a customer view the Amazon EC2 billing activity for the past month?",
+    "options": [
+      "A. AWS Budgets.",
+      "B. AWS Pricing Calculator.",
+      "C. AWS Systems Manager.",
+      "D. AWS Cost & Usage Reports."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 17,
+    "question": "What do you gain from setting up consolidated billing for five different AWS accounts under another master account?",
+    "options": [
+      "A. AWS services' costs will be reduced to half the original price.",
+      "B. The consolidated billing feature is just for organizational purpose.",
+      "C. Each AWS account gets volume discounts.",
+      "D. Each AWS account gets five times the free-tier services capacity."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 20,
+    "question": "A startup company is operating on limited funds and is extremely concerned about cost overruns. Which of the below options can be used to notify the company when their monthly AWS bill exceeds $2000? (Choose TWO)",
+    "options": [
+      "A. Setup a CloudWatch billing alarm that triggers an SNS notification when the threshold is exceeded.",
+      "B. Configure the Amazon Simple Email Service to send billing alerts to their email address on a daily basis.",
+      "C. Configure the AWS Budgets Service to alert the company when the threshold is exceeded.",
+      "D. Configure AWS CloudTrail to automatically delete all AWS resources when the threshold is exceeded.",
+      "E. Configure the Amazon Connect Service to alert the company when the threshold is exceeded."
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 28,
+    "question": "You want to run a questionnaire application for only one day (without interruption), which Amazon EC2 purchase option should you use?",
+    "options": [
+      "A. Reserved instances.",
+      "B. Spot instances.",
+      "C. Dedicated instances.",
+      "D. On-demand instances."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 29,
+    "question": "You are working on a project that involves creating thumbnails of millions of images. Consistent uptime is not an issue, and continuous processing is not required. Which EC2 buying option would be the most cost-effective?",
+    "options": [
+      "A. Reserved Instances.",
+      "B. On-demand Instances.",
+      "C. Dedicated Instances.",
+      "D. Spot Instances."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 34,
+    "question": "As part of the Enterprise support plan, who is the primary point of contact for ongoing support needs?",
+    "options": [
+      "A. AWS Identity and Access Management (IAM) user.",
+      "B. Infrastructure Event Management (IEM) engineer.",
+      "C. AWS Consulting Partners.",
+      "D. Technical Account Manager (TAM)."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 35,
+    "question": "How can you view the distribution of AWS spending in one of your AWS accounts?",
+    "options": [
+      "A. By using Amazon VPC console.",
+      "B. By contacting the AWS Support team.",
+      "C. By using AWS Cost Explorer.",
+      "D. By contacting the AWS Finance team."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 37,
+    "question": "You have AWS Basic support, and you have discovered that some AWS resources are being used maliciously, and those resources could potentially compromise your data. What should you do?",
+    "options": [
+      "A. Contact the AWS Customer Service team.",
+      "B. Contact the AWS Abuse team.",
+      "C. Contact the AWS Concierge team.",
+      "D. Contact the AWS Security team."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 51,
+    "question": "A global company with a large number of AWS accounts is seeking a way in which they can centrally manage billing and security policies across all accounts. Which AWS Service will assist them in meeting these goals?",
+    "options": [
+      "A. AWS Organizations.",
+      "B. AWS Trusted Advisor.",
+      "C. IAM User Groups.",
+      "D. AWS Config."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 53,
+    "question": "A company is concerned that they are spending money on underutilized compute resources in AWS. Which AWS feature will help ensure that their applications are automatically adding/removing EC2 compute capacity to closely match the required demand?",
+    "options": [
+      "A. AWS Elastic Load Balancer.",
+      "B. AWS Budgets.",
+      "C. AWS Auto Scaling.",
+      "D. AWS Cost Explorer."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 56,
+    "question": "Which of the following is NOT correct regarding Amazon EC2 On-demand instances?",
+    "options": [
+      "A. You have to pay a start-up fee when launching a new instance for the first time.",
+      "B. The on-demand instances follow the AWS pay-as-you-go pricing model.",
+      "C. With on-demand instances, no longer-term commitments or upfront payments are needed.",
+      "D. When using on-demand Linux instances, you are charged per second based on an hourly rate."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 57,
+    "question": "A company has moved to AWS recently. Which of the following AWS Services will help ensure that they have the proper security settings? (Choose TWO)",
+    "options": [
+      "A. AWS Trusted Advisor.",
+      "B. Amazon Inspector.",
+      "C. Amazon SNS.",
+      "D. Amazon CloudWatch.",
+      "E. Concierge Support Team."
+    ],
+    "correct": [
+      0,
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 59,
+    "question": "A company is introducing a new product to their customers, and is expecting a surge in traffic to their web application. As part of their Enterprise Support plan, which of the following provides the company with architectural and scaling guidance?",
+    "options": [
+      "A. AWS Knowledge Center.",
+      "B. AWS Health Dashboard.",
+      "C. Infrastructure Event Management.",
+      "D. AWS Support Concierge Service."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 61,
+    "question": "Which of the below is a best-practice when designing solutions on AWS?",
+    "options": [
+      "A. Invest heavily in architecting your environment, as it is not easy to change your design later.",
+      "B. Use AWS reservations to reduce costs when testing your production environment.",
+      "C. Automate wherever possible to make architectural (\u00a9 ) experimentation easier.",
+      "D. Provision a large compute capacity to handle any spikes in load"
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 72,
+    "question": "Which of the following EC2 instance purchasing options supports the Bring Your Own License (BYOL) model for almost every BYOL scenario?",
+    "options": [
+      "A. Dedicated Instances.",
+      "B. Dedicated Hosts.",
+      "C. On-demand Instances.",
+      "D. Reserved Instances."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 73,
+    "question": "Which of the following is one of the benefits of moving infrastructure from an on-premises data center to AWS?",
+    "options": [
+      "A. Free support for all enterprise customers.",
+      "B. Automatic data protection.",
+      "C. Reduced Capital Expenditure (CapEx).",
+      "D. AWS holds responsibility for managing customer applications."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 74,
+    "question": "Which of the following are important design principles you should adopt when designing systems on AWS? (Choose TWO)",
+    "options": [
+      "A. Always use Global Services in your architecture rather than Regional Services.",
+      "B. Always choose to pay as you go.",
+      "C. Treat servers as fixed resources.",
+      "D. Automate wherever possible.",
+      "E. Remove single points of failure."
+    ],
+    "correct": [
+      3,
+      4
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 98,
+    "question": "A company has created a solution that helps AWS customers improve their architectures on AWS. Which AWS program may support this company?",
+    "options": [
+      "A. APN Consulting Partners.",
+      "B. AWS TAM.",
+      "C. APN Technology Partners.",
+      "D. AWS Professional Services."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 103,
+    "question": "Which of the following describes the payment model that AWS makes available for customers that can commit to using Amazon EC2 over a one or 3-year term to reduce their total computing costs?",
+    "options": [
+      "A. Pay less as AWS grows.",
+      "B. Pay as you go.",
+      "C. Pay less by using more.",
+      "D. Save when you reserve."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 118,
+    "question": "A company needs to host a database in Amazon RDS for at least three years. Which of the following options would be the most cost-effective solution?",
+    "options": [
+      "A. Reserved instances - No Upfront.",
+      "B. Reserved instances - Partial Upfront.",
+      "C. On-Demand instances.",
+      "D. Spot Instances."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 120,
+    "question": "Savings Plans are available for which of the following AWS compute services? (Choose TWO)",
+    "options": [
+      "A. AWS Batch.",
+      "B. AWS Outposts.",
+      "C. Amazon Lightsail.",
+      "D. Amazon EC2.",
+      "E. AWS Lambda."
+    ],
+    "correct": [
+      3,
+      4
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 129,
+    "question": "Which of the following should be considered when performing a TCO analysis to compare the costs of running an application on AWS instead of on-premises?",
+    "options": [
+      "A. Application development.",
+      "B. Market research.",
+      "C. Business analysis.",
+      "D. Physical hardware."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 137,
+    "question": "What is the minimum level of AWS support that provides 24x7 access to technical support engineers via phone and chat?",
+    "options": [
+      "A. Enterprise Support.",
+      "B. Developer Support.",
+      "C. Basic Support.",
+      "D. Business Support."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 139,
+    "question": "A company has developed a media transcoding application in AWS. The application is designed to recover quickly from hardware failures. Which one of the following types of instance would be the most cost-effective choice to use?",
+    "options": [
+      "A. Reserved instances.",
+      "B. Spot Instances.",
+      "C. On-Demand instances.",
+      "D. Dedicated instances."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 146,
+    "question": "What is one benefit and one drawback of buying a reserved EC2 instance? (Select TWO)",
+    "options": [
+      "A. Instances can be shut down by AWS at any time with no notification.",
+      "B. Reserved instances require at least a one-year pricing commitment.",
+      "C. There is no additional charge for using dedicated instances.",
+      "D. Reserved instances provide a significant discount compared to on-demand instances.",
+      "E. Reserved instances are best suited for periodic workloads."
+    ],
+    "correct": [
+      1,
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 148,
+    "question": "What is the most cost-effective purchasing option for running a set of EC2 instances that must always be available for a period of two months?",
+    "options": [
+      "A. On-Demand Instances.",
+      "B. Spot Instances.",
+      "C. Reserved Instances - All Upfront.",
+      "D. Reserved Instances - No Upfront."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 155,
+    "question": "A company needs to migrate their website from on-premises to AWS. Security is a major concern for them, so they need to host their website on hardware that is NOT shared with other AWS customers. Which of the following EC2 instance options meets this requirement?",
+    "options": [
+      "A. On-demand instances.",
+      "B. Spot instances.",
+      "C. Dedicated instances.",
+      "D. Reserved instances."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 159,
+    "question": "Which support plan includes AWS Support Concierge Service?",
+    "options": [
+      "A. Premium Support.",
+      "B. Business Support.",
+      "C. Enterprise Support.",
+      "D. Standard Support."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 167,
+    "question": "How can AWS customers track and avoid over-spending on underutilized reserved instances?",
+    "options": [
+      "A. Customers can add all AWS accounts to an AWS Organization, enable Consolidated Billing, and turn off Reserved Instance sharing.",
+      "B. Customers can use Amazon Neptune to track and analyze their usage patterns, detect underutilized reserved instances, and then sell them on the Amazon EC2 Reserved Instance Marketplace.",
+      "C. Customers can use the AWS Budgets service to track the reserved instances usage and set up alert notifications when their utilization drops below the threshold that they define.",
+      "D. Customers can use Amazon CloudTrail to automatically check for unused reservations and get recommendations to reduce their bill."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 172,
+    "question": "A company is trying to analyze the costs applied to their AWS account recently. Which of the following provides them the most granular data about their AWS costs and usage?",
+    "options": [
+      "A. Amazon Machine Image.",
+      "B. AWS Cost Explorer.",
+      "C. AWS Cost & Usage Report.",
+      "D. Amazon CloudWatch."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 186,
+    "question": "TYMO Cloud Corp is looking forward to migrating their entire on-premises data center to AWS. What tool can they use to perform a cost-benefit analysis of moving to the AWS Cloud?",
+    "options": [
+      "A. AWS Cost Explorer.",
+      "B. AWS TCO Calculator.",
+      "C. AWS Budgets.",
+      "D. AWS Pricing Calculator."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 193,
+    "question": "What is the AWS tool that can help a company visualize their AWS spending in the last few months?",
+    "options": [
+      "A. AWS Cost Explorer.",
+      "B. AWS Pricing Calculator.",
+      "C. AWS Budgets.",
+      "D. AWS Consolidated Billing."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 197,
+    "question": "One of the major advantages of using AWS is cost savings. What does AWS provide to reduce the cost of running Amazon EC2 instances?",
+    "options": [
+      "A. Low monthly instance maintenance costs.",
+      "B. Low-cost instance tagging.",
+      "C. Per-second instance billing.",
+      "D. Low instance start-up fees."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 198,
+    "question": "Which AWS Group assists customers in achieving their desired business outcomes?",
+    "options": [
+      "A. AWS Security Team.",
+      "B. AWS Professional Services.",
+      "C. AWS Trusted Advisor.",
+      "D. AWS Concierge Support Team."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 204,
+    "question": "An AWS customer has used one Amazon Linux instance for 2 hours, 5 minutes and 9 seconds, and one CentOS instance for 4 hours, 23 minutes and 7 seconds. How much time will the customer be billed for?",
+    "options": [
+      "A. 3 hours for the Linux instance and 5 hours for the CentOS instance.",
+      "B. 2 hours, 5 minutes and 9 seconds for the Linux instance and 4 hours, 23 minutes and 7 seconds for the CentOS instance.",
+      "C. 2 hours, 5 minutes and 9 seconds for the Linux instance and 5 hours for the CentOS instance.",
+      "D. 3 hours for the Linux instance and 4 hours, 23 minutes and 7 seconds for the CentOS instance."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 214,
+    "question": "Which AWS Service offers volume discounts based on usage?",
+    "options": [
+      "A. Amazon VPC.",
+      "B. Amazon S3.",
+      "C. Amazon Lightsail.",
+      "D. AWS Cost Explorer."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 218,
+    "question": "The TCO gap between AWS infrastructure and traditional infrastructure has widened over the recent years. Which of the following could be the reason for that?",
+    "options": [
+      "A. AWS helps customers invest more in capital expenditures.",
+      "B. AWS automates all infrastructure operations, so customers save more on human resources costs.",
+      "C. AWS continues to lower the cost of cloud computing for its customers.",
+      "D. AWS secures AWS resources at no additional charge."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 228,
+    "question": "A user has opened a 'Production System Down' support case to get help from AWS Support after a production system disruption. What is the expected response time for this type of support case?",
+    "options": [
+      "A. 12 hours.",
+      "B. 15 minutes.",
+      "C. 24 hours.",
+      "D. One hour."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 231,
+    "question": "Your company requires a response time of less than 15 minutes from support interactions about their business-critical systems that are hosted on AWS if those systems go down. Which AWS Support Plan should this company use?",
+    "options": [
+      "A. AWS Basic Support.",
+      "B. AWS Developer Support.",
+      "C. AWS Business Support.",
+      "D. AWS Enterprise Support."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 237,
+    "question": "A company is migrating a web application to AWS. The application's compute capacity is continually utilized throughout the year. Which of the below options offers the company the most cost-effective solution?",
+    "options": [
+      "A. On-demand Instances.",
+      "B. Dedicated Hosts.",
+      "C. Spot Instances.",
+      "D. Reserved Instances."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 244,
+    "question": "A company is planning to use Amazon S3 and Amazon CloudFront to distribute its video courses globally. What tool can the company use to estimate the costs of these services?",
+    "options": [
+      "A. AWS Cost Explorer.",
+      "B. AWS Pricing Calculator.",
+      "C. AWS Budgets.",
+      "D. AWS Cost & Usage Report."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 252,
+    "question": "Which features are included in the AWS Business Support Plan? (Choose TWO)",
+    "options": [
+      "A. 24x7 access to customer service.",
+      "B. Access to Cloud Support Engineers via email only during business hours.",
+      "C. Access to the Infrastructure Event Management (IEM) feature for additional fee.",
+      "D. 24x7 access to the TAM feature.",
+      "E. Partial access to the core Trusted Advisor checks."
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 260,
+    "question": "A company's AWS workflow requires that it periodically perform large-scale image and video processing jobs. The customer is seeking to minimize cost and has stated that the amount of time it takes to process these jobs is not critical, but that cost minimization is the most important factor in designing the solution. Which EC2 instance class is best suited for this processing?",
+    "options": [
+      "A. EC2 On-Demand Instances.",
+      "B. EC2 Reserved Instances - No Upfront.",
+      "C. EC2 Spot Instances.",
+      "D. EC2 Reserved Instances - All Upfront."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 261,
+    "question": "There is a requirement to grant a DevOps team full administrative access to all resources in an AWS account. Who can grant them these permissions?",
+    "options": [
+      "A. AWS account owner.",
+      "B. AWS technical account manager.",
+      "C. AWS security team.",
+      "D. AWS cloud support engineers."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 269,
+    "question": "What does AWS Cost Explorer provide to help manage your AWS spend?",
+    "options": [
+      "A. Cost comparisons between AWS Cloud environments and on-premises environments.",
+      "B. Accurate estimates of AWS service costs based on your expected usage.",
+      "C. Consolidated billing.",
+      "D. Highly accurate cost forecasts for up to 12 months ahead."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 271,
+    "question": "You are using several on-demand EC2 Instances to run your development environment. What is the best way to reduce your charges when these instances are not in use?",
+    "options": [
+      "A. Deleting all EBS volumes attached to the instances.",
+      "B. You cannot minimize charges for on-demand instances.",
+      "C. Terminating the instances.",
+      "D. Stopping the instances."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 277,
+    "question": "Which of the following is an available option when purchasing Amazon EC2 instances?",
+    "options": [
+      "A. The ability to bid to get the lowest possible prices.",
+      "B. The ability to register EC2 instances to get volume discounts on every hour the instances are running.",
+      "C. The ability to buy Dedicated Instances for up to 90% discount.",
+      "D. The ability to pay upfront to get lower hourly costs."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 278,
+    "question": "What does the term 'Economies of scale' mean?",
+    "options": [
+      "A. It means that you save more when you consume more.",
+      "B. It means as more time passes using AWS, you pay more for its services.",
+      "C. It means that AWS will continuously lower costs as it grows.",
+      "D. It means that you have the ability to pay as you go."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 281,
+    "question": "Which tool can a non-AWS customer use to compare the cost of on-premises environment resources to AWS?",
+    "options": [
+      "A. AWS Cost Explorer.",
+      "B. AWS Pricing Calculator.",
+      "C. AWS Budgets.",
+      "D. AWS TCO Calculator."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 288,
+    "question": "Your CTO has asked you to contact AWS support using the chat feature to ask for guidance related to EBS. However, when you open the AWS support center you can't see a way to contact support via Chat. What should you do?",
+    "options": [
+      "A. There is no chat feature in AWS support.",
+      "B. The chat feature is available for all plans for an additional fee, but you have to request it first.",
+      "C. At a minimum, upgrade to Business support plan.",
+      "D. Upgrade from the Basic Support plan to Developer Support."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 290,
+    "question": "Which statement best describes the AWS Pay-As-You-Go pricing model?",
+    "options": [
+      "A. With AWS, you replace low upfront expenses with large variable payments.",
+      "B. With AWS, you replace low upfront expenses with large fixed payments.",
+      "C. With AWS, you replace large upfront expenses with low fixed payments.",
+      "D. With AWS, you replace large capital expenses with low variable payments."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 306,
+    "question": "You have migrated your application to AWS recently. How can you view the AWS costs applied to your account?",
+    "options": [
+      "A. Using the AWS Cost & Usage Report.",
+      "B. Using the AWS Total Cost of Ownership (TCO) dashboard.",
+      "C. Using the AWS CloudWatch logs dashboard.",
+      "D. Using the Amazon VPC dashboard."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 313,
+    "question": "For compliance and regulatory purposes, a government agency requires that their applications must run on hardware that is dedicated to them only. How can you meet this requirement?",
+    "options": [
+      "A. Use EC2 Dedicated Hosts.",
+      "B. Use EC2 Reserved Instances.",
+      "C. Use EC2 Spot Instances.",
+      "D. Use EC2 On-demand Instances."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 314,
+    "question": "Which AWS Cost Governance best practice recommends refining workloads regularly to make the most of existing AWS resources and reduce costs?",
+    "options": [
+      "A. Tagging Enforcement.",
+      "B. Architecture Optimization.",
+      "C. Budgeting Processes.",
+      "D. Resource Controls."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 315,
+    "question": "An organization needs to build a financial application that requires support for ACID transactions. Which AWS database service is most appropriate in this case?",
+    "options": [
+      "A. RedShift.",
+      "B. RDS.",
+      "C. CloudHSM.",
+      "D. DMS."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 331,
+    "question": "Which of the following resources can an AWS customer use to learn more about prohibited uses of the services offered by AWS?",
+    "options": [
+      "A. AWS Service Control Policies (SCPs).",
+      "B. AWS Artifact.",
+      "C. AWS Budgets.",
+      "D. AWS Acceptable Use Policy."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 332,
+    "question": "Which of the following security resources are available to any user for free? (Choose TWO)",
+    "options": [
+      "A. AWS Bulletins.",
+      "B. AWS TAM.",
+      "C. AWS Support APl.",
+      "D. AWS Security Blog.",
+      "E. AWS Classroom Training."
+    ],
+    "correct": [
+      0,
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 335,
+    "question": "Which of the following AWS support plans provides access to only the seven core AWS Trusted Advisor checks?",
+    "options": [
+      "A. Business & Enterprise Support.",
+      "B. Basic & Developer Support.",
+      "C. Developer & Enterprise Support.",
+      "D. Developer & Business Support."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 339,
+    "question": "You are working as a web app developer. You are currently facing issues in media playback for mobile devices because your media format is not supported. Which of the following AWS services can help you convert your media into another format?",
+    "options": [
+      "A. Amazon Elastic Transcoder.",
+      "B. Amazon Pinpoint.",
+      "C. AmazonS3.",
+      "D. Amazon Rekognition."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 340,
+    "question": "What are the benefits of the AWS Organizations service? (Choose TWO)",
+    "options": [
+      "A. Control access to AWS services.",
+      "B. Help organizations design and maintain an accelerated path to successful cloud adoption.",
+      "C. Manage your organization's payment methods.",
+      "D. Help organization achieve their desired business outcomes with AWS.",
+      "E. Consolidate billing across multiple AWS accounts."
+    ],
+    "correct": [
+      0,
+      4
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 347,
+    "question": "What can you access by visiting the URL: http://status.aws.amazon.com?",
+    "options": [
+      "A. AWS Billing Dashboard.",
+      "B. AWS Cost Dashboard.",
+      "C. AWS Service Health Dashboard.",
+      "D. AWS Security Dashboard."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 350,
+    "question": "A company is migrating production workloads to AWS, and they are concerned about cost management across different departments. Which option should the company implement to categorize and track AWS spending?",
+    "options": [
+      "A. Use the AWS Pricing Calculator service to monitor the costs incurred by each department.",
+      "B. Use Amazon Aurora to forecast AWS spending based on usage.",
+      "C. Apply cost allocation tags to segment AWS costs by different projects and departments.",
+      "D. Configure AWS Price List API to receive billing updates for each department automatically."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 353,
+    "question": "You have multiple standalone AWS accounts and you want to decrease your AWS monthly charges. What should you do?",
+    "options": [
+      "A. Try to remove unnecessary AWS accounts.",
+      "B. Add the accounts to an AWS Organization and use Consolidated Billing.",
+      "C. Track the AWS charges that are incurred by the member accounts.",
+      "D. Enable AWS tiered-pricing before provisioning resources."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 355,
+    "question": "What does the AWS 'Business' support plan provide? (Choose TWO)",
+    "options": [
+      "A. Access to the full set of Trusted Advisor checks.",
+      "B. Support Concierge Service.",
+      "C. Less than 15 minutes response-time support if your business critical system goes down.",
+      "D. AWS Support API.",
+      "E. Proactive Technical Account Management."
+    ],
+    "correct": [
+      0,
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 359,
+    "question": "Which statement is true regarding AWS pricing? (Choose TWO)",
+    "options": [
+      "A. With the AWS pay-as-you-go pricing model, you don't have to pay any upfront fee.",
+      "B. You have no responsibility for third-party software license costs.",
+      "C. You only pay for the individual services that you need with no long-term contracts.",
+      "D. For some services, you have to pay a startup fee in order to get the service running.",
+      "E. There are no reservations on AWS, you only pay for what you use."
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 373,
+    "question": "Which of the following AWS Support Plans gives you 24/7 access to Cloud Support Engineers via email & phone? (Choose TWO)",
+    "options": [
+      "A. Developer.",
+      "B. Premium.",
+      "C. Enterprise.",
+      "D. Standard.",
+      "E. Business."
+    ],
+    "correct": [
+      2,
+      4
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 378,
+    "question": "What are the benefits of the AWS Marketplace service? (Choose TWO)",
+    "options": [
+      "A. Protects customers by performing periodic security checks on listed products.",
+      "B. Per-second billing.",
+      "C. Provides cheaper options for purchasing Amazon EC2 on-demand instances.",
+      "D. Provides flexible pricing options that suit most customer needs.",
+      "E. Provides software solutions that run on AWS or any other Cloud vendor."
+    ],
+    "correct": [
+      3,
+      4
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 380,
+    "question": "You are planning to launch an advertising campaign over the coming weekend to promote a new digital product. It is expected that there will be heavy spikes in load during the campaign period, and you can't afford any downtime. You need additional compute resources to handle the additional load. What is the most cost-effective EC2 instance purchasing option for this job?",
+    "options": [
+      "A. Savings Plans.",
+      "B. Spot Instances.",
+      "C. Reserved Instances.",
+      "D. On-Demand Instances."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 388,
+    "question": "AWS provides disaster recovery capability by allowing customers to deploy infrastructure into multiple [...].",
+    "options": [
+      "A. regions.",
+      "B. transportation devices.",
+      "C. support plans.",
+      "D. edge locations."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 394,
+    "question": "Which AWS Cost Management tool allows you to view the most granular data about your AWS bill?",
+    "options": [
+      "A. AWS Cost Explorer.",
+      "B. AWS Budgets.",
+      "C. AWS Cost and Usage report.",
+      "D. AWS Billing dashboard."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 404,
+    "question": "A user is planning to launch two additional Amazon EC2 instances to increase availability. Which action should the user take?",
+    "options": [
+      "A. Launch the instances across multiple Availability Zones in a single AWS Region.",
+      "B. Launch the instances as EC2 Reserved Instances in the same AWS Region and the same Availability Zone.",
+      "C. Launch the instances in multiple AWS Regions but in the same Availability Zone.",
+      "D. Launch the instances as EC2 Spot Instances in the same AWS Region but in different Availability Zones."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 409,
+    "question": "Which of the following security-related actions are available at no cost?",
+    "options": [
+      "A. Calling AWS Support.",
+      "B. Contacting AWS Professional Services to request a workshop.",
+      "C. Accessing forums, blogs, and whitepapers.",
+      "D. Attending AWS classes at a local university."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 418,
+    "question": "Which AWS feature will reduce the customer's total cost of ownership (TCO)?",
+    "options": [
+      "A. Shared responsibility security model.",
+      "B. Single tenancy.",
+      "C. Elastic computing.",
+      "D. Encryption."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 424,
+    "question": "Which AWS service is used to pay AWS bills, and monitor usage and budget costs?",
+    "options": [
+      "A. AWS Billing and Cost Management.",
+      "B. Consolidated billing.",
+      "C. Amazon CloudWatch.",
+      "D. Amazon QuickSight."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 426,
+    "question": "Which AWS feature allows a company to take advantage of usage tiers for services across multiple member accounts?",
+    "options": [
+      "A. Service control policies (SCPs).",
+      "B. Consolidated billing.",
+      "C. All Upfront Reserved Instances.",
+      "D. AWS Cost Explorer."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 434,
+    "question": "Where can AWS compliance and certification reports be downloaded?",
+    "options": [
+      "A. AWS Artifact.",
+      "B. AWS Concierge.",
+      "C. AWS Certificate Manager.",
+      "D. AWS Trusted Advisor."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 435,
+    "question": "The financial benefits of using AWS are: (Select TWO)",
+    "options": [
+      "A. Reduced Total Cost of Ownership (TCO).",
+      "B. Increased capital expenditure (capex).",
+      "C. Reduced operational expenditure ( opex ).",
+      "D. Deferred payment plans for startups.",
+      "E. Business credit lines for startups."
+    ],
+    "correct": [
+      0,
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 440,
+    "question": "If each department within a company has its own AWS account, what is one way to enable consolidated billing?",
+    "options": [
+      "A. Use AWS Budgets on each account to pay only to budget.",
+      "B. Contact AWS Support for a monthly bill.",
+      "C. Create an AWS Organization from the payer account and invite the other accounts to join.",
+      "D. Put all invoices into one Amazon Simple Storage Service (Amazon S3) bucket, load data into Amazon Redshift, and then run a billing report."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 441,
+    "question": "What costs are included when comparing AWS Total Cost of Ownership (TCO) with on-premises TCO?",
+    "options": [
+      "A. Project management.",
+      "B. Antivirus software licensing.",
+      "C. Data center security.",
+      "D. Software development."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 450,
+    "question": "Which service allows a company with multiple AWS accounts to combine its usage to obtain volume discounts?",
+    "options": [
+      "A. AWS Server Migration Service.",
+      "B. AWS Organizations.",
+      "C. AWS Budgets.",
+      "D. AWS Trusted Advisor."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 451,
+    "question": "Which of the following can an AWS customer use to launch a new Amazon Relational Database Service (Amazon RDS) cluster? (Select TWO)",
+    "options": [
+      "A. AWS Concierge.",
+      "B. AWS CloudFormation.",
+      "C. Amazon Simple Storage Service (Amazon S3).",
+      "D. Amazon EC2 Auto Scaling.",
+      "E. AWS Management Console."
+    ],
+    "correct": [
+      1,
+      4
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 452,
+    "question": "Which of the following Reserved Instance (RI) pricing models provides the highest average savings compared to On-Demand pricing?",
+    "options": [
+      "A. One-year, No Upfront, Standard RI pricing.",
+      "B. One-year, All Upfront, Convertible RI pricing.",
+      "C. Three-year, All Upfront, Standard RI pricing.",
+      "D. Three-year, No Upfront, Convertible RI pricing."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 459,
+    "question": "Which of the following BEST describe the AWS pricing model? (Select TWO)",
+    "options": [
+      "A. Fixed-term.",
+      "B. Pay-as-you-go.",
+      "C. Colocation.",
+      "D. Planned.",
+      "E. Variable cost."
+    ],
+    "correct": [
+      1,
+      4
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 461,
+    "question": "A customer is using multiple AWS accounts with separate billing. How can the customer take advantage of volume discounts with minimal impact to the AWS resources?",
+    "options": [
+      "A. Create one global AWS account and move all AWS resources to tha account.",
+      "B. Sign up for three years of Reserved Instance pricing up front.",
+      "C. Use the consolidated billing feature from AWS Organizations.",
+      "D. Sign up for the AWS Enterprise support plan to get volume discounts."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 462,
+    "question": "Which Amazon EC2 pricing model offers the MOST significant discount when compared to OnDemand Instances?",
+    "options": [
+      "A. A Partial Upfront Reserved Instances for a 1-year term.",
+      "B. All Upfront Reserved instances for a 1 year form.",
+      "C. All Upfront Reserved Instances for a 3 year term.",
+      "D. No Upfront Reserved Instances for a 3 year term."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 466,
+    "question": "Which benefits are included with the AWS Business Support plan? (Select TWO)",
+    "options": [
+      "A. 24/7 assistance by way of live chat or a telephone call.",
+      "B. Support from a dedicated AWS Technical Account Manager.",
+      "C. An unlimited number of cases and contacts.",
+      "D. 15-minute response time for production system interruption cases.",
+      "E. Annual operational reviews with AWS Solutions Architects."
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 468,
+    "question": "A user must meet compliance and software licensing requirements that state a workload must be hosted on a physical server. When Amazon EC2 instance pricing option will meet these requirements?",
+    "options": [
+      "A. Dedicated Hosts.",
+      "B. Dedicated Instances.",
+      "C. Spot Instances.",
+      "D. Reserved Instances."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 469,
+    "question": "Which of the Reserved Instance (RI) pricing models can change the attributes of the RI as long as the exchange results in the creation of RIs of equal or greater value?",
+    "options": [
+      "A. Dedicated RIs.",
+      "B. Scheduled RIs.",
+      "C. Convertible RIs.",
+      "D. Standard RIs."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 471,
+    "question": "When should a company consider using Amazon EC2 Spot Instances? (Select TWO)",
+    "options": [
+      "A. For non-production applications.",
+      "B. For stateful workloads.",
+      "C. For applications that cannot have interruptions.",
+      "D. For fault-tolerant flexible applications.",
+      "E. For sensitive database applications."
+    ],
+    "correct": [
+      0,
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 472,
+    "question": "Which AWS tools assist with estimating costs? (Select three)",
+    "options": [
+      "A. Detailed billing report.",
+      "B. Cost allocation tags.",
+      "C. AWS Simple Monthly Calculator.",
+      "D. AWS Total Cost of Ownership (TCO) Calculator.",
+      "E. Cost Estimator."
+    ],
+    "correct": [
+      1,
+      2,
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 474,
+    "question": "Which is the minimum AWS Support plan that includes Infrastructure Event Management without additional costs?",
+    "options": [
+      "A. Enterprise.",
+      "B. Business.",
+      "C. Developer.",
+      "D. Basic."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 477,
+    "question": "How does AWS shorten the time to provision IT resources?",
+    "options": [
+      "A. It supplies an online IT ticketing platform for resource requests.",
+      "B. It supports automatic code validation services.",
+      "C. It provides the ability to programmatically provision existing resources.",
+      "D. It automates the resource request process from a company's IT vendor list."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 480,
+    "question": "A user wants guidance on possible savings when migrating from on-premises to AWS. Which tool is suitable for this scenario?",
+    "options": [
+      "A. AWS Budgets.",
+      "B. Cost Explorer.",
+      "C. AWS Total Cost of Ownership (TCO) Calculator.",
+      "D. AWS Well-Architected Tool."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 482,
+    "question": "The use of what AWS feature or service allows companies to track and categorize spending on a detailed level?",
+    "options": [
+      "A. Cost allocation tags.",
+      "B. Consolidated billing.",
+      "C. AWS Budgets.",
+      "D. AWS Marketplace."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 483,
+    "question": "Which of the following inspects AWS environments to find opportunities that can save money for users and also improve system performance?",
+    "options": [
+      "A. AWS Cost Explorer.",
+      "B. AWS Trusted Advisor.",
+      "C. Consolidated billing.",
+      "D. Detailed billing."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 492,
+    "question": "Which AWS support plan includes a dedicated Technical Account Manager?",
+    "options": [
+      "A. Developer.",
+      "B. Enterprise.",
+      "C. Business.",
+      "D. Basic."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 501,
+    "question": "How can a company reduce its Total Cost of Ownership (TCO) using AWS?",
+    "options": [
+      "A. By minimizing large capital expenditures.",
+      "B. By having no responsibility for third-party license costs.",
+      "C. By having no operational expenditures.",
+      "D. By having AWS manage applications."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 506,
+    "question": "Which of the following are advantages of AWS consolidated billing? (Select TWO)",
+    "options": [
+      "A. The ability to receive one bill for multiple accounts.",
+      "B. Service limits increasing by default in all accounts.",
+      "C. A fixed discount on the monthly bill.",
+      "D. Potential volume discounts, as usage in all accounts is combined.",
+      "E. The automatic extension of the master account's AWS support plan to all accounts."
+    ],
+    "correct": [
+      0,
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 510,
+    "question": "Which is the MINIMUM AWS Support plan that allows for one-hour target response time for support cases?",
+    "options": [
+      "A. Enterprise.",
+      "B. Business.",
+      "C. Developer",
+      "D. Basic"
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 512,
+    "question": "What AWS team assists customers with accelerating cloud adoption through paid engagements in any of several specialty practice areas?",
+    "options": [
+      "A. AWS Enterprise Support.",
+      "B. AWS Solutions Architects.",
+      "C. AWS Professional Services.",
+      "D. AWS Account Managers."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 513,
+    "question": "A company needs 24/7 phone email and chat access with a response time of less than 1 hour if a production system has a service interruption. Which AWS Support plan meets these requirements at the LOWEST cost?",
+    "options": [
+      "A. Basic.",
+      "B. Developer.",
+      "C. Business.",
+      "D. Enterprise."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 523,
+    "question": "Which of the following is an advantage of consolidated billing on AWS?",
+    "options": [
+      "A. Volume pricing qualification.",
+      "B. Shared access permissions.",
+      "C. Multiple bills per account.",
+      "D. Eliminates the need for tagging."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 525,
+    "question": "Which of the following Amazon EC2 pricing models allow customers to use existing server-bound software licenses?",
+    "options": [
+      "A. Spot Instances.",
+      "B. Reserved Instances.",
+      "C. Dedicated Hosts.",
+      "D. On-Demand Instances."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 531,
+    "question": "AWS Enterprise Support users have access to which service or feature that is not available to users with other AWS Support plans?",
+    "options": [
+      "A. AWS Trusted Advisor.",
+      "B. AWS Support case.",
+      "C. Concierge team.",
+      "D. Amazon Connect."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 532,
+    "question": "A company will be moving from an on-premises data center to the AWS Cloud. What would be one financial difference after the move?",
+    "options": [
+      "A. Moving from variable operational expense ( opex ) to upfront capital expense (capex).",
+      "B. Moving from upfront capital expense (capex) to variable capital expense (capex).",
+      "C. Moving from upfront capital expense (capex) to variable operational expense ( opex ).",
+      "D. Elimination of upfront capital expense (capex) and elimination of variable operational expense ( opex )."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 533,
+    "question": "When performing a cost analysis that supports physical isolation of a customer workload, which compute hosting model should be accounted for in the Total Cost of Ownership (TCO)?",
+    "options": [
+      "A. Dedicated Hosts",
+      "B. Reserved Instances",
+      "C. On-Demand Instances",
+      "D. No Upfront Reserved Instances"
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 535,
+    "question": "Which is the MINIMUM AWS Support plan that provides technical support through phone calls?",
+    "options": [
+      "A. Enterprise.",
+      "B. Business.",
+      "C. Developer.",
+      "D. Basic."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 536,
+    "question": "Which Amazon EC2 instance pricing model can provide discounts of up to 90%?",
+    "options": [
+      "A. Reserved Instances.",
+      "B. On-Demand.",
+      "C. Dedicated Hosts.",
+      "D. Spot Instances."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 539,
+    "question": "A company is planning to migrate from on-premises to the AWS Cloud. When AWS tool or service provides detailed reports on estimated cost savings after migration?",
+    "options": [
+      "A. AWS Total Cost of Ownership (TCO) Calculator.",
+      "B. Cost Explorer.",
+      "C. AWS Budgets.",
+      "D. AWS Migration Hub."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 542,
+    "question": "How can an AWS user with an AWS Basic Support plan obtain technical assistance from AWS?",
+    "options": [
+      "A. AWS Senior Support Engineers.",
+      "B. AWS Technical Account Managers.",
+      "C. AWS Trusted Advisor.",
+      "D. AWS Discussion Forums."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 545,
+    "question": "In which scenario should Amazon EC2 Spot Instances be used?",
+    "options": [
+      "A. A company wants to move its main website to AWS from an on-premises web server.",
+      "B. A company has a number of application services whose Service Level Agreement (SLA) requires 99.999% uptime.",
+      "C. A company's heavily used legacy database is currently running on-premises.",
+      "D. A company has a number of infrequent, interruptible jobs that are currently using On-Demand Instances."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 557,
+    "question": "A company is migrating an application that is running non-interruptible workloads for a three-year time frame. Which pricing construct would provide the MOST cost-effective solution?",
+    "options": [
+      "A. Amazon EC2 Spot Instances.",
+      "B. Amazon EC2 Dedicated Instances.",
+      "C. Amazon EC2 On-Demand Instances.",
+      "D. Amazon EC2 Reserved Instances."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 560,
+    "question": "How can one AWS account use Reserved Instances from another AWS account?",
+    "options": [
+      "A. By using Amazon EC2 Dedicated Instances.",
+      "B. By using AWS Organizations consolidated billing.",
+      "C. By using the AWS Cost Explorer tool.",
+      "D. By using AWS Budgets."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 567,
+    "question": "Which Amazon EC2 pricing model adjusts based on supply and demand of EC2 instances?",
+    "options": [
+      "A. On-Demand Instances.",
+      "B. Reserved Instances.",
+      "C. Spot Instances.",
+      "D. Convertible Reserved Instances."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 580,
+    "question": "How should a customer forecast the future costs for running a new web application?",
+    "options": [
+      "A. Amazon Aurora Backtrack.",
+      "B. Amazon CloudWatch Billing Alarms.",
+      "C. AWS Simple Monthly Calculator.",
+      "D. AWS Cost and Usage report."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 589,
+    "question": "What is an example of agility in the AWS Cloud?",
+    "options": [
+      "A. Access to multiple instance types.",
+      "B. Access to managed services.",
+      "C. Using Consolidated Billing to produce one bill.",
+      "D. Decreased acquisition time for new compute resources."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 591,
+    "question": "Which of the following are advantages of AWS consolidated billing? (Choose two)",
+    "options": [
+      "A. The ability to receive one bill for multiple accounts.",
+      "B. Service limits increasing by default in all accounts.",
+      "C. A fixed discount on the monthly bill.",
+      "D. Potential volume discounts, as usage in all accounts is combined.",
+      "E. The automatic extension of the master account's AWS support plan to all accounts."
+    ],
+    "correct": [
+      0,
+      3
+    ],
+    "explanation": ""
+  }
+]

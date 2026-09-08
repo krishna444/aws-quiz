@@ -1,0 +1,831 @@
+[
+  {
+    "examId": 2,
+    "question": "Which of the following is an example of horizontal scaling in the AWS Cloud?",
+    "options": [
+      "A. Replacing an existing EC2 instance with a larger, more powerful one.",
+      "B. Increasing the compute capacity of a single EC< instance to address the growing demands of an application.",
+      "C. Adding more RAM capacity to an EC2 instance.",
+      "D. Adding more EC2 instances of the same size to handle an increase in traffic."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 7,
+    "question": "A company has developed an eCommerce web application in AWS. What should they do to ensure that the application has the highest level of availability?",
+    "options": [
+      "A. Deploy the application across multiple Availability Zones and Edge locations.",
+      "B. Deploy the application across multiple Availability Zones and subnets.",
+      "C. Deploy the application across multiple Regions and Availability Zones.",
+      "D. Deploy the application across multiple VPC's and subnets."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 15,
+    "question": "What is the advantage of the AWS-recommended practice of 'decoupling' applications?",
+    "options": [
+      "A. Allows treating an application as a single, cohesive unit.",
+      "B. Reduces inter-dependencies so that failures do not impact other components of the application.",
+      "C. Allows updates of any monolithic application quickly and easily.",
+      "D. Allows tracking of any API call made to any AWS service."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 23,
+    "question": "Which of the following does NOT belong to the AWS Cloud Computing models?",
+    "options": [
+      "A. Platform as a Service (PaaS).",
+      "B. Infrastructure as a Service (IaaS).",
+      "C. Software as a Service (SaaS).",
+      "D. Networking as a Service (NaaS)."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 85,
+    "question": "Which statement best describes the operational excellence pillar of the AWS Well-Architected Framework?",
+    "options": [
+      "A. The ability of a system to recover gracefully from failure.",
+      "B. The efficient use of computing resources to meet requirements.",
+      "C. The ability to monitor systems and improve supporting processes and procedures.",
+      "D. The ability to manage datacenter operations more efficiently."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 86,
+    "question": "AWS has created a large number of Edge Locations as part of its Global Infrastructure. Which of the following is NOT a benefit of using Edge Locations?",
+    "options": [
+      "A. Edge locations are used by CloudFront to cache the most recent responses.",
+      "B. Edge locations are used by CloudFront to improve your end users' experience when uploading files.",
+      "C. Edge locations are used by CloudFront to distribute traffic across multiple instances to reduce latency.",
+      "D. Edge locations are used by CloudFront to distribute content to global users with low latency."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 119,
+    "question": "Your application has recently experienced significant global growth, and international users are complaining of high latency. What is the AWS characteristic that can help improve your international users' experience?",
+    "options": [
+      "A. Elasticity.",
+      "B. Global reach.",
+      "C. Data durability.",
+      "D. High availability."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 131,
+    "question": "Which of the following will impact the price paid for an EC2 instance? (Choose TWO)",
+    "options": [
+      "A. Instance type.",
+      "B. The Availability Zone where the instance is provisioned.",
+      "C. Load balancing.",
+      "D. Number of buckets.",
+      "E. Number of private IPs."
+    ],
+    "correct": [
+      0,
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 134,
+    "question": "Which of the following statements describes the AWS Cloud's agility?",
+    "options": [
+      "A. AWS allows you to host your applications in multiple regions around the world.",
+      "B. AWS provides customizable hardware at the lowest possible cost.",
+      "C. AWS allows you to provision resources in minutes.",
+      "D. AWS allows you to pay upfront to reduce costs."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 135,
+    "question": "What are the benefits of using the Amazon Relational Database Service? (Choose TWO)",
+    "options": [
+      "A. Lower administrative burden.",
+      "B. Complete control over the underlying host.",
+      "C. Resizable compute capacity.",
+      "D. Scales automatically to larger or smaller instance types.",
+      "E. Supports the document and key-value data structure."
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 147,
+    "question": "Why does every AWS Region contain multiple Availability Zones?",
+    "options": [
+      "A. Multiple Availability Zones allows you to build resilient and highly available architectures.",
+      "B. Multiple Availability Zones results in lower total cost compared to deploying in a single Availability Zone.",
+      "C. Multiple Availability Zones allows for data replication and global reach.",
+      "D. Multiple Availability Zones within a region increases the storage capacity available in that region."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 149,
+    "question": "Which of the following is a benefit of running an application in multiple Availability Zones?",
+    "options": [
+      "A. Allows you to exceed AWS service limits.",
+      "B. Reduces application response time between servers and global users.",
+      "C. Increases available compute capacity.",
+      "D. Increases the availability of your application."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 161,
+    "question": "What are the benefits of using an AWS-managed service? (Choose TWO)",
+    "options": [
+      "A. Provides complete control over the virtual infrastructure.",
+      "B. Allows customers to deliver new solutions faster.",
+      "C. Lowers operational complexity.",
+      "D. Eliminates the need to encrypt data.",
+      "E. Allows developers to control all patching related activities."
+    ],
+    "correct": [
+      1,
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 173,
+    "question": "Which statement best describes the concept of an AWS region?",
+    "options": [
+      "A. An AWS Region is a geographical location with a collection of Edge locations.",
+      "B. An AWS Region is a virtual network dedicated only to a single AWS customer.",
+      "C. An AWS Region is a geographical location with a collection of Availability Zones.",
+      "D. An AWS Region represents the country where the AWS infrastructure exist."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 175,
+    "question": "Which of the following are factors in determining the appropriate database technology to use for a specific workload? (Choose TWO)",
+    "options": [
+      "A. Availability Zones.",
+      "B. Data sovereignty.",
+      "C. The number of reads and writes per second.",
+      "D. The nature of the queries.",
+      "E. Software bugs."
+    ],
+    "correct": [
+      2,
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 176,
+    "question": "What are the benefits of implementing a tagging strategy for AWS resources? (Choose TWO)",
+    "options": [
+      "A. Quickly identify resources that belong to a specific project.",
+      "B. Quickly identify software solutions on AWS.",
+      "C. Track API calls in your AWS account.",
+      "D. Quickly identify deleted resources and their metadata.",
+      "E. Track AWS spending across multiple resources."
+    ],
+    "correct": [
+      0,
+      4
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 178,
+    "question": "Which design principles relate to performance efficiency in AWS? (Choose TWO)",
+    "options": [
+      "A. Build multi-region architectures to better serve global customers.",
+      "B. Apply security at all layers.",
+      "C. Implement strong Identity and Access controls.",
+      "D. Use serverless architectures.",
+      "E. Enable audit logging."
+    ],
+    "correct": [
+      0,
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 189,
+    "question": "What are the benefits of using DynamoDB? (Choose TWO)",
+    "options": [
+      "A. Automatically scales to meet required throughput capacity.",
+      "B. Provides resizable instances to match the current demand.",
+      "C. Supports both relational and non-relational data models.",
+      "D. Offers extremely low (single-digit millisecond) latency.",
+      "E. Supports the most popular NoSQL database engines such as CouchDB and MongoDB."
+    ],
+    "correct": [
+      0,
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 202,
+    "question": "You decide to buy a reserved instance for a term of one year. Which option provides the largest total discount?",
+    "options": [
+      "A. All up-front reservation.",
+      "B. All reserved instance payment options provide the same discount level.",
+      "C. Partial up-front reservation.",
+      "D. No up-front reservation."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 215,
+    "question": "Which of the following factors should be considered when determining the region in which AWS Resources will be deployed? (Choose TWO)",
+    "options": [
+      "A. The AWS Region's security level.",
+      "B. Data sovereignty.",
+      "C. Cost.",
+      "D. The planned number of VPCs.",
+      "E. Geographic proximity to the company's location."
+    ],
+    "correct": [
+      1,
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 240,
+    "question": "Which of the following will help AWS customers save on costs when migrating their workloads to AWS?",
+    "options": [
+      "A. Use servers instead of managed services.",
+      "B. Use existing third-party software licenses on AWS.",
+      "C. Migrate production workloads to AWS edge locations instead of AWS Regions.",
+      "D. Use AWS Outposts to run all workloads in a cost-optimized environment."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 243,
+    "question": "According to best practices, which of the below options is best suited for processing a large number of binary files?",
+    "options": [
+      "A. Vertically scaling EC2 instances.",
+      "B. Running RDS instances in parallel.",
+      "C. Vertically scaling RDS instances.",
+      "D. Running EC2 instances in parallel."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 251,
+    "question": "Which of the following is true regarding the AWS availability zones and edge locations?",
+    "options": [
+      "A. Edge locations are located in separate Availability Zones worldwide to serve global customers.",
+      "B. An availability zone exists within an edge location to distribute content globally with low latency.",
+      "C. An Availability Zone is a geographic location where AWS provides multiple, physically separated and isolated edge locations.",
+      "D. An AWS Availability Zone is an isolated location within an AWS Region, however edge locations are located in multiple cities worldwide."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 264,
+    "question": "Which of the following is a cloud computing deployment model that connects infrastructure and applications between cloud-based resources and existing resources not located in the cloud?",
+    "options": [
+      "A. On-premises.",
+      "B. Mixed.",
+      "C. Hybrid.",
+      "D. Cloud."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 265,
+    "question": "A company is hosting business critical workloads in an AWS Region. To protect against data loss and ensure business continuity, a mirror image of the current AWS environment should be created in another AWS Region. Company policy requires that the standby environment must be available in minutes in case of an outage in the primary AWS Region. Which AWS service can be used to meet these requirements?",
+    "options": [
+      "A. CloudEndure Disaster Recovery.",
+      "B. CloudEndure Migration.",
+      "C. AWS Backup.",
+      "D. AWS Glue."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 266,
+    "question": "Which of the following S3 storage classes is most appropriate to host static assets for a popular e-commerce website with stable access patterns?",
+    "options": [
+      "A. S3 Standard-IA.",
+      "B. S3 Intelligent-Tiering.",
+      "C. S3 Glacier Deep Archive.",
+      "D. S3 Standard."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 267,
+    "question": "You want to create a backup of your data in another geographical location. Where should you create this backup?",
+    "options": [
+      "A. In another Edge location.",
+      "B. In another Region.",
+      "C. In another VPC.",
+      "D. In another Availability Zone."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 276,
+    "question": "Who from the following will get the largest discount?",
+    "options": [
+      "A. A user who chooses to buy On-demand, Convertible, Partial upfront instances.",
+      "B. A user who chooses to buy Reserved, Convertible, All upfront instances.",
+      "C. A user who chooses to buy Reserved, Standard, No upfront instances.",
+      "D. A user who chooses to buy Reserved, Standard, All upfront instances."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 297,
+    "question": "Why are Serverless Architectures more economical than Server-based Architectures?",
+    "options": [
+      "A. Serverless Architectures use new powerful computing devices.",
+      "B. With the Server-based Architectures, compute resources continue to run all the time but with serverless architecture, compute resources are only used when code is being executed.",
+      "C. When you reserve serverless capacity, you will get large discounts compared to server reservation.",
+      "D. With Serverless Architectures you have the ability to scale automatically up or down as demand changes."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 328,
+    "question": "You have developed a web application targeting a global audience. Which of the following will help you achieve the highest redundancy and fault tolerance from an infrastructure perspective?",
+    "options": [
+      "A. There is no need to architect for these capabilities in AWS, as AWS is redundant by default.",
+      "B. Deploy the application in a single Availability Zone.",
+      "C. Deploy the application in multiple Availability Zones in a single AWS region.",
+      "D. Deploy the application in multiple Availability Zones in multiple AWS regions."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 348,
+    "question": "Which of the following procedures can reduce latency when your end users are retrieving data? (Choose TWO)",
+    "options": [
+      "A. Store media assets in the region closest to your end users.",
+      "B. Store media assets on an additional EBS volume and increase the capacity of your server.",
+      "C. Replicate media assets to at least two availability zones.",
+      "D. Reduce the size of media assets using the Amazon Elastic Transcoder.",
+      "E. Store media assets in S3 and use CloudFront to distribute these assets."
+    ],
+    "correct": [
+      0,
+      4
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 372,
+    "question": "How can you increase your application's fault-tolerance while it is being hosted in AWS?",
+    "options": [
+      "A. Deploy your application across multiple EC2 instances.",
+      "B. Deploy your application across multiple Availability Zones.",
+      "C. Host your application on one powerful EC2 instance type instead of multiple smaller instances.",
+      "D. Deploy the underlying application resources across multiple subnets."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 375,
+    "question": "Which of the following is a benefit of the 'Loose Coupling' architecture principle?",
+    "options": [
+      "A. It eliminates the need for change management.",
+      "B. It allows for Cross-Region Replication.",
+      "C. It helps AWS customers reduce Privileged Access to AWS resources.",
+      "D. It allows individual application components or services to be modified without affecting other components."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 386,
+    "question": "What are some of the benefits of using On-Demand EC2 instances? (Choose TWO)",
+    "options": [
+      "A. They provide free capacity when testing your new applications.",
+      "B. They are cheaper than all other EC2 options.",
+      "C. They remove the need to buy 'safety net' capacity to handle periodic traffic spikes.",
+      "D. They only require 1-2 days for setup and configuration.",
+      "E. You can increase or decrease your compute capacity depending on the demands of your application."
+    ],
+    "correct": [
+      2,
+      4
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 391,
+    "question": "Which pillar of the AWS Well-Architected Framework provides recommendations to help customers select the right compute resources based on workload requirements?",
+    "options": [
+      "A. Operational Excellence.",
+      "B. Security.",
+      "C. Performance Efficiency.",
+      "D. Reliability."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 396,
+    "question": "How many Availability Zones should compute resources be provisioned across to achieve high availability?",
+    "options": [
+      "A. A minimum of one.",
+      "B. A minimum of two.",
+      "C. A minimum of three.",
+      "D. A minimum of four or more."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 397,
+    "question": "The AWS Cloud's multiple Regions are an example of:",
+    "options": [
+      "A. Agility.",
+      "B. Global infrastructure.",
+      "C. Elasticity.",
+      "D. Pay-as-you-go pricing."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 414,
+    "question": "Which design principles for cloud architecture are recommended when re-architecting a large monolithic application? (Select TWO)",
+    "options": [
+      "A. Use manual monitoring.",
+      "B. Use fixed servers.",
+      "C. Implement loose coupling.",
+      "D. Rely on individual components.",
+      "E. Design for scalability."
+    ],
+    "correct": [
+      2,
+      4
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 415,
+    "question": "When architecting cloud applications, which of the following are a key design principle?",
+    "options": [
+      "A. Use the largest instance possible.",
+      "B. Provision capacity for peak load.",
+      "C. Use the Scrum development process.",
+      "D. Implement elasticity."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 420,
+    "question": "Which of the following are categories of AWS Trusted Advisor? (Select TWO)",
+    "options": [
+      "A. Fault Tolerance.",
+      "B. Instance Usage.",
+      "C. Infrastructure.",
+      "D. Performance.",
+      "E. Storage Capacity."
+    ],
+    "correct": [
+      0,
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 432,
+    "question": "Which of the following is a cloud architectural design principle?",
+    "options": [
+      "A. Scale up not out.",
+      "B. Loosely couple components.",
+      "C. Build monolithic systems.",
+      "D. Use commercial database software."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 449,
+    "question": "Which of the following is an important architectural design principle when designing cloud applications?",
+    "options": [
+      "A. Use multiple Availability Zones.",
+      "B. Use tightly coupled components.",
+      "C. Use open source software.",
+      "D. Provision extra capacity."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 491,
+    "question": "The user is fully responsible for which action when running workloads on AWS?",
+    "options": [
+      "A. Patching the infrastructure components.",
+      "B. Maintaining the underlying infrastructure components.",
+      "C. Maintaining physical and environmental controls.",
+      "D. Implementing controls to route application traffic."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 496,
+    "question": "A company's web application currently has light dependencies on underlying components so when one component fails the entire web application fails. Applying which AWS Cloud design principle will address the current design issue?",
+    "options": [
+      "A. Implementing elasticity enabling the application to scale up or scale down as demand changes.",
+      "B. Enabling several EC2 instances to run in parallel to achieve better performance.",
+      "C. Focusing on decoupling components by isolating them and ensuring individual components can function when other components.",
+      "D. Doubling EC2 computing resources to increase system fault tolerance."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 499,
+    "question": "Distributing workloads across multiple Availability Zones supports which cloud architecture design principle?",
+    "options": [
+      "A. Implement automation.",
+      "B. Design for agility.",
+      "C. Design for failure.",
+      "D. Implement elasticity."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 508,
+    "question": "A company wants to expand from one AWS Region into a second AWS Region. What does the company need to do to start supporting the new Region?",
+    "options": [
+      "A. Contact an AWS Account Manager to sign a new contract.",
+      "B. Move an Availability Zone to the new Region.",
+      "C. Begin deploying resources in the second Region.",
+      "D. Download the AWS Management Console for the new Region."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 528,
+    "question": "What is an advantage of deploying an application across multiple Availability Zones?",
+    "options": [
+      "A. There is a lower risk of service failure if a natural disaster causes a service disruption in a given AWS Region.",
+      "B. The application will have higher availability because it can withstand a service disruption in one Availability Zone.",
+      "C. There will be better coverage as Availability Zones are geographical^ distant and can serve a wider area.",
+      "D. There will be decreased application latency that will improve the user experience."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 530,
+    "question": "Which of the following is an AWS Cloud architecture design principle?",
+    "options": [
+      "A. Implement single points of failure.",
+      "B. Implement loose coupling.",
+      "C. Implement monolithic design.",
+      "D. Implement vertical scaling."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 538,
+    "question": "What can AWS edge locations be used for? (Select TWO)",
+    "options": [
+      "A. Hosting applications.",
+      "B. Delivering content closer to users.",
+      "C. Running NoSQL database caching services.",
+      "D. Reducing traffic on the server by caching responses.",
+      "E. Sending notification messages to end users."
+    ],
+    "correct": [
+      1,
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 548,
+    "question": "Which disaster recovery scenario offers the lowest probability of down time?",
+    "options": [
+      "A. Backup and restore.",
+      "B. Pilot light.",
+      "C. Warm standby.",
+      "D. Multi-site active-active."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 559,
+    "question": "Which feature of the AWS Cloud will support an international company's requirement for low latency to all of its customers?",
+    "options": [
+      "A. Fault tolerance.",
+      "B. Global reach.",
+      "C. Pay-as-you-go pricing.",
+      "D. High availability."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 561,
+    "question": "What are the benefits of developing and running a new application in the AWS Cloud compared to on-premises? (Select TWO)",
+    "options": [
+      "A. AWS automatically distributes the data globally for higher durability.",
+      "B. AWS will take care of operating the application.",
+      "C. AWS makes it easy to architect for high availability.",
+      "D. AWS can easily accommodate application demand changes.",
+      "E. AWS takes care of application security patching."
+    ],
+    "correct": [
+      2,
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 566,
+    "question": "Which of the following is a component of the AWS Global Infrastructure?",
+    "options": [
+      "A. Amazon Alexa.",
+      "B. AWS Regions.",
+      "C. Amazon Lightsail.",
+      "D. AWS Organizations."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 573,
+    "question": "A solution that is able to support growth in users, traffic, or data size with no drop in performance aligns with which cloud architecture principle?",
+    "options": [
+      "A. Think parallel.",
+      "B. Implement elasticity.",
+      "C. Decouple your components.",
+      "D. Design for failure."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 574,
+    "question": "Which AWS Cloud benefit eliminates the need for users to try estimating future infrastructure usage?",
+    "options": [
+      "A. Easy and fast deployment of applications in multiple Regions around the world.",
+      "B. Security of the AWS Cloud.",
+      "C. Elasticity of the AWS Cloud.",
+      "D. Lower variable costs due to massive economies of scale."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 593,
+    "question": "Which type of mirroring does SPAN technology perform?",
+    "options": [
+      "A. Remote mirroring over Layer 2.",
+      "B. Remote mirroring over Layer 3.",
+      "C. Local mirroring over Layer 2.",
+      "D. Local mirroring over Layer 3."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 595,
+    "question": "Which two statements about configuring a traffic monitoring session are true? (Choose two)",
+    "options": [
+      "A. You can set a local VM as a traffic destination.",
+      "B. You can have up to two active monitoring sessions simultaneously.",
+      "C. An unlimited number of monitoring session can be stored.",
+      "D. A newly created monitoring session is enabled by default.",
+      "E. A destination port can also be a source port within the same session.",
+      "F. A vHBA can be a source for either an Ethernet or Fibre Channel monitoring session, but not both."
+    ],
+    "correct": [
+      1,
+      5
+    ],
+    "explanation": ""
+  }
+]

@@ -1,0 +1,3079 @@
+[
+  {
+    "examId": 3,
+    "question": "You have noticed that several critical Amazon EC2 instances have been terminated. Which of the following AWS services would help you determine who took this action?",
+    "options": [
+      "A. Amazon Inspector.",
+      "B. AWS CloudTrail.",
+      "C. AWS Trusted Advisor.",
+      "D. EC2 Instance Usage Report."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 4,
+    "question": "Which of the below options are related to the reliability of AWS? (Choose TWO)",
+    "options": [
+      "A. Applying the principle of least privilege to all AWS resources.",
+      "B. Automatically provisioning new resources to meet demand.",
+      "C. All AWS services are considered Global Services, and this design helps customers serve their international users.",
+      "D. Providing compensation to customers if issues occur.",
+      "E. Ability to recover quickly from failures."
+    ],
+    "correct": [
+      1,
+      4
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 5,
+    "question": "Which statement is true regarding the AWS Shared Responsibility Model?",
+    "options": [
+      "A. Responsibilities vary depending on the services used.",
+      "B. Security of the IaaS services is the responsibility of AWS.",
+      "C. Patching the guest OS is always the responsibility of AWS.",
+      "D. Security of the managed services is the responsibility of the customer."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 10,
+    "question": "A Japanese company hosts their applications on Amazon EC2 instances in the Tokyo Region. The company has opened new branches in the United States, and the US users are complaining of high latency. What can the company do to reduce latency for the users in the US while minimizing costs?",
+    "options": [
+      "A. Applying the Amazon Connect latency-based routing policy.",
+      "B. Registering a new US domain name to serve the users in the US.",
+      "C. Building a new data center in the US and implementing a hybrid model.",
+      "D. Deploying new Amazon EC2 instances in a Region located in the US."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 11,
+    "question": "An organization has a large number of technical employees who operate their AWS Cloud infrastructure. What does AWS provide to help organize them into teams and then assign the appropriate permissions for each team?",
+    "options": [
+      "A. IAM roles.",
+      "B. IAM users.",
+      "C. IAM user groups.",
+      "D. AWS Organizations."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 14,
+    "question": "What are the benefits of having infrastructure hosted in AWS? (Choose TWO)",
+    "options": [
+      "A. Increasing speed and agility.",
+      "B. There is no need to worry about security.",
+      "C. Gaining complete control over the physical infrastructure.",
+      "D. Operating applications on behalf of customers.",
+      "E. All of the physical security and most of the data/network security are taken care of for you."
+    ],
+    "correct": [
+      0,
+      4
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 18,
+    "question": "What should you do in order to keep the data on EBS volumes safe? (Choose TWO)",
+    "options": [
+      "A. Regularly update firmware on EBS devices.",
+      "B. Create EBS snapshots.",
+      "C. Ensure that EBS data is encrypted at rest.",
+      "D. Store a backup daily in an external drive.",
+      "E. Prevent any unauthorized access to AWS data centers."
+    ],
+    "correct": [
+      1,
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 22,
+    "question": "What does the 'Principle of Least Privilege' refer to?",
+    "options": [
+      "A. You should grant your users only the permissions they need when they need them and nothing more.",
+      "B. AllIAM users should have at least the necessary permissions to access the core AWS services.",
+      "C. All trusted IAM users should have access to any AWS service in the respective AWS account.",
+      "D. IAM users should not be granted any permissions; to keep your account safe."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 24,
+    "question": "The identification process of an online financial services company requires that new users must complete an online interview with their security team. The completed recorded interviews are only required in the event of a legal issue or a regulatory compliance breach. What is the most cost-effective service to store the recorded videos?",
+    "options": [
+      "A. S3 Intelligent-Tiering.",
+      "B. AWS Marketplace.",
+      "C. Amazon S3 Glacier Deep Archive.",
+      "D. Amazon EBS."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 25,
+    "question": "Which service provides DNS in the AWS cloud?",
+    "options": [
+      "A. Route 53.",
+      "B. AWS Config.",
+      "C. Amazon CloudFront.",
+      "D. Amazon EMR."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 26,
+    "question": "Hundreds of thousands of DDoS attacks are recorded every month worldwide. What service does AWS provide to help protect AWS Customers from these attacks? (Choose TWO)",
+    "options": [
+      "A. AWS Shield.",
+      "B. AWS Config.",
+      "C. Amazon Cognito.",
+      "D. AWS WAF.",
+      "E. AWS KMS."
+    ],
+    "correct": [
+      0,
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 31,
+    "question": "Which of the following services allows customers to manage their agreements with AWS?",
+    "options": [
+      "A. AWS Artifact.",
+      "B. AWS Certificate Manager.",
+      "C. AWS Systems Manager.",
+      "D. AWS Organizations."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 36,
+    "question": "Which of the following must an IAM user provide to interact with AWS services using the AWS Command Line Interface (AWS CLI)?",
+    "options": [
+      "A. Access keys.",
+      "B. Secret token.",
+      "C. UserID.",
+      "D. User name and password."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 38,
+    "question": "Select TWO examples of the AWS shared controls.",
+    "options": [
+      "A. Patch Management.",
+      "B. IAM Management.",
+      "C. VPC Management.",
+      "D. Configuration Management.",
+      "E. Data Center operations."
+    ],
+    "correct": [
+      0,
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 42,
+    "question": "What is the AWS service that enables AWS architects to manage infrastructure as code?",
+    "options": [
+      "A. AWS CloudFormation.",
+      "B. AWS Config.",
+      "C. Amazon SES.",
+      "D. Amazon EMR."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 43,
+    "question": "Under the shared responsibility model, which of the following is the responsibility of AWS?",
+    "options": [
+      "A. Client-side encryption.",
+      "B. Configuring infrastructure devices.",
+      "C. Server-side encryption.",
+      "D. Filtering traffic with Security Groups."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 45,
+    "question": "You have deployed your application on multiple Amazon EC2 instances. Your customers complain that sometimes they can't reach your application. Which AWS service allows you to monitor the performance of your EC2 instances to assist in troubleshooting these issues?",
+    "options": [
+      "A. AWS Lambda.",
+      "B. AWS Config.",
+      "C. Amazon CloudWatch.",
+      "D. AWS CloudTrail."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 46,
+    "question": "Your company is developing a critical web application in AWS, and the security of the application is a top priority. Which of the following AWS services will provide infrastructure security optimization recommendations?",
+    "options": [
+      "A. AWS Shield.",
+      "B. AWS Management Console.",
+      "C. AWS Secrets Manager.",
+      "D. AWS Trusted Advisor."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 48,
+    "question": "In the AWS Shared responsibility Model, which of the following are the responsibility of the customer? (Choose TWO)",
+    "options": [
+      "A. Disk disposal.",
+      "B. Controlling physical access to compute resources.",
+      "C. Patching the Network infrastructure.",
+      "D. Setting password complexity rules.",
+      "E. Configuring network access rules."
+    ],
+    "correct": [
+      3,
+      4
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 58,
+    "question": "What is the AWS feature that provides an additional level of security above the default authentication mechanism of usernames and passwords?",
+    "options": [
+      "A. Encrypted keys.",
+      "B. Email verification.",
+      "C. AWS KMS.",
+      "D. AWS MFA."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 62,
+    "question": "According to the AWS Acceptable Use Policy, which of the following statements is true regarding penetration testing of EC2 instances?",
+    "options": [
+      "A. Penetration testing is not allowed in AWS.",
+      "B. Penetration testing is performed automatically by AWS to determine vulnerabilities in your AWS infrastructure.",
+      "C. Penetration testing can be performed by the customer on their own instances without prior authorization from AWS.",
+      "D. The AWS customers are only allowed to perform penetration testing on services managed by AWS."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 64,
+    "question": "The principle 'design for failure and nothing will fail' is very important when designing your AWS Cloud architecture. Which of the following would help adhere to this principle? (Choose TWO)",
+    "options": [
+      "A. Multi-factor authentication.",
+      "B. Availability Zones.",
+      "C. Elastic Load Balancing.",
+      "D. Penetration testing.",
+      "E. Vertical Scaling."
+    ],
+    "correct": [
+      1,
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 66,
+    "question": "According to the AWS Shared responsibility model, which of the following are the responsibility of the customer? (Choose TWO)",
+    "options": [
+      "A. Managing environmental events of AWS data centers.",
+      "B. Protecting the confidentiality of data in transit in Amazon S3.",
+      "C. Controlling physical access to AWS Regions.",
+      "D. Ensuring that the underlying EC2 host is configured properly.",
+      "E. Patching applications installed on Amazon EC2."
+    ],
+    "correct": [
+      1,
+      4
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 69,
+    "question": "Which of the following is equivalent to a user name and password and is used to authenticate your programmatic access to AWS services and APIs?",
+    "options": [
+      "A. Instance Password.",
+      "B. Key pairs.",
+      "C. Access Keys.",
+      "D. MFA."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 71,
+    "question": "What is the AWS service that enables you to manage all of your AWS accounts from a single master account?",
+    "options": [
+      "A. AWS WAF.",
+      "B. AWS Trusted Advisor.",
+      "C. AWS Organizations.",
+      "D. Amazon Config."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 76,
+    "question": "You are working on two projects that require completely different network configurations. Which AWS service or feature will allow you to isolate resources and network configurations?",
+    "options": [
+      "A. Internet gateways.",
+      "B. Virtual Private Cloud.",
+      "C. Security Groups.",
+      "D. Amazon CloudFront."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 77,
+    "question": "Which of the following services can help protect your web applications from SQL injection and other vulnerabilities in your application code?",
+    "options": [
+      "A. Amazon Cognito.",
+      "B. AWS IAM.",
+      "C. Amazon Aurora.",
+      "D. AWS WAF."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 79,
+    "question": "Based on the AWS Shared Responsibility Model, which of the following are the sole responsibility of AWS? (Choose TWO)",
+    "options": [
+      "A. Monitoring network performance.",
+      "B. Installing software on EC2 instances.",
+      "C. Creating hypervisors.",
+      "D. Configuring Access Control Lists (ACLs).",
+      "E. Hardware maintenance."
+    ],
+    "correct": [
+      2,
+      4
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 81,
+    "question": "What are the default security credentials that are required to access the AWS management console for an IAM user account?",
+    "options": [
+      "A. MFA.",
+      "B. Security tokens.",
+      "C. A user name and password.",
+      "D. Access keys."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 83,
+    "question": "What are two advantages of using Cloud Computing over using traditional data centers? (Choose TWO)",
+    "options": [
+      "A. Reserved Compute capacity.",
+      "B. Eliminating Single Points of Failure (SPOFs).",
+      "C. Distributed infrastructure.",
+      "D. Virtualized compute resources.",
+      "E. Dedicated hosting."
+    ],
+    "correct": [
+      1,
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 84,
+    "question": "Which of the following aspects of security are managed by AWS? (Choose TWO)",
+    "options": [
+      "A. Encryption of EBS volumes.",
+      "B. VPC security.",
+      "C. Access permissions.",
+      "D. Hardware patching.",
+      "E. Securing global physical infrastructure."
+    ],
+    "correct": [
+      3,
+      4
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 87,
+    "question": "What are the change management tools that helps AWS customers audit and monitor all resource changes in their AWS environment? (Choose TWO)",
+    "options": [
+      "A. AWS CloudTrail.",
+      "B. Amazon Comprehend.",
+      "C. AWS Transit Gateway.",
+      "D. AWS X-Ray.",
+      "E. AWS Config."
+    ],
+    "correct": [
+      0,
+      4
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 89,
+    "question": "Which of the following services will help businesses ensure compliance in AWS?",
+    "options": [
+      "A. CloudFront.",
+      "B. CloudEndure Migration.",
+      "C. CloudWatch.",
+      "D. CloudTrail."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 91,
+    "question": "What are the AWS services/features that can help you maintain a highly available and fault-tolerant architecture in AWS? (Choose TWO)",
+    "options": [
+      "A. AWS Direct Connect.",
+      "B. Amazon EC2 Auto Scaling.",
+      "C. Elastic Load Balancer.",
+      "D. CloudFormation.",
+      "E. Network ACLs."
+    ],
+    "correct": [
+      1,
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 93,
+    "question": "What is the AWS service/feature that takes advantage of Amazon CloudFront's globally distributed edge locations to transfer files to S3 with higher upload speeds?",
+    "options": [
+      "A. S3 Transfer Acceleration.",
+      "B. AWS WAF.",
+      "C. AWS Snowmobile.",
+      "D. AWS Snowball."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 94,
+    "question": "Which of the following AWS security features is associated with an EC2 instance and functions to filter incoming traffic requests?",
+    "options": [
+      "A. AWS X-Ray.",
+      "B. Network ACL.",
+      "C. Security Groups.",
+      "D. VPC Flow logs."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 95,
+    "question": "Which AWS services can be used to improve the performance of a global application and reduce latency for its users? (Choose TWO)",
+    "options": [
+      "A. AWS KMS.",
+      "B. AWS Global accelerator.",
+      "C. AWS Direct Connect.",
+      "D. AWS Glue.",
+      "E. Amazon CloudFront."
+    ],
+    "correct": [
+      1,
+      4
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 96,
+    "question": "Using Amazon RDS falls under the shared responsibility model. Which of the following are customer responsibilities? (Choose TWO)",
+    "options": [
+      "A. Building the relational database schema.",
+      "B. Performing backups.",
+      "C. Managing the database settings.",
+      "D. Patching the database software.",
+      "E. Installing the database software."
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 97,
+    "question": "A company has a large amount of structured data stored in their on-premises data center. They are planning to migrate all the data to AWS, what is the most appropriate AWS database option?",
+    "options": [
+      "A. Amazon DynamoDB.",
+      "B. Amazon SNS.",
+      "C. Amazon RDS.",
+      "D. Amazon ElastiCache."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 100,
+    "question": "Jessica is managing an e-commerce web application in AWS. The application is hosted on six EC2 instances. One day, three of the instances crashed; but none of her customers were affected. What has Jessica done correctly in this scenario?",
+    "options": [
+      "A. She has properly built an elastic system.",
+      "B. She has properly built a fault tolerant system.",
+      "C. She has properly built an encrypted system.",
+      "D. She has properly built a scalable system."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 106,
+    "question": "A company is developing a new application using a microservices framework. The new application is having performance and latency issues. Which AWS Service should be used to troubleshoot these issues?",
+    "options": [
+      "A. AWS CodePipeline.",
+      "B. AWS X-Ray.",
+      "C. Amazon Inspector.",
+      "D. AWS CloudTrail."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 112,
+    "question": "Which of the below is a best-practice when building applications on AWS?",
+    "options": [
+      "A. Strengthen physical security by applying the principle of least privilege.",
+      "B. Ensure that the application runs on hardware from trusted vendors.",
+      "C. Use IAM policies to maintain performance.",
+      "D. Decouple the components of the application so that they run independently."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 113,
+    "question": "A company has deployed applications on Amazon EC2 instances. The company needs to assess application vulnerabilities and must identify infrastructure deployments that do not meet best practices. Which AWS service can the company use to meet these requirements?",
+    "options": [
+      "A. AWS Trusted Advisor.",
+      "B. Amazon Inspector.",
+      "C. AWS Config.",
+      "D. Amazon GuardDuty."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 116,
+    "question": "What is the AWS service that performs automated network assessments of Amazon EC2 instances to check for vulnerabilities?",
+    "options": [
+      "A. Amazon Kinesis.",
+      "B. Security groups.",
+      "C. Amazon Inspector.",
+      "D. AWS Network Access Control Lists."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 117,
+    "question": "Under the Shared Responsibility Model, which of the following controls do customers fully inherit from AWS? (Choose TWO)",
+    "options": [
+      "A. Patch management controls.",
+      "B. Database controls.",
+      "C. Awareness & Training.",
+      "D. Environmental controls.",
+      "E. Physical controls."
+    ],
+    "correct": [
+      3,
+      4
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 122,
+    "question": "Which statement is correct with regards to AWS service limits? (Choose TWO)",
+    "options": [
+      "A. You can contact AWS support to increase the service limits.",
+      "B. Each IAM user has the same service limit.",
+      "C. There are no service limits on AWS.",
+      "D. You can use the AWS Trusted Advisor to monitor your service limits.",
+      "E. The Amazon Simple Email Service is responsible for sending email notifications when usage approaches a service limit."
+    ],
+    "correct": [
+      0,
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 124,
+    "question": "What are the connectivity options that can be used to build hybrid cloud architectures? (Choose TWO)",
+    "options": [
+      "A. AWS Artifact.",
+      "B. AWS Cloud9.",
+      "C. AWS Direct Connect.",
+      "D. AWS CloudTrail.",
+      "E. AWS VPN."
+    ],
+    "correct": [
+      2,
+      4
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 127,
+    "question": "Which of the following can help protect your EC2 instances from DDoS attacks? (Choose TWO)",
+    "options": [
+      "A. AWS CloudHSM.",
+      "B. Security Groups.",
+      "C. AWS Batch.",
+      "D. AWS IAM.",
+      "E. Network Access Control Lists (Network ACLs)."
+    ],
+    "correct": [
+      1,
+      4
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 132,
+    "question": "A customer spent a lot of time configuring a newly deployed Amazon EC2 instance. After the workload increases, the customer decides to provision another EC2 instance with an identical configuration. How can the customer achieve this?",
+    "options": [
+      "A. By creating an AWS Config template from the old instance and launching a new instance from it.",
+      "B. By creating an EBS Snapshot of the old instance.",
+      "C. By installing Aurora on EC2 and launching a new instance from it.",
+      "D. By creating an AMI from the old instance and launching a new instance from it."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 133,
+    "question": "A company uses AWS Organizations to manage all of its AWS accounts. Which of the following allows the company to restrict what services and actions are allowed in each individual account?",
+    "options": [
+      "A. IAM Principals.",
+      "B. AWS Service Control Policies (SCPs).",
+      "C. IAM policies.",
+      "D. AWS Fargate."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 138,
+    "question": "Which of the following is used to control network traffic in AWS? (Choose TWO)",
+    "options": [
+      "A. Network Access Control Lists (NACLs).",
+      "B. Key Pairs.",
+      "C. Access Keys.",
+      "D. IAM Policies.",
+      "E. Security Groups."
+    ],
+    "correct": [
+      0,
+      4
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 142,
+    "question": "Which AWS Service can be used to register a new domain name?",
+    "options": [
+      "A. Amazon Personalize.",
+      "B. Amazon Route 53.",
+      "C. AWS KMS.",
+      "D. AWS Config."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 143,
+    "question": "App development companies move their business to AWS to reduce time-to-market and improve customer satisfaction, what are the AWS automation tools that help them deploy their applications faster? (Choose TWO)",
+    "options": [
+      "A. AWS CloudFormation.",
+      "B. AWS Migration Hub.",
+      "C. AWS IAM.",
+      "D. AWS Elastic Beanstalk.",
+      "E. Amazon Macie."
+    ],
+    "correct": [
+      0,
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 145,
+    "question": "A company has hundreds of VPCs in multiple AWS Regions worldwide. What service does AWS offer to simplify the connection management among the VPCs?",
+    "options": [
+      "A. VPC Peering.",
+      "B. AWS Transit Gateway.",
+      "C. Amazon Connect.",
+      "D. Security Groups."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 150,
+    "question": "Data security is one of the top priorities of AWS. How does AWS deal with old storage devices that have reached the end of their useful life?",
+    "options": [
+      "A. AWS sells the old devices to other hosting providers.",
+      "B. AWS destroys the old devices in accordance with industry-standard practices.",
+      "C. AWS sends the old devices for remanufacturing.",
+      "D. AWS stores the old devices in a secure place."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 158,
+    "question": "Which AWS Service is used to manage user permissions?",
+    "options": [
+      "A. Security Groups.",
+      "B. Amazon ECS.",
+      "C. AWS IAM.",
+      "D. AWS Support."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 160,
+    "question": "A company needs to track resource changes using the API call history. Which AWS service can help the company achieve this goal?",
+    "options": [
+      "A. AWS Config.",
+      "B. Amazon CloudWatch.",
+      "C. AWS CloudTrail.",
+      "D. AWS CloudFormation."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 163,
+    "question": "What is the AWS' recommendation regarding access keys?",
+    "options": [
+      "A. Delete all access keys and use passwords instead.",
+      "B. Only share them with trusted people.",
+      "C. Rotate them regularly.",
+      "D. Save them within your application code."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 164,
+    "question": "What is the AWS IAM feature that provides an additional layer of security on top of user-name and password authentication?",
+    "options": [
+      "A. Key Pair.",
+      "B. Access Keys.",
+      "C. SDK.",
+      "D. MFA."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 174,
+    "question": "A company has discovered that multiple S3 buckets were deleted, but it is unclear who deleted the buckets. Which of the following can the company use to determine the identity that deleted the buckets?",
+    "options": [
+      "A. SNS logs.",
+      "B. SQS logs.",
+      "C. CloudWatch Logs.",
+      "D. CloudTrail logs."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 177,
+    "question": "What are AWS shared controls?",
+    "options": [
+      "A. Controls that are solely the responsibility of the customer based on the application they are deploying within AWS services.",
+      "B. Controls that a customer inherits from AWS.",
+      "C. Controls that apply to both the infrastructure layer and customer layers.",
+      "D. Controls that the customer and AWS collaborate together upon to secure the infrastructure."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 180,
+    "question": "Why would an organization decide to use AWS over an on-premises data center? (Choose TWO)",
+    "options": [
+      "A. Free commercial software licenses.",
+      "B. Free technical support.",
+      "C. Elastic resources.",
+      "D. On-site visits for auditing.",
+      "E. Cost Savings."
+    ],
+    "correct": [
+      2,
+      4
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 181,
+    "question": "Which of the following AWS services can help you perform security analysis and regulatory compliance auditing? (Choose TWO)",
+    "options": [
+      "A. Amazon Inspector.",
+      "B. AWS Virtual Private Gateway.",
+      "C. AWS Batch.",
+      "D. Amazon ECS.",
+      "E. AWS Config."
+    ],
+    "correct": [
+      0,
+      4
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 185,
+    "question": "What is the framework created by AWS Professional Services that helps organizations design a road map to successful cloud adoption?",
+    "options": [
+      "A. AWS Secrets Manager.",
+      "B. AWS WAF.",
+      "C. AWS CAF.",
+      "D. Amazon EFS."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 187,
+    "question": "Which of the following activities supports the Operational Excellence pillar of the AWS Well-Architected Framework?",
+    "options": [
+      "A. Using AWS Trusted Advisor to find underutilized resources.",
+      "B. Using AWS CloudTrail to record user activities.",
+      "C. Using AWS CloudFormation to manage infrastructure as code.",
+      "D. Deploying an application in multiple Availability Zones."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 188,
+    "question": "Why do many startup companies prefer AWS over traditional on-premises solutions? (Choose TWO)",
+    "options": [
+      "A. AWS allows them to pay later when their business succeed.",
+      "B. AWS can build complete data centers faster than any other Cloud provider.",
+      "C. Using AWS, they can reduce time-to-market by focusing on business activities rather than on building and managing data centers.",
+      "D. AWS removes the need to invest in operational expenditure.",
+      "E. Using AWS allows companies to replace large capital expenditure with low variable costs."
+    ],
+    "correct": [
+      2,
+      4
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 191,
+    "question": "As part of the AWS Migration Acceleration Program (MAP), what does AWS provide to accelerate Enterprise adoption of AWS? (Choose TWO)",
+    "options": [
+      "A. AWS Partners.",
+      "B. AWS Artifact.",
+      "C. AWS Professional Services.",
+      "D. Amazon Athena.",
+      "E. Amazon PinPoint."
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 194,
+    "question": "When running a workload in AWS, the customer is NOT responsible for: (Select TWO)",
+    "options": [
+      "A. Running penetration tests.",
+      "B. Reserving capacity.",
+      "C. Data center operations.",
+      "D. Auditing and regulatory compliance.",
+      "E. Infrastructure security."
+    ],
+    "correct": [
+      2,
+      4
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 199,
+    "question": "Which AWS service or feature is used to manage the keys used to encrypt customer data?",
+    "options": [
+      "A. AWS KMS.",
+      "B. AWS Service Control Policies (SCPs).",
+      "C. Multi-Factor Authentication (MFA).",
+      "D. Amazon Macie."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 200,
+    "question": "Which AWS Service allows customers to download AWS SOC & PCI reports?",
+    "options": [
+      "A. AWS Well-Architected Tool.",
+      "B. AWS Artifact.",
+      "C. AWS Glue.",
+      "D. Amazon Chime."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 201,
+    "question": "A company is using EC2 Instances to run their e-commerce site on the AWS platform. If the site becomes unavailable, the company will lose a significant amount of money for each minute the site is unavailable. Which design principle should the company use to minimize the risk of an outage?",
+    "options": [
+      "A. Least Privilege.",
+      "B. Pilot Light.",
+      "C. Fault Tolerance.",
+      "D. Multi-threading."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 203,
+    "question": "What features does AWS offer to help protect your data in the Cloud? (Choose TWO)",
+    "options": [
+      "A. Access control.",
+      "B. Physical MFA devices.",
+      "C. Data encryption.",
+      "D. Unlimited storage.",
+      "E. Load balancing."
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 206,
+    "question": "Which methods can be used by customers to interact with AWS Identity and Access Management (IAM)? (Choose TWO)",
+    "options": [
+      "A. AWS CLI.",
+      "B. AWS Security Groups.",
+      "C. AWS SDKs.",
+      "D. AWS Network Access Control Lists.",
+      "E. AWS CodeCommit."
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 207,
+    "question": "Which of the following are types of AWS Identity and Access Management (IAM) identities? (Choose TWO)",
+    "options": [
+      "A. AWS Resource Groups.",
+      "B. IAM Policies.",
+      "C. IAM Roles.",
+      "D. IAM Users.",
+      "E. AWS Organizations."
+    ],
+    "correct": [
+      2,
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 209,
+    "question": "How does AWS notify customers about security and privacy events pertaining to AWS services?",
+    "options": [
+      "A. Using the AWS ACM service.",
+      "B. Using Security Bulletins.",
+      "C. Using the AWS Management Console.",
+      "D. Using Compliance Resources."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 210,
+    "question": "Which IAM entity can best be used to grant temporary access to your AWS resources?",
+    "options": [
+      "A. IAM Users.",
+      "B. Key Pair.",
+      "C. IAM Roles.",
+      "D. IAM Groups."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 213,
+    "question": "A company is seeking to better secure its AWS account from unauthorized access. Which of the below options can the customer use to achieve this goal?",
+    "options": [
+      "A. Restrict any API call made through SDKs or CLI.",
+      "B. Create one IAM account for each department in the company (Development, QA, Production), and share it across all staff in that department.",
+      "C. Require Multi-Factor Authentication (MFA) for all IAM User access.",
+      "D. Set up two login passwords."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 219,
+    "question": "Which of the following are examples of the customer's responsibility to implement 'security IN the cloud'? (Choose TWO)",
+    "options": [
+      "A. Building a schema for an application.",
+      "B. Replacing physical hardware.",
+      "C. Creating a new hypervisor.",
+      "D. Patch management of the underlying infrastructure.",
+      "E. File system encryption."
+    ],
+    "correct": [
+      3,
+      4
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 220,
+    "question": "Which of the following is a type of MFA device that customers can use to protect their AWS resources?",
+    "options": [
+      "A. AWS CloudHSM.",
+      "B. U2F Security Key.",
+      "C. AWS Access Keys.",
+      "D. AWS Key Pair."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 222,
+    "question": "Which of the following is NOT a factor when estimating the costs of Amazon EC2? (Choose TWO)",
+    "options": [
+      "A. The amount of time the instances will be running.",
+      "B. Number of security groups.",
+      "C. Allocated Elastic IP Addresses.",
+      "D. Number of Hosted Zones.",
+      "E. Number of instances."
+    ],
+    "correct": [
+      1,
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 225,
+    "question": "You have just hired a skilled sys-admin to join your team. As usual, you have created a new IAM user for him to interact with AWS services. On his first day, you ask him to create snapshots of all existing Amazon EBS volumes and save them in a new Amazon S3 bucket. However, the new member reports back that he is unable to create neither EBS snapshots nor S3 buckets. What might prevent him from doing this simple task?",
+    "options": [
+      "A. EBS and S3 are accessible only to the root account owner.",
+      "B. The systems administrator must contact AWS Support first to activate his new IAM account.",
+      "C. There is not enough space in S3 to store the snapshots.",
+      "D. There is a non-explicit deny to all new users."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 226,
+    "question": "An external auditor is requesting a log of all accesses to the AWS resources in the company's account. Which of the following services will provide the auditor with the requested information?",
+    "options": [
+      "A. AWS CloudTrail.",
+      "B. Amazon CloudFront.",
+      "C. AWS CloudFormation.",
+      "D. Amazon CloudWatch."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 233,
+    "question": "Which AWS service enables you to quickly purchase and deploy SSL/TLS certificates?",
+    "options": [
+      "A. Amazon GuardDuty.",
+      "B. AWS ACM.",
+      "C. Amazon Detective.",
+      "D. AWS WAF."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 234,
+    "question": "Which AWS Service provides integration with Chef to automate the configuration of EC2 instances?",
+    "options": [
+      "A. AWS Config.",
+      "B. AWS OpsWorks.",
+      "C. AutoScaling.",
+      "D. AWS CloudFormation."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 236,
+    "question": "Which of the following services can be used to monitor the HTTP and HTTPS requests that are forwarded to Amazon CloudFront?",
+    "options": [
+      "A. AWS WAF.",
+      "B. Amazon CloudWatch.",
+      "C. AWS Cloud9.",
+      "D. AWS CloudTrail."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 238,
+    "question": "A company wants to grant a new employee long-term access to manage Amazon DynamoDB databases. Which of the following is a recommended best-practice when granting these permissions?",
+    "options": [
+      "A. Create an IAM role and attach a policy with Amazon DynamoDB access permissions.",
+      "B. Create an IAM role and attach a policy with Administrator access permissions.",
+      "C. Create an IAM user and attach a policy with Amazon DynamoDB access permissions.",
+      "D. Create an IAM user and attach a policy with Administrator access permissions."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 239,
+    "question": "When granting permissions to applications running on Amazon EC2 instances, which of the following is considered best practice?",
+    "options": [
+      "A. Generate new IAM access keys every time you delegate permissions.",
+      "B. Store the required AWS credentials directly within the application code.",
+      "C. Use temporary security credentials (IAM roles) instead of long-term access keys.",
+      "D. Do nothing; Applications that run on Amazon EC2 instances do not need permission to interact with other AWS services or resources."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 241,
+    "question": "An organization has a legacy application designed using monolithic-based architecture. Which AWS Service can be used to decouple the components of the application?",
+    "options": [
+      "A. Amazon SQS.",
+      "B. Virtual Private Gateway.",
+      "C. AWS Artifact.",
+      "D. Amazon CloudFront."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 242,
+    "question": "Which of the following can be used to enable the Virtual Multi-Factor Authentication? (Choose TWO)",
+    "options": [
+      "A. Amazon Connect.",
+      "B. AWS CLI.",
+      "C. AWS Identity and Access Management (IAM).",
+      "D. Amazon SNS.",
+      "E. Amazon Virtual Private Cloud."
+    ],
+    "correct": [
+      1,
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 245,
+    "question": "What should you do if you see resources, which you don't remember creating, in the AWS Management Console? (Choose TWO)",
+    "options": [
+      "A. Stop all running services and open an investigation.",
+      "B. Give your root account password to AWS Support so that they can assistin troubleshooting and securing the account.",
+      "C. Check the AWS CloudTrail logs and delete all IAM users that have access to your resources.",
+      "D. Open an investigation and delete any potentially compromised IAM users.",
+      "E. Change your AWS root account password and the passwords of any IAM users."
+    ],
+    "correct": [
+      3,
+      4
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 248,
+    "question": "Availability Zones within a Region are connected over low-latency links. Which of the following is a benefit of these links?",
+    "options": [
+      "A. Create private connection to your data center.",
+      "B. Achieve global high availability.",
+      "C. Automate the process of provisioning new compute resources.",
+      "D. Make synchronous replication of your data possible."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 253,
+    "question": "A company is developing a mobile application and wants to allow users to use their Amazon, Apple, Facebook, or Google identities to authenticate to the application. Which AWS Service should the company use for this purpose?",
+    "options": [
+      "A. Amazon GuardDuty.",
+      "B. Amazon Personalize.",
+      "C. Amazon Cognito.",
+      "D. AWS IAM."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 254,
+    "question": "Which AWS Service allows customers to create a template that programmatically defines policies and configurations of all AWS resources as code and so that the same template can be reused among multiple projects?",
+    "options": [
+      "A. AWS CloudFormation.",
+      "B. AWS Config.",
+      "C. AWS CloudTrail.",
+      "D. AWS Auto Scaling."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 255,
+    "question": "Which of the following are advantages of using AWS as a cloud computing provider? (Choose TWO)",
+    "options": [
+      "A. Eliminates the need to monitor servers and applications.",
+      "B. Manages all the compliance and auditing tasks.",
+      "C. Provides custom hardware to meet any specification.",
+      "D. Eliminates the need to guess on infrastructure capacity needs.",
+      "E. Enables customers to trade their capital expenses for operational expenses."
+    ],
+    "correct": [
+      3,
+      4
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 263,
+    "question": "What are some key benefits of using AWS CloudFormation? (Choose TWO)",
+    "options": [
+      "A. It helps AWS customers deploy their applications without worrying about the underlying infrastructure.",
+      "B. It applies advanced IAM security features automatically.",
+      "C. It automates the provisioning and updating of your infrastructure in a safe and controlled manner.",
+      "D. It allows you to model your entire infrastructure in just a text file.",
+      "E. It compiles and builds application code in a timely manner."
+    ],
+    "correct": [
+      2,
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 272,
+    "question": "Which of the following strategies helps protect your AWS root account?",
+    "options": [
+      "A. Delete root user access keys if you do not need them.",
+      "B. Apply MFA for the root account and use it for all of your work.",
+      "C. Access the root account only from your personal Mobile Phone.",
+      "D. Only share your AWS account password or access keys with trusted persons."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 274,
+    "question": "You have just set up your AWS environment and have created six IAM user accounts for the DevOps team. What is the AWS recommendation when granting permissions to these IAM accounts?",
+    "options": [
+      "A. Attach a separate IAM policy for each individual account.",
+      "B. Apply the Principle of Least Privilege.",
+      "C. For security purposes, you should not grant any permission to the DevOps team.",
+      "D. Create six different IAM passwords."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 275,
+    "question": "Which of the following has the greatest impact on cost? (Choose TWO)",
+    "options": [
+      "A. Compute charges.",
+      "B. The number of services used.",
+      "C. Data Transfer In charges.",
+      "D. Data Transfer Out charges.",
+      "E. The number of IAM roles provisioned."
+    ],
+    "correct": [
+      0,
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 282,
+    "question": "Which of the following services provide real-time auditing for compliance and vulnerabilities? (Choose TWO)",
+    "options": [
+      "A. AWS Config.",
+      "B. Amazon Redshift.",
+      "C. Amazon MQ.",
+      "D. AWS Trusted Advisor.",
+      "E. Amazon Cognito."
+    ],
+    "correct": [
+      0,
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 283,
+    "question": "Which of the following AWS services uses Puppet to automate how EC2 instances are configured?",
+    "options": [
+      "A. AWS OpsWorks.",
+      "B. AWS CloudFormation.",
+      "C. AWS Quick Starts.",
+      "D. AWS CloudTrail."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 286,
+    "question": "What best describes penetration testing?",
+    "options": [
+      "A. Testing your application's response time from different locations.",
+      "B. Testing your network to find security vulnerabilities that an attacker could exploit.",
+      "C. Testing your instances to check for the unhealthy ones.",
+      "D. Testing your software for bugs and errors."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 292,
+    "question": "Which of the following strategies help analyze costs in AWS?",
+    "options": [
+      "A. Using tags to group resources.",
+      "B. Using AWS CloudFormation to automate the deployment of resources.",
+      "C. Deploying resources of the same type in different regions.",
+      "D. Configuring Amazon Inspector to automatically analyze costs and email reports."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 294,
+    "question": "What is the main benefit of the AWS Storage Gateway service?",
+    "options": [
+      "A. It automates the process of building, maintaining, and running ETL jobs.",
+      "B. It provides physical devices to migrate data from on premises to AWS.",
+      "C. It allows integration of on-premises IT environments with Cloud Storage.",
+      "D. It provides hardware-based key storage for regulatory compliance."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 298,
+    "question": "Which of the below options are use cases of the Amazon Route 53 service? (Choose TWO)",
+    "options": [
+      "A. Point-to-point connectivity between an on-premises data center and AWS.",
+      "B. Detects configuration changes in the AWS environment.",
+      "C. DNS configuration and management.",
+      "D. Manages global application traffic through a variety of routing types.",
+      "E. Provides infrastructure security optimization recommendations."
+    ],
+    "correct": [
+      2,
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 301,
+    "question": "Which of the following can help secure your sensitive data in Amazon S3? (Choose TWO)",
+    "options": [
+      "A. Delete the encryption keys once your data is encrypted.",
+      "B. With AWS you do not need to worry about encryption.",
+      "C. Enable S3 Encryption.",
+      "D. Encrypt the data prior to uploading it.",
+      "E. Delete all IAM users that have access to S3."
+    ],
+    "correct": [
+      2,
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 303,
+    "question": "Which of the following will affect how much you are charged for storing objects in S3? (Choose TWO)",
+    "options": [
+      "A. Using default encryption for any number of S3 buckets.",
+      "B. The number of EBS volumes attached to your instances.",
+      "C. The storage class used for the objects stored.",
+      "D. Creating and deleting S3 buckets.",
+      "E. The total size in gigabytes of all objects stored."
+    ],
+    "correct": [
+      2,
+      4
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 308,
+    "question": "Which of the following services gives you access to all AWS auditor-issued reports and certifications?",
+    "options": [
+      "A. AWS Artifact.",
+      "B. AWS Config.",
+      "C. Amazon CloudWatch.",
+      "D. AWS CloudTrail."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 310,
+    "question": "Which AWS service collects metrics from running EC2 instances?",
+    "options": [
+      "A. Amazon Inspector.",
+      "B. Amazon CloudWatch.",
+      "C. AWS CloudFormation.",
+      "D. AWS CloudTrail."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 311,
+    "question": "Your web application currently faces performance issues and suffers from long load times. Which of the following AWS services could help fix these issues and improve performance?",
+    "options": [
+      "A. Amazon Detective.",
+      "B. AWS X-Ray.",
+      "C. AWS Security Hub.",
+      "D. AWS Shield."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 316,
+    "question": "What can you use to assign permissions directly to an IAM user?",
+    "options": [
+      "A. IAM Identity.",
+      "B. IAM Group.",
+      "C. IAM Role.",
+      "D. IAM Policy."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 317,
+    "question": "The owner of an E-Commerce application notices that the compute capacity requirements vary heavily from time to time. What makes AWS more economical than traditional data centers for this type of application?",
+    "options": [
+      "A. AWS allows customers to launch powerful EC2 instances to handle spikes in load.",
+      "B. AWS allows customers to pay upfront to get bigger discounts.",
+      "C. AWS allows customers to launch and terminate EC2 instances based on demand.",
+      "D. AWS allows customers to choose cheaper types of EC2 instances that best fit their needs."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 321,
+    "question": "Which of the following would you use to manage your encryption keys in the AWS Cloud? (Choose TWO)",
+    "options": [
+      "A. AWS KMS.",
+      "B. AWS Certificate Manager.",
+      "C. AWS CodeDeploy.",
+      "D. AWS CodeCommit.",
+      "E. CloudHSM."
+    ],
+    "correct": [
+      0,
+      4
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 322,
+    "question": "Which of the following services allows you to install and run custom relational database software?",
+    "options": [
+      "A. Amazon EC2.",
+      "B. Amazon Cognito.",
+      "C. Amazon RDS.",
+      "D. Amazon Inspector."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 324,
+    "question": "A company has infrastructure hosted in an on-premises data center. They currently have an operations team that takes care of identity management. If they decide to migrate to the AWS cloud, which of the following services would help them perform the same role in AWS?",
+    "options": [
+      "A. AWS IAM.",
+      "B. AWS Outposts.",
+      "C. AWS Federation.",
+      "D. Amazon Redshift."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 326,
+    "question": "Where can AWS account owners get a list of all users in their account, including the status of their AWS credentials?",
+    "options": [
+      "A. AWS CloudTrail Trails.",
+      "B. IAM Credential Report.",
+      "C. AWS Artifact reports.",
+      "D. AWS Cost and Usage Report."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 327,
+    "question": "Which of the following services enables you to easily generate and use your own encryption keys in the AWS Cloud?",
+    "options": [
+      "A. AWS Shield.",
+      "B. AWS Certificate Manager.",
+      "C. AWS CloudHSM.",
+      "D. AWS WAF."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 334,
+    "question": "Which of the following is the responsibility of AWS according to the AWS Shared Responsibility Model?",
+    "options": [
+      "A. Securing regions and edge locations.",
+      "B. Performing auditing tasks.",
+      "C. Monitoring AWS resources usage.",
+      "D. Securing access to AWS resources."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 337,
+    "question": "How does AWS help customers achieve compliance in the cloud?",
+    "options": [
+      "A. It's not possible to meet regulatory compliance requirements in the Cloud.",
+      "B. AWS applies the most common Cloud security standards, and is responsible for complying with customers' applicable laws and regulations.",
+      "C. AWS has many common assurance certifications such as ISO 9001 and HIPAA.",
+      "D. Many AWS services are assessed regularly to comply with local laws and regulations."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 338,
+    "question": "Who is responsible for scaling a DynamoDB database in the AWS Shared Responsibility Model?",
+    "options": [
+      "A. Your security team.",
+      "B. Your development team.",
+      "C. AWS.",
+      "D. Your internal DevOps team."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 341,
+    "question": "Which AWS service allows you to build a data warehouse in the cloud?",
+    "options": [
+      "A. AWS Shield.",
+      "B. Amazon Redshift.",
+      "C. Amazon RDS.",
+      "D. Amazon Comprehend."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 343,
+    "question": "Which of the following services is an AWS repository management system that allows for storing, versioning, and managing your application code?",
+    "options": [
+      "A. AWS CodePipeline.",
+      "B. AWS CodeCommit.",
+      "C. AWS X-Ray.",
+      "D. Amazon Inspector."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 345,
+    "question": "Which feature enables users to sign into their AWS accounts with their existing corporate credentials?",
+    "options": [
+      "A. Federation.",
+      "B. Access keys.",
+      "C. IAM Permissions.",
+      "D. WAF rules."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 346,
+    "question": "According to the AWS shared responsibility model, what are the controls that customers fully inherit from AWS? (Choose TWO)",
+    "options": [
+      "A. Awareness and Training.",
+      "B. Communications controls.",
+      "C. Data center security controls.",
+      "D. Environmental controls.",
+      "E. Resource Configuration Management."
+    ],
+    "correct": [
+      2,
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 349,
+    "question": "Which of the following are part of the seven design principles for security in the cloud? (Choose TWO)",
+    "options": [
+      "A. Use manual monitoring techniques to protect your AWS resources.",
+      "B. Use IAM roles to grant temporary access instead of long-term credentials.",
+      "C. Scale horizontally to protect from failures.",
+      "D. Enable real-time traceability.",
+      "E. Never store sensitive data in the cloud."
+    ],
+    "correct": [
+      1,
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 351,
+    "question": "What is the main benefit of attaching security groups to an Amazon RDS instance?",
+    "options": [
+      "A. Manages user access and encryption keys.",
+      "B. Controls what IP address ranges can connect to your database instance.",
+      "C. Deploys SSL/TLS certificates for use with your database instance.",
+      "D. Distributes incoming traffic across multiple targets."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 352,
+    "question": "A company wants to use Amazon Elastic Container Service (Amazon ECS) to run its containerized applications. For compliance reasons, the company wants to retain complete visibility and control over the underlying server cluster. Which Amazon ECS launch type will satisfy these requirements?",
+    "options": [
+      "A. EC2 launch type.",
+      "B. Fargate launch type.",
+      "C. Lightsail launch type.",
+      "D. Lambda launch type."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 354,
+    "question": "You have been tasked with auditing the security of your VPC. As part of this process, you need to start by analyzing what inbound and outbound traffic is allowed on your EC2 instances. What two parts of the VPC do you need to check to accomplish this task?",
+    "options": [
+      "A. Network ACLs and Traffic Manager.",
+      "B. Network ACLs and Subnets.",
+      "C. Security Groups and Internet Gateways.",
+      "D. Security Groups and Network ACLs."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 357,
+    "question": "Which statement is true in relation to security in AWS?",
+    "options": [
+      "A. AWS manages everything related to EC2 operating systems.",
+      "B. AWS customers are responsible for patching any database software running on Amazon EC2.",
+      "C. Server side encryption is the responsibility of AWS.",
+      "D. AWS is responsible for the security of your application."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 360,
+    "question": "Which AWS service provides the EASIEST way to set up and manage a secure, well-architected, multi-account AWS environment?",
+    "options": [
+      "A. AWS Control Tower.",
+      "B. Amazon Macie.",
+      "C. AWS Systems Manager Patch Manager.",
+      "D. AWS Systems Manager Patch Manager AWS Security Hub."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 361,
+    "question": "A company is running a large web application that needs to always be available. The application tends to slow down when CPU usage is greater than 60%. How can they track when CPU usage goes above 60% for any of the EC2 Instances in their account?",
+    "options": [
+      "A. Use CloudFront to monitor the CPU usage.",
+      "B. Set the AWS Config CPU threshold to 60% to receive a notification when EC2 usage exceeds that value.",
+      "C. Use CloudWatch Alarms to monitor the CPUand alert when the CPU usage is >= 60%.",
+      "D. Use SNS to menitor the utilization of the server."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 365,
+    "question": "What are the main differences between an IAM user and an IAM role in AWS? (Choose TWO)",
+    "options": [
+      "A. An IAM user is uniquely associated with only one person, however a role is intended to be assumable by anyone who needs it.",
+      "B. An IAM user has permanent credentials associated with it, however a role has temporary credentials associated with it.",
+      "C. IAM users are more cost effective than IAM roles.",
+      "D. Arole is uniquely associated with only one person, however an IAM user is intended to be assumable by anyone who needs it.",
+      "E. An IAM user has temporary credentials associated withit, however a role has permanent credentials associated with it."
+    ],
+    "correct": [
+      0,
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 367,
+    "question": "What does Amazon GuardDuty do to protect AWS accounts and workloads?",
+    "options": [
+      "A. Notifies AWS customers about abuse events once they are reported.",
+      "B. Continuously monitors AWS infrastructure and helps detect threats such as attacker reconnaissance or account compromise.",
+      "C. Helps AWS customers identify the root cause of potential security issues.",
+      "D. Checks security groups for rules that allow unrestricted access to AWS. resources."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 371,
+    "question": "Engineers are wasting a lot of time and effort managing batch computing software in traditional data centers. Which of the following AWS services allows them to easily run thousands of batch computing jobs?",
+    "options": [
+      "A. Amazon EC2.",
+      "B. AWS Batch.",
+      "C. Lambda@Edge.",
+      "D. AWS Fargate."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 374,
+    "question": "Which of the following requires an access key ID and a secret access key to get long-lived programmatic access to AWS resources? (Choose TWO)",
+    "options": [
+      "A. IAM group.",
+      "B. IAM user.",
+      "C. IAM role.",
+      "D. AWS account root user.",
+      "E. TAM."
+    ],
+    "correct": [
+      1,
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 377,
+    "question": "Which of the following Cloud Computing deployment models eliminates the need to run and maintain physical data centers?",
+    "options": [
+      "A. On-premises.",
+      "B. IaaS.",
+      "C. PaaS.",
+      "D. Cloud."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 381,
+    "question": "Which of the following AWS services integrates with AWS Shield and AWS Web Application Firewall (AWS WAF) to protect against network and application layer DDoS attacks?",
+    "options": [
+      "A. Amazon EFS.",
+      "B. AWS Secrets Manager.",
+      "C. AWS Systems Manager.",
+      "D. Amazon CloudFront."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 382,
+    "question": "Which of the following services is used when encrypting EBS volumes?",
+    "options": [
+      "A. AWS WAF.",
+      "B. AWS KMS.",
+      "C. Amazon Macie.",
+      "D. Amazon GuardDuty."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 383,
+    "question": "The AWS account administrator of your company has been fired. With the permissions granted to him as an administrator, he was able to create multiple IAM user accounts and access keys. Additionally, you are not sure whether he has access to the AWS root account or not. What should you do immediately to protect your AWS infrastructure? (Choose TWO)",
+    "options": [
+      "A. Download all the attached policies in a safe place.",
+      "B. Delete all IAM accounts and recreate them.",
+      "C. Use the CloudWatch service to check all API calls that have been made in your account since the administrator was fired.",
+      "D. Rotate all access keys.",
+      "E. Change the email address and password of the root user account and enable MFA."
+    ],
+    "correct": [
+      3,
+      4
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 387,
+    "question": "Each AWS Region is composed of multiple Availability Zones. Which of the following best describes what an Availability Zone is?",
+    "options": [
+      "A. It is a data center designed to be completely isolated from other data centers in the same region.",
+      "B. It is a collection of data centers distributed in multiple countries.",
+      "C. It is a logically isolated network of the AWS Cloud.",
+      "D. It is a distinct location within a region that is insulated from \u00ab failures in other Availability Zones."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 389,
+    "question": "A financial services company decides to migrate one of its applications to AWS. The application deals with sensitive data, such as credit card information, and must run on a PCI-compliant environment. Which of the following is the company's responsibility when building a PCI-compliant environment in AWS? (Choose TWO)",
+    "options": [
+      "A. Start the migration process immediately as all AWS services are PCI compliant.",
+      "B. Ensure that AWS services are configured properly to meet all PCI DSS standards.",
+      "C. Restrict any access to cardholder data and create a policy that addresses information security for all personnel.",
+      "D. Configure the underlying infrastructure of AWS services to meet all PCI DSS requirements.",
+      "E. Ensure that all PCI DSS physical security requirements are met."
+    ],
+    "correct": [
+      1,
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 393,
+    "question": "Which of the following steps should be taken by a customer when conducting penetration testing on AWS?",
+    "options": [
+      "A. Conduct penetration testing using Amazon Inspector, and then notify AWS support.",
+      "B. Request and wait for approval from the customer's internal security team, and then conduct testing.",
+      "C. Notify AWS support, and then conduct testing immediately.",
+      "D. Request and wait for approval from AWS support, and then conduct testing."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 395,
+    "question": "Which element of the AWS global infrastructure consists of one or more discrete data centers each with redundant power networking and connectivity which are housed in separate facilities?",
+    "options": [
+      "A. AWS Regions.",
+      "B. Availability Zones.",
+      "C. Edge locations.",
+      "D. Amazon CloudFront."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 405,
+    "question": "Which of the following can limit Amazon Storage Service (Amazon S3) bucket access to specific users?",
+    "options": [
+      "A. A public and private key-pair.",
+      "B. Amazon Inspector.",
+      "C. AWS Identity and Access Management (IAM) policies.",
+      "D. Security Groups."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 406,
+    "question": "Which AWS service allows companies to connect an Amazon VPC to an on-premises data center?",
+    "options": [
+      "A. AWS VPN.",
+      "B. Amazon Redshift.",
+      "C. API Gateway.",
+      "D. Amazon Direct Connect."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 407,
+    "question": "Which AWS service of feature can be used to monitor CPU usage?",
+    "options": [
+      "A. AWS CloudTrail.",
+      "B. VPC Flow Logs.",
+      "C. Amazon CloudWatch.",
+      "D. AWSConfig."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 408,
+    "question": "Which task is AWS responsible for in the shared responsibility model for security and compliance?",
+    "options": [
+      "A. Granting access to individuals and services.",
+      "B. Encrypting data in transit.",
+      "C. Updating Amazon EC2 host firmware.",
+      "D. Updating operating systems."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 411,
+    "question": "According to the AWS shared responsibility model what is the sole responsibility of AWS?",
+    "options": [
+      "A. Application security.",
+      "B. Edge location management.",
+      "C. Patch management.",
+      "D. Client-side data."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 412,
+    "question": "Which of the following are pillars of the AWS Well-Architected Framework? (Select TWO)",
+    "options": [
+      "A. Multiple Availability Zones.",
+      "B. Performance efficiency.",
+      "C. Security.",
+      "D. Encryption usage.",
+      "E. High availability."
+    ],
+    "correct": [
+      1,
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 413,
+    "question": "Which AWS service identifies security groups that allow unrestricted access to a user's AWS resources?",
+    "options": [
+      "A. AWS Trusted Advisor.",
+      "B. Amazon Inspector.",
+      "C. Amazon CloudWatch.",
+      "D. AWS CloudTrail."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 416,
+    "question": "A company has deployed several relational databases on Amazon EC2 instances Every month the database software vendor releases new security patches that need to be applied to the databases. What is the MOST efficient way to apply the security patches?",
+    "options": [
+      "A. Connect to each database instance on a monthly basis and download and apply the necessary security patches from the vendor.",
+      "B. Enable automate patching for the instances using the Amazon RDS console.",
+      "C. In AWS Config. configure a rule for the instances and the required patch level.",
+      "D. Use AWS Systems Manager to automate database patching according to a schedule."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 417,
+    "question": "Which mechanism allows developers to access AWS sendees from application code?",
+    "options": [
+      "A. AWS Software Development Kit.",
+      "B. AWS Management Console.",
+      "C. AWS CodePipeline.",
+      "D. AWS Config."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 419,
+    "question": "Which of the following is a benefit of using the AWS Cloud?",
+    "options": [
+      "A. Permissive security removes the administrative burden.",
+      "B. Ability to focus on revenue-generating activities.",
+      "C. Control over cloud network hardware.",
+      "D. Choice of specific cloud hardware vendors."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 421,
+    "question": "What is Amazon CloudWatch?",
+    "options": [
+      "A. A code repository with customizable build and team commit features.",
+      "B. A metrics repository with customizable notification thresholds and channels.",
+      "C. A security configuration repository with threat analytics.",
+      "D. A rule repository of a web application firewall with automated vulnerability prevention features."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 422,
+    "question": "Under the AWS shared responsibility model, which of the following activities are the customer's responsibility? (Select TWO)",
+    "options": [
+      "A. Patching operating system components for Amazon Relational Database Server (Amazon RDS).",
+      "B. Encrypting data on the client-side.",
+      "C. Training the data center staff.",
+      "D. Configuring Network Access Control Lists (ACL).",
+      "E. Maintaining environmental controls within a data center."
+    ],
+    "correct": [
+      1,
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 423,
+    "question": "Under the shared responsibility model, which of the following is a shared control between a customer and AWS?",
+    "options": [
+      "A. Physical controls.",
+      "B. Patch management.",
+      "C. Zone security.",
+      "D. Data center auditing."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 430,
+    "question": "Which AWS feature should a customer leverage to achieve high availability of an application?",
+    "options": [
+      "A. AWS Direct Connect.",
+      "B. Availability Zones.",
+      "C. Data centers.",
+      "D. Amazon Virtual Private Cloud (Amazon VPC)."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 431,
+    "question": "Which AWS service or feature can enhance network security by blocking requests from a particular network for a web application on AWS? (Select TWO)",
+    "options": [
+      "A. AWS WAF.",
+      "B. AWS Trusted Advisor.",
+      "C. AWS Direct Connect.",
+      "D. AWS Organizations.",
+      "E. Network ACLs."
+    ],
+    "correct": [
+      0,
+      4
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 433,
+    "question": "Which service enables risk auditing by continuously monitoring and logging account activity, including user actions in the AWS Management Console and AWS SDKs?",
+    "options": [
+      "A. Amazon CloudWatch.",
+      "B. AWS CloudTrail.",
+      "C. AWS Config.",
+      "D. AWS Health."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 438,
+    "question": "Which of the following are main components of the AWS global infrastructure? (Select TWO)",
+    "options": [
+      "A. Resource groups.",
+      "B. Availability Zones.",
+      "C. Security groups.",
+      "D. Regions.",
+      "E. Amazon Machine Images (AMIS)."
+    ],
+    "correct": [
+      1,
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 439,
+    "question": "What is the AWS customer responsible for according to the AWS shared responsibility model?",
+    "options": [
+      "A. Physical access controls.",
+      "B. Data encryption.",
+      "C. Secure disposal of storage devices.",
+      "D. Environmental risk management."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 446,
+    "question": "Which AWS service would you use to obtain compliance reports and certificates?",
+    "options": [
+      "A. AWS Artifact.",
+      "B. AWS Lambda.",
+      "C. Amazon Inspector.",
+      "D. AWS Certificate Manager."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 448,
+    "question": "How would an AWS customer easily apply common access controls to a large set of users?",
+    "options": [
+      "A. Apply an IAM policy to an IAM group.",
+      "B. Apply an IAM policy to an IAM role.",
+      "C. Apply the same IAM policy to all IAM users with access to the same workload.",
+      "D. Apply an IAM policy to an Amazon Cognito user pool."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 456,
+    "question": "Which of the following is the customer's responsibility under the AWS shared responsibility model?",
+    "options": [
+      "A. Patching underlying infrastructure",
+      "B. Physical security",
+      "C. Patching Amazon EC2 instances",
+      "D. Patching network infrastructure"
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 457,
+    "question": "According to the AWS shared responsibility model who is responsible for configuration management?",
+    "options": [
+      "A. It is solely the responsibility of the customer.",
+      "B. It is solely the responsibility of AWS.",
+      "C. It is shared between AWS and the customer.",
+      "D. It is not part of the AWS shared responsibility model."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 458,
+    "question": "Which security service automatically recognizes and classifies sensitive data or intellectual property on AWS?",
+    "options": [
+      "A. Amazon GuardDuty.",
+      "B. Amazon Macie.",
+      "C. Amazon Inspector.",
+      "D. AWS Shield."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 460,
+    "question": "Under the shared responsibility model, which of the following tasks are the responsibility of the AWS customer? (Select TWO)",
+    "options": [
+      "A. Ensuring that application data is encrypted at rest.",
+      "B. Ensuring that AWS NTP servers are set to the correct time.",
+      "C. Ensuring that users have received security training in the use of AWS services.",
+      "D. Ensuring that access to data centers is restricted.",
+      "E. Ensuring that hardware is disposed of properly."
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 464,
+    "question": "Which AWS service allows users to identify the changes made to a resource over time?",
+    "options": [
+      "A. Amazon Inspector.",
+      "B. AWS Config.",
+      "C. AWS Service Catalog.",
+      "D. AWS IAM."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 475,
+    "question": "Access keys in AWS Identity and Access Management (IM1) are used to:",
+    "options": [
+      "A. Log in to the AWS Management Console.",
+      "B. Make programmatic calls to AWS from AWS APIs.",
+      "C. Log in to Amazon EC2 instances.",
+      "D. Authenticate to AWS CodeCommit repositories."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 478,
+    "question": "Which AWS services can be used to gather information about AWS account activity? (Select TWO)",
+    "options": [
+      "A. Amazon CloudFront.",
+      "B. AWS Cloud9.",
+      "C. AWS CloudTrail.",
+      "D. AWS CloudHSM.",
+      "E. Amazon CloudWatch."
+    ],
+    "correct": [
+      2,
+      4
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 484,
+    "question": "Web servers running on Amazon EC2 access a legacy application running in a corporate data center. What term would describe this model?",
+    "options": [
+      "A. Cloud-native.",
+      "B. Partner network.",
+      "C. Hybrid architecture.",
+      "D. Infrastructure as a service."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 487,
+    "question": "Which of the following is a correct relationship between regions, Availability Zones, and edge locations?",
+    "options": [
+      "A. Data centers contain regions.",
+      "B. Regions contain Availability Zones.",
+      "C. Availability Zones contain edge locations.",
+      "D. Edge locations contain regions."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 490,
+    "question": "Which AWS IAM feature allows developers to access AWS services through the AWS CLI?",
+    "options": [
+      "A. API keys.",
+      "B. Access keys.",
+      "C. User names/Passwords.",
+      "D. SSH keys."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 494,
+    "question": "Which AWS service can be used to automatically scale an application up and down without making capacity planning decisions?",
+    "options": [
+      "A. Amazon EBS.",
+      "B. Amazon Redshift.",
+      "C. AWS CloudTrail.",
+      "D. AWS Lambda."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 500,
+    "question": "Which service should a customer use to consolidate and centrally manage multiple AWS accounts?",
+    "options": [
+      "A. AWS IAM.",
+      "B. AWS Organizations.",
+      "C. AWS Schema Conversion Tool.",
+      "D. AWS Config."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 502,
+    "question": "Which options does AWS make available for customers who want to learn about security in the cloud in an instructor-led setting? (Select TWO)",
+    "options": [
+      "A. AWS Trusted Advisor.",
+      "B. AWS Online Tech Talks.",
+      "C. AWS Blog.",
+      "D. AWS Forums.",
+      "E. AWS Classroom Training."
+    ],
+    "correct": [
+      1,
+      4
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 503,
+    "question": "Which of the following will enhance the security of access to the AWS Management Console'? (Select TWO)",
+    "options": [
+      "A. AWS Secrets Manager.",
+      "B. AWS Certificate Manager.",
+      "C. AWS Multi-Factor Authentication (AWS MFA).",
+      "D. Security groups.",
+      "E. Password policies."
+    ],
+    "correct": [
+      2,
+      4
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 504,
+    "question": "Which of the following features can be configured through the Amazon Virtual Private Cloud (Amazon VPC) Dashboard? (Select TWO)",
+    "options": [
+      "A. Amazon CloudFront distributions.",
+      "B. Amazon Route 53.",
+      "C. Security Groups.",
+      "D. Subnets.",
+      "E. Elastic Load Balancing."
+    ],
+    "correct": [
+      2,
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 505,
+    "question": "For which auditing process does AWS have sole responsibility?",
+    "options": [
+      "A. AWS IAM policies.",
+      "B. Physical security.",
+      "C. Amazon S3 bucket policies.",
+      "D. AWS CloudTrail Logs."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 514,
+    "question": "If a customer needs to audit the change management of AWS resources, which of the following AWS services should the customer use?",
+    "options": [
+      "A. AWS Config.",
+      "B. AWS Trusted Advisor.",
+      "C. Amazon CloudWatch.",
+      "D. Amazon Inspector."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 516,
+    "question": "Which AWS managed service is used to host databases?",
+    "options": [
+      "A. AWS Batch.",
+      "B. AWS Artifact.",
+      "C. AWS Data Pipeline.",
+      "D. Amazon RDS."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 517,
+    "question": "Which of the following Identity and Access Management (IAM) entities is associated with an access key ID and secret access key when using AWS Command Line Interface (AWS CLI)?",
+    "options": [
+      "A. IAM group.",
+      "B. IAM user.",
+      "C. IAM role.",
+      "D. IAM policy."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 518,
+    "question": "Under the shared responsibility model, which of the following is the customer responsible for?",
+    "options": [
+      "A. Ensuring that disk drives are wiped after use.",
+      "B. Ensuring that firmware is updated on hardware devices.",
+      "C. Ensuring that data is encrypted at rest.",
+      "D. Ensuring that network cables are category six or higher."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 520,
+    "question": "What credential components are required to gain programmatic access to an AWS account? (Select TWO)",
+    "options": [
+      "A. An access key ID.",
+      "B. A primary key.",
+      "C. A secret access key.",
+      "D. A user ID.",
+      "E. A secondary key."
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 521,
+    "question": "Which of the following is a shared control between the customer and AWS?",
+    "options": [
+      "A. Providing a key for Amazon S3 client-side encryption.",
+      "B. Configuration of an Amazon EC2 instance.",
+      "C. Environmental controls of physical AWS data centers.",
+      "D. Awareness."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 526,
+    "question": "Which of the following security measures protect access to an AWS account? (Select TWO)",
+    "options": [
+      "A. Enable AWS CloudTrail.",
+      "B. Grant least privilege access to IAM users.",
+      "C. Create one IAM user and share with many developers and users.",
+      "D. Enable Amazon CloudFront.",
+      "E. Activate multi-factor authentication (MFA) for privileged users."
+    ],
+    "correct": [
+      1,
+      4
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 541,
+    "question": "One of the advantages to moving infrastructure from an on-premises data center to the AWS Cloud is:",
+    "options": [
+      "A. It allows the business to eliminate IT bills.",
+      "B. It allows the business to put a server in each customer's data center.",
+      "C. It allows the business to focus on business activities.",
+      "D. It allows the business to leave servers unpatched."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 543,
+    "question": "How can a user protect against AWS service disruptions if a natural disaster affects an entire geographic area?",
+    "options": [
+      "A. Deploy applications across multiple Availability Zones within an AWS Region.",
+      "B. Use a hybrid cloud computing deployment model within the geographic area.",
+      "C. Deploy applications across multiple AWS Regions.",
+      "D. Store application artifacts using AWS Artifact and replicate them across multiple AWS Regions."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 544,
+    "question": "Which activity is a customer responsibility in the AWS Cloud according to the AWS shared responsibility model?",
+    "options": [
+      "A. Ensuring network connectivity from AWS to the internet.",
+      "B. Patching and fixing flaws within the AWS Cloud infrastructure.",
+      "C. Ensuring the physical security of cloud data centers.",
+      "D. Ensuring Amazon EBS volumes are backed up."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 546,
+    "question": "A customer is deploying a new application and needs to choose an AWS Region. Which of the following factors could influence the customer's decision? (Select TWO)",
+    "options": [
+      "A. Reduced latency to users.",
+      "B. The application's presentation in the local language.",
+      "C. Data sovereignty compliance.",
+      "D. Cooling costs in hotter climates.",
+      "E. Proximity to the customer's office for on-site visits."
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 550,
+    "question": "How can a customer increase security to AWS account logons? (Select TWO)",
+    "options": [
+      "A. Configure AWS Certificate Manager",
+      "B. Enable Multi-Factor Authentication (MFA)",
+      "C. Use Amazon Cognito to manage access",
+      "D. Configure a strong password policy",
+      "E. Enable AWS Organizations"
+    ],
+    "correct": [
+      1,
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 551,
+    "question": "Which of the following components of the AWS Global Infrastructure consists of one or more discrete data centers interconnected through low latency links?",
+    "options": [
+      "A. Availability Zone",
+      "B. Edge location",
+      "C. Region",
+      "D. Private networking"
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 553,
+    "question": "What can assist in evaluating an application for migration to the cloud? (Select TWO)",
+    "options": [
+      "A. AWS Trusted Advisor.",
+      "B. AWS Professional Services.",
+      "C. AWS Systems Manager.",
+      "D. AWS Partner Network (APN).",
+      "E. AWS Secrets Manager."
+    ],
+    "correct": [
+      1,
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 556,
+    "question": "What is a value proposition of the AWS Cloud?",
+    "options": [
+      "A. AWS is responsible for security in the AWS Cloud.",
+      "B. No long-term contract is required.",
+      "C. Provision new servers in days.",
+      "D. AWS manages user applications in the AWS Cloud."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 558,
+    "question": "Which AWS service is used to track record, and audit configuration changes made to AWS resources?",
+    "options": [
+      "A. AWS Shield.",
+      "B. AWS Config.",
+      "C. AWS IAM.",
+      "D. Amazon Inspector."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 563,
+    "question": "AWS supports which of the following methods to add security to Identity and Access Management (IAM) users? (Select TWO)",
+    "options": [
+      "A. Implementing Amazon Rekognition.",
+      "B. Using AWS Shield-protected resources.",
+      "C. Blocking access with Security Groups.",
+      "D. Using Multi-Factor Authentication (MFA).",
+      "E. Enforcing password strength and expiration."
+    ],
+    "correct": [
+      3,
+      4
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 565,
+    "question": "Where should a company go to search software listings from independent software vendors to find, test, buy and deploy software that runs on AWS?",
+    "options": [
+      "A. AWS Marketplace.",
+      "B. Amazon Lumberyard.",
+      "C. AWS Artifact.",
+      "D. Amazon CloudSearch."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 568,
+    "question": "A company wants to migrate its applications to a VPC on AWS. These applications will need to access on-premises resources. What combination of actions will enable the company to accomplish this goals? (Select TWO)",
+    "options": [
+      "A. Use the AWS Service Catalog to identify a list of on-premises resources that can be migrated.",
+      "B. Build a VPN connection between an on-premises device and a virtual private gateway in the new VPC.",
+      "C. Use Amazon Athena to query data from the on-premises database servers.",
+      "D. Connect the company's on-premises data center to AWS using AWS Direct Connect.",
+      "E. Leverage Amazon CloudFront to restrict access to static web content provided through the company's on-premises web servers."
+    ],
+    "correct": [
+      1,
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 569,
+    "question": "A Cloud Practitioner must determine if any security groups in an AWS account have been provisioned to allow unrestricted access for specific ports. What is the SIMPLEST way to do this?",
+    "options": [
+      "A. Review the inbound rules for each security group in the Amazon EC2 management console to check for port 0.0.0.0/0.",
+      "B. Run AWS Trusted Advisor and review the findings.",
+      "C. Open the AWS IAM console and check the inbound rule filters for open access.",
+      "D. In AWS Config, create a custom rule that invokes an AWS Lambda function to review firewall rules for inbound access."
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 570,
+    "question": "Which of the following security-related services does AWS offer? (Select TWO)",
+    "options": [
+      "A. Multi-factor authentication physical tokens.",
+      "B. AWS Trusted Advisor security checks.",
+      "C. Data encryption.",
+      "D. Automated penetration testing.",
+      "E. Amazon S3 copyrighted content detection."
+    ],
+    "correct": [
+      1,
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 571,
+    "question": "Which of the following services have Distributed Denial of Service (DDoS) mitigation features? (Select TWO)",
+    "options": [
+      "A. AWS WAF.",
+      "B. Amazon DynamoDB.",
+      "C. Amazon EC2.",
+      "D. Amazon CloudFront.",
+      "E. Amazon Inspector."
+    ],
+    "correct": [
+      0,
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 575,
+    "question": "What can users access from AWS Artifact?",
+    "options": [
+      "A. AWS security and compliance documents.",
+      "B. A download of configuration management details for all AWS resources.",
+      "C. Training materials for AWS services.",
+      "D. A security assessment of the applications deployed in the AWS Cloud."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 576,
+    "question": "Compared with costs in traditional and virtualized data centers, AWS has:",
+    "options": [
+      "A. Greater variable costs and greater upfront costs.",
+      "B. Fixed usage costs and lower upfront costs.",
+      "C. Lower variable costs and greater upfront costs.",
+      "D. Lower variable costs and lower upfront costs."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 579,
+    "question": "Which of the following can limit Amazon Simple Storage Service (Amazon S3) bucket access to specific users?",
+    "options": [
+      "A. A public and private key-pair.",
+      "B. Amazon Inspector.",
+      "C. AWS Identity and Access Management (IAM) policies.",
+      "D. Security Groups."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 581,
+    "question": "Where are AWS compliance documents, such as an SOC 1 report, located?",
+    "options": [
+      "A. Amazon Inspector.",
+      "B. AWS CloudTrail.",
+      "C. AWS Artifact.",
+      "D. AWS Certificate Manager."
+    ],
+    "correct": [
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 583,
+    "question": "Under the shared responsibility model which of the following areas are the customer's responsibility? (Select TWO)",
+    "options": [
+      "A. Firmware upgrades of network infrastructure.",
+      "B. Patching of operating systems.",
+      "C. Patching of the underlying hypervisor.",
+      "D. Physical security of data centers.",
+      "E. Configuration of the security group."
+    ],
+    "correct": [
+      1,
+      4
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 586,
+    "question": "What are the advantages of the AWS Cloud? (Select TWO)",
+    "options": [
+      "A. Fixed rate monthly cost.",
+      "B. No need to guess capacity requirements.",
+      "C. Increased speed to market.",
+      "D. Increased upfront capital expenditure.",
+      "E. Physical access to cloud data centers."
+    ],
+    "correct": [
+      1,
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 587,
+    "question": "How can the AWS Cloud increase user workforce productivity after migration from an on-premises data center?",
+    "options": [
+      "A. Users do not have to wait for infrastructure provisioning.",
+      "B. The AWS Cloud infrastructure is much faster than an on-premises data center infrastructure.",
+      "C. AWS takes over application configuration management on behalf of users.",
+      "D. Users do not need to address security and compliance issues."
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 590,
+    "question": "Which AWS security service protects applications from distributed denial of service attacks with always-on detection and automatic inline mitigations?",
+    "options": [
+      "A. Amazon Inspector.",
+      "B. AWS Web Application Firewall (AWS WAF).",
+      "C. Elastic Load Balancing (ELB).",
+      "D. AWS Shield."
+    ],
+    "correct": [
+      3
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 594,
+    "question": "Your customer wants to grant restricted proxy rights to their HR Department to act on behalf of employees belonging to their legal entity. How can you perform this requirement? There are 2 correct answers to this question.",
+    "options": [
+      "A. Use the Manage Permission Roles tool to grant proxy rights to the HR Department.",
+      "B. Fill the PROXY column of the Basic Import template to match the requirements and import the file using the Import Employee Data tool.",
+      "C. Use the Proxy Management tool to configure the requested proxy assignments.",
+      "D. Fill the Basic Import template with the requested proxy configuration and import the file using the Import and Export Data tool."
+    ],
+    "correct": [
+      1,
+      2
+    ],
+    "explanation": ""
+  },
+  {
+    "examId": 597,
+    "question": "A company wants to migrate its applications from its on-premises data center to a VPC in the AWS Cloud. These applications will need to access on-premises resources. Which actions will meet these requirements? (Choose TWO)",
+    "options": [
+      "A. Use AWS Service Catalog to identify a list of on-premises resources that can be migrated.",
+      "B. Create a VPN connection between an on-premises device and a virtual private gateway in the VPC.",
+      "C. Use an Amazon CloudFront distribution and configure it to accelerate content delivery close to the on-premises resources.",
+      "D. Set up an AWS Direct Connect connection between the on-premises data center and AWS.",
+      "E. Use Amazon CloudFront to restrict access to static web content provided through the on-premises web servers."
+    ],
+    "correct": [
+      1,
+      3
+    ],
+    "explanation": ""
+  }
+]
