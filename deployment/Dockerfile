@@ -19,4 +19,4 @@ COPY serve.json /app/serve.json
 # Install serve globally or execute via npx
 EXPOSE 3000
 
-CMD ["npx", "serve", "-s", "-c","serve.json",".", "-l", "3000"]
+CMD ["npx", "serve","-c","serve.json",".", "-l", "3000"]
