@@ -10,7 +10,7 @@ COPY package*.json ./
 RUN npm ci --only=production || true
 
 # Copy static assets and exam data from the root build context
-COPY quiz.html /app/index.html
+COPY index.html /app/index.html
 COPY quiz.css /app/quiz.css
 COPY quiz_category.html /app/quiz_category.html
 COPY exams/ /app/exams/
