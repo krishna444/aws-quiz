@@ -4,233 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <title>AWS Cloud Practitioner Practice Quizzes</title>
-    <style>
-        :root {
-            --bg-color: #f4f7f6;
-            --card-bg: #ffffff;
-            --text-color: #2c3e50;
-            --primary-color: #ff9900;
-            --primary-hover: #e68a00;
-            --secondary-color: #3498db;
-            --secondary-hover: #2980b9;
-            --success-color: #2ecc71;
-            --error-color: #e74c3c;
-            --border-color: #e0e0e0;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-        }
-
-        .quiz-container {
-            background-color: var(--card-bg);
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 750px;
-            padding: 30px;
-            box-sizing: border-box;
-        }
-
-        .controls-header {
-            margin-bottom: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .controls-header label {
-            font-weight: bold;
-            font-size: 1rem;
-        }
-
-        .select-dropdown {
-            width: 100%;
-            padding: 12px;
-            font-size: 1rem;
-            border-radius: 6px;
-            border: 2px solid var(--border-color);
-            background-color: #fff;
-            color: var(--text-color);
-            outline: none;
-            cursor: pointer;
-        }
-
-        .select-dropdown:focus {
-            border-color: var(--primary-color);
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid var(--bg-color);
-            padding-bottom: 15px;
-            margin-bottom: 20px;
-        }
-
-        .header h1 {
-            font-size: 1.3rem;
-            margin: 0;
-        }
-
-        .progress {
-            font-size: 0.95rem;
-            color: #7f8c8d;
-            font-weight: 600;
-        }
-
-        .question-text {
-            font-size: 1.15rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            line-height: 1.5;
-        }
-
-        .options-container {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .option-btn {
-            background-color: #fff;
-            border: 2px solid var(--border-color);
-            border-radius: 6px;
-            padding: 14px 18px;
-            text-align: left;
-            font-size: 1rem;
-            color: var(--text-color);
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .option-btn:hover:not(:disabled) {
-            border-color: var(--primary-color);
-            background-color: #fffaf0;
-        }
-
-        .option-btn.selected {
-            border-color: var(--primary-color);
-            background-color: #fff3e0;
-            font-weight: bold;
-        }
-
-        .option-btn.correct {
-            background-color: #e8f8f5;
-            border-color: var(--success-color);
-            color: #27ae60;
-            font-weight: bold;
-        }
-
-        .option-btn.incorrect {
-            background-color: #fdeaea;
-            border-color: var(--error-color);
-            color: #c0392b;
-        }
-
-        /* Explanation Container */
-        .explanation-box {
-    display: none;
-    margin-top: 20px;
-    padding: 18px 22px;
-    background-color: #ebf5fb;
-    border-left: 4px solid var(--secondary-color);
-    border-radius: 6px;
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: #1b4f72;
-}
-
-/* Remove pre-line to avoid forcing line breaks on Markdown newlines */
-.explanation-box p {
-    margin: 0 0 12px 0;
-}
-
-.explanation-box p:last-child {
-    margin-bottom: 0;
-}
-
-.explanation-box ul {
-    margin: 8px 0 14px 0;
-    padding-left: 20px;
-}
-
-.explanation-box li {
-    margin-bottom: 6px;
-    line-height: 1.5;
-}
-
-.explanation-box strong {
-    color: #154360;
-}
-
-        .footer {
-            margin-top: 25px;
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .btn {
-            background-color: var(--primary-color);
-            color: #fff;
-            border: none;
-            padding: 12px 24px;
-            font-size: 1rem;
-            font-weight: bold;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .btn:hover {
-            background-color: var(--primary-hover);
-        }
-
-        .btn:disabled {
-            background-color: #bdc3c7;
-            cursor: not-allowed;
-        }
-
-        .btn-secondary {
-            background-color: var(--secondary-color);
-        }
-
-        .btn-secondary:hover {
-            background-color: var(--secondary-hover);
-        }
-
-        .score-container {
-            text-align: center;
-            padding: 20px 0;
-        }
-
-        .score-container h2 {
-            font-size: 2rem;
-            margin-bottom: 10px;
-        }
-
-        .score-details {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-        }
-        
-    </style>
+    <link rel="stylesheet" href="quiz.css">
+    <title>AWS Cloud Practitioner Practice Quizzes</title>    
 </head>
 <body>
 
 <div class="quiz-container">
     <div class="controls-header">
-        <label for="exam-select">Select Practice Exam:</label>
+        <label for="provider-select">Select Provider:</label>
+        <select id="provider-select" class="select-dropdown" onchange="switchProvider(this.value)">
+            <option value="kananinirav" selected>kananinirav</option>
+            <option value="Ditectrev">Ditectrev</option>
+        </select>
+
+        <label for="exam-select" style="margin-left: 15px;">Select Practice Exam:</label>
         <select id="exam-select" class="select-dropdown" onchange="switchExam(this.value)"></select>
     </div>
 
@@ -262,13 +49,20 @@
 </div>
 
 <script>
-    const TOTAL_EXAMS = 23;
+    // Configuration for available exams per provider
+    const PROVIDER_CONFIG = {
+        'kananinirav': 23,
+        'Ditectrev': 12
+    };
+
+    let currentProvider = 'kananinirav';
     let quizData = [];
     let currentQuestionIndex = 0;
     let selectedIndices = [];
     let score = 0;
     let isAnswerSubmitted = false;
 
+    const providerSelect = document.getElementById('provider-select');
     const examSelect = document.getElementById('exam-select');
     const examTitle = document.getElementById('exam-title');
     const questionEl = document.getElementById('question');
@@ -282,9 +76,11 @@
     const scoreScreen = document.getElementById('score-screen');
     const finalScoreEl = document.getElementById('final-score');
 
-    function populateDropdown() {
+    function populateExamDropdown(provider) {
         examSelect.innerHTML = '';
-        for (let i = 1; i <= TOTAL_EXAMS; i++) {
+        const totalExams = PROVIDER_CONFIG[provider] || 12;
+
+        for (let i = 1; i <= totalExams; i++) {
             const opt = document.createElement('option');
             opt.value = `practice-exam-${i}.json`;
             opt.innerText = `Practice Exam - ${i}`;
@@ -302,7 +98,8 @@
         explanationBox.style.display = 'none';
 
         try {
-            const response = await fetch(`exams/${fileName}`);
+            // Fetch path updated to include subfolders: exams/{provider}/{fileName}
+            const response = await fetch(`exams/${currentProvider}/${fileName}`);
             if (!response.ok) throw new Error("File not found");
             
             quizData = await response.json();
@@ -310,12 +107,18 @@
             score = 0;
             
             const examNumber = fileName.replace('practice-exam-', '').replace('.json', '');
-            examTitle.innerText = `Practice Exam - ${examNumber}`;
+            examTitle.innerText = `[${currentProvider}] Practice Exam - ${examNumber}`;
 
             loadQuestion();
         } catch (err) {
-            questionEl.innerText = `Error loading file: ${fileName}. Ensure 'node download-exams.js' has been executed and your local web server is running.`;
+            questionEl.innerText = `Error loading file: exams/${currentProvider}/${fileName}. Ensure the file exists in your workspace.`;
         }
+    }
+
+    function switchProvider(newProvider) {
+        currentProvider = newProvider;
+        populateExamDropdown(currentProvider);
+        loadExamFile('practice-exam-1.json');
     }
 
     function switchExam(fileName) {
@@ -399,30 +202,21 @@
             }
         }
 
-        // Reveal Explain Button after submission
         explainBtn.style.display = 'inline-block';
-
         actionBtn.innerText = currentQuestionIndex < quizData.length - 1 ? "Next Question" : "Show Results";
     }
 
     function toggleExplanation() {
         const currentData = quizData[currentQuestionIndex];
-    let rawText = currentData.explanation || "No explanation provided.";
+        let rawText = currentData.explanation || "No explanation provided.";
 
-    // 1. Fix line breaks right after bullet letters (* A\n: -> * **A:**)
-    rawText = rawText.replace(/\*\s*([A-E])\s*\n\s*:/g, '* **$1:**');
-    rawText = rawText.replace(/\*\s*\*\*([A-E])\*\*\s*\n\s*:/g, '* **$1:**');
+        rawText = rawText.replace(/\*\s*([A-E])\s*\n\s*:/g, '* **$1:**');
+        rawText = rawText.replace(/\*\s*\*\*([A-E])\*\*\s*\n\s*:/g, '* **$1:**');
+        rawText = rawText.replace(/\n\s*:\s*/g, ': ');
+        rawText = rawText.replace(/\n\s*\.\s*\n/g, '\n');
 
-    // 2. Fix stray colons on newlines (: Text -> : Text)
-    rawText = rawText.replace(/\n\s*:\s*/g, ': ');
-
-    // 3. Remove isolated trailing period lines (\n.\n -> "")
-    rawText = rawText.replace(/\n\s*\.\s*\n/g, '\n');
-
-    // 4. Render Markdown into clean HTML
-    explanationText.innerHTML = marked.parse(rawText);
-
-    explanationBox.style.display = (explanationBox.style.display === 'block') ? 'none' : 'block';
+        explanationText.innerHTML = marked.parse(rawText);
+        explanationBox.style.display = (explanationBox.style.display === 'block') ? 'none' : 'block';
     }
 
     function nextQuestion() {
@@ -448,7 +242,8 @@
         loadQuestion();
     }
 
-    populateDropdown();
+    // Initialize application
+    populateExamDropdown(currentProvider);
     loadExamFile('practice-exam-1.json');
 </script>
 
