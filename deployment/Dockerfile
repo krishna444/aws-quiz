@@ -18,4 +18,4 @@ COPY exams/ /app/exams/
 # Install serve globally or execute via npx
 EXPOSE 3000
 
-CMD ["npx", "serve", ".", "-l", "3000"]
+CMD ["npx", "serve", "-s", ".", "-l", "3000"]
