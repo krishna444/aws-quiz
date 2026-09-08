@@ -1,251 +1,361 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <link rel="stylesheet" href="quiz.css">
-    <title>AWS Cloud Practitioner Practice Quizzes</title>    
-</head>
-<body>
-
-<div class="quiz-container">
-    <div class="controls-header">
+    <link rel="stylesheet" href="quiz.css" />
+    <title>AWS Cloud Practitioner Practice Quizzes</title>
+  </head>
+  <body>
+    <div class="quiz-container">
+      <div class="header">
+        <!-- Navigation Button to Category Quiz -->
+        <a
+          href="quiz_category.html"
+          class="btn btn-secondary"
+          style="text-decoration: none; font-size: 0.85rem; padding: 6px 12px"
+        >
+          📁 Category Quizzes
+        </a>
+      </div>
+      <div class="controls-header">
         <label for="provider-select">Select Provider:</label>
-        <select id="provider-select" class="select-dropdown" onchange="switchProvider(this.value)">
-            <option value="kananinirav" selected>kananinirav</option>
-            <option value="Ditectrev">Ditectrev</option>
+        <select
+          id="provider-select"
+          class="select-dropdown"
+          onchange="switchProvider(this.value)"
+        >
+          <option value="kananinirav" selected>kananinirav</option>
+          <option value="Ditectrev">Ditectrev</option>
         </select>
 
-        <label for="exam-select" style="margin-left: 15px;">Select Practice Exam:</label>
-        <select id="exam-select" class="select-dropdown" onchange="switchExam(this.value)"></select>
-    </div>
+        <label for="exam-select" style="margin-left: 15px"
+          >Select Practice Exam:</label
+        >
+        <select
+          id="exam-select"
+          class="select-dropdown"
+          onchange="switchExam(this.value)"
+        ></select>
+      </div>
 
-    <div id="quiz-screen">
+      <div id="quiz-screen">
         <div class="header">
-            <h1 id="exam-title">Practice Exam</h1>
-            <span class="progress" id="progress">Question 1</span>
+          <h1 id="exam-title">Practice Exam</h1>
+          <span class="progress" id="progress">Question 1</span>
         </div>
         <div class="question-text" id="question">Loading questions...</div>
         <div class="options-container" id="options"></div>
 
         <!-- Explanation Block -->
         <div class="explanation-box" id="explanation-box">
-            <strong>Explanation:</strong>
-            <span id="explanation-text"></span>
+          <strong>Explanation:</strong>
+          <span id="explanation-text"></span>
         </div>
 
-        <div class="footer">
-            <button class="btn btn-secondary" id="explain-btn" onclick="toggleExplanation()" style="display: none;">Explain</button>
-            <button class="btn" id="action-btn" onclick="handleAction()" disabled>Submit Answer</button>
-        </div>
-    </div>
+        <div
+          class="footer"
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+          "
+        >
+          <!-- Left-Aligned Container -->
+          <div
+            class="left-buttons"
+            style="display: flex; align-items: center; gap: 10px"
+          >
+            <button
+              class="btn btn-secondary"
+              id="prev-btn"
+              onclick="prevQuestion()"
+              style="display: none"
+            >
+              Previous
+            </button>
+            <button
+              class="btn btn-explain"
+              id="explain-btn"
+              onclick="toggleExplanation()"
+              style="display: none"
+            >
+            💡 <span> Explain </span>
+            </button>
+          </div>
 
-    <div id="score-screen" class="score-container" style="display: none;">
+          <!-- Right-Aligned Button -->
+          <button class="btn" id="action-btn" onclick="handleAction()" disabled>
+            Submit Answer
+          </button>
+        </div>
+      </div>
+
+      <div id="score-screen" class="score-container" style="display: none">
         <h2>Quiz Completed!</h2>
         <p class="score-details" id="final-score"></p>
-        <button class="btn" onclick="restartQuiz()">Restart Current Quiz</button>
+        <button class="btn" onclick="restartQuiz()">
+          Restart Current Quiz
+        </button>
+      </div>
     </div>
-</div>
 
-<script>
-    // Configuration for available exams per provider
-    const PROVIDER_CONFIG = {
-        'kananinirav': 23,
-        'Ditectrev': 12
-    };
+    <script>
+      // Configuration for available exams per provider
+      const PROVIDER_CONFIG = {
+        kananinirav: 23,
+        Ditectrev: 12,
+      };
 
-    let currentProvider = 'kananinirav';
-    let quizData = [];
-    let currentQuestionIndex = 0;
-    let selectedIndices = [];
-    let score = 0;
-    let isAnswerSubmitted = false;
+      let currentProvider = "kananinirav";
+      let quizData = [];
+      let userState = []; // Track selections and submission state per question
+      let currentQuestionIndex = 0;
+      let selectedIndices = [];
+      let score = 0;
+      let isAnswerSubmitted = false;
 
-    const providerSelect = document.getElementById('provider-select');
-    const examSelect = document.getElementById('exam-select');
-    const examTitle = document.getElementById('exam-title');
-    const questionEl = document.getElementById('question');
-    const optionsEl = document.getElementById('options');
-    const progressEl = document.getElementById('progress');
-    const actionBtn = document.getElementById('action-btn');
-    const explainBtn = document.getElementById('explain-btn');
-    const explanationBox = document.getElementById('explanation-box');
-    const explanationText = document.getElementById('explanation-text');
-    const quizScreen = document.getElementById('quiz-screen');
-    const scoreScreen = document.getElementById('score-screen');
-    const finalScoreEl = document.getElementById('final-score');
+      const providerSelect = document.getElementById("provider-select");
+      const examSelect = document.getElementById("exam-select");
+      const examTitle = document.getElementById("exam-title");
+      const questionEl = document.getElementById("question");
+      const optionsEl = document.getElementById("options");
+      const progressEl = document.getElementById("progress");
+      const actionBtn = document.getElementById("action-btn");
+      const prevBtn = document.getElementById("prev-btn");
+      const explainBtn = document.getElementById("explain-btn");
+      const explanationBox = document.getElementById("explanation-box");
+      const explanationText = document.getElementById("explanation-text");
+      const quizScreen = document.getElementById("quiz-screen");
+      const scoreScreen = document.getElementById("score-screen");
+      const finalScoreEl = document.getElementById("final-score");
 
-    function populateExamDropdown(provider) {
-        examSelect.innerHTML = '';
+      function populateExamDropdown(provider) {
+        examSelect.innerHTML = "";
         const totalExams = PROVIDER_CONFIG[provider] || 12;
 
         for (let i = 1; i <= totalExams; i++) {
-            const opt = document.createElement('option');
-            opt.value = `practice-exam-${i}.json`;
-            opt.innerText = `Practice Exam - ${i}`;
-            examSelect.appendChild(opt);
+          const opt = document.createElement("option");
+          opt.value = `practice-exam-${i}.json`;
+          opt.innerText = `Practice Exam - ${i}`;
+          examSelect.appendChild(opt);
         }
-    }
+      }
 
-    async function loadExamFile(fileName) {
-        quizScreen.style.display = 'block';
-        scoreScreen.style.display = 'none';
+      async function loadExamFile(fileName) {
+        quizScreen.style.display = "block";
+        scoreScreen.style.display = "none";
         questionEl.innerText = "Loading exam questions...";
-        optionsEl.innerHTML = '';
+        optionsEl.innerHTML = "";
         actionBtn.disabled = true;
-        explainBtn.style.display = 'none';
-        explanationBox.style.display = 'none';
+        prevBtn.style.display = "none";
+        explainBtn.style.display = "none";
+        explanationBox.style.display = "none";
 
         try {
-            // Fetch path updated to include subfolders: exams/{provider}/{fileName}
-            const response = await fetch(`exams/${currentProvider}/${fileName}`);
-            if (!response.ok) throw new Error("File not found");
-            
-            quizData = await response.json();
-            currentQuestionIndex = 0;
-            score = 0;
-            
-            const examNumber = fileName.replace('practice-exam-', '').replace('.json', '');
-            examTitle.innerText = `[${currentProvider}] Practice Exam - ${examNumber}`;
+          const response = await fetch(`exams/${currentProvider}/${fileName}`);
+          if (!response.ok) throw new Error("File not found");
 
-            loadQuestion();
+          quizData = await response.json();
+          currentQuestionIndex = 0;
+          score = 0;
+
+          // Initialize state array for navigation persistence
+          userState = quizData.map(() => ({
+            selectedIndices: [],
+            isSubmitted: false,
+            isCorrect: false,
+          }));
+
+          const examNumber = fileName
+            .replace("practice-exam-", "")
+            .replace(".json", "");
+          examTitle.innerText = `[${currentProvider}] Practice Exam - ${examNumber}`;
+
+          loadQuestion();
         } catch (err) {
-            questionEl.innerText = `Error loading file: exams/${currentProvider}/${fileName}. Ensure the file exists in your workspace.`;
+          questionEl.innerText = `Error loading file: exams/${currentProvider}/${fileName}. Ensure the file exists in your workspace.`;
         }
-    }
+      }
 
-    function switchProvider(newProvider) {
+      function switchProvider(newProvider) {
         currentProvider = newProvider;
         populateExamDropdown(currentProvider);
-        loadExamFile('practice-exam-1.json');
-    }
+        loadExamFile("practice-exam-1.json");
+      }
 
-    function switchExam(fileName) {
+      function switchExam(fileName) {
         loadExamFile(fileName);
-    }
+      }
 
-    function loadQuestion() {
+      function loadQuestion() {
         if (quizData.length === 0) return;
 
-        isAnswerSubmitted = false;
-        selectedIndices = [];
-        actionBtn.innerText = "Submit Answer";
-        actionBtn.disabled = true;
-        explainBtn.style.display = 'none';
-        explanationBox.style.display = 'none';
+        const state = userState[currentQuestionIndex];
+        isAnswerSubmitted = state.isSubmitted;
+        selectedIndices = [...state.selectedIndices];
+
+        explainBtn.style.display = "none";
+        explanationBox.style.display = "none";
+
+        // Manage Previous button visibility
+        prevBtn.style.display =
+          currentQuestionIndex > 0 ? "inline-block" : "none";
 
         const currentData = quizData[currentQuestionIndex];
         progressEl.innerText = `Question ${currentQuestionIndex + 1} of ${quizData.length}`;
         questionEl.innerText = currentData.question;
-        optionsEl.innerHTML = '';
+        optionsEl.innerHTML = "";
 
         currentData.options.forEach((option, index) => {
-            const button = document.createElement('button');
-            button.className = 'option-btn';
-            button.innerText = option;
-            button.onclick = () => selectOption(index);
-            optionsEl.appendChild(button);
+          const button = document.createElement("button");
+          button.className = "option-btn";
+          button.innerText = option;
+          button.onclick = () => selectOption(index);
+          optionsEl.appendChild(button);
         });
-    }
 
-    function selectOption(index) {
+        if (isAnswerSubmitted) {
+          restoreSubmittedState();
+        } else {
+          actionBtn.innerText = "Submit Answer";
+          actionBtn.disabled = selectedIndices.length === 0;
+          updateOptionHighlights();
+        }
+      }
+
+      function selectOption(index) {
         if (isAnswerSubmitted) return;
 
         const currentData = quizData[currentQuestionIndex];
         const isMultiple = currentData.correct.length > 1;
 
         if (isMultiple) {
-            if (selectedIndices.includes(index)) {
-                selectedIndices = selectedIndices.filter(i => i !== index);
-            } else {
-                selectedIndices.push(index);
-            }
+          if (selectedIndices.includes(index)) {
+            selectedIndices = selectedIndices.filter((i) => i !== index);
+          } else {
+            selectedIndices.push(index);
+          }
         } else {
-            selectedIndices = [index];
+          selectedIndices = [index];
         }
 
+        userState[currentQuestionIndex].selectedIndices = [...selectedIndices];
+        updateOptionHighlights();
+        actionBtn.disabled = selectedIndices.length === 0;
+      }
+
+      function updateOptionHighlights() {
         const buttons = optionsEl.children;
         for (let i = 0; i < buttons.length; i++) {
-            buttons[i].classList.toggle('selected', selectedIndices.includes(i));
+          buttons[i].classList.toggle("selected", selectedIndices.includes(i));
         }
+      }
 
-        actionBtn.disabled = selectedIndices.length === 0;
-    }
-
-    function handleAction() {
+      function handleAction() {
         if (!isAnswerSubmitted) {
-            submitAnswer();
+          submitAnswer();
         } else {
-            nextQuestion();
+          nextQuestion();
         }
-    }
+      }
 
-    function submitAnswer() {
+      function submitAnswer() {
         isAnswerSubmitted = true;
+        const state = userState[currentQuestionIndex];
+        state.isSubmitted = true;
+
+        const currentData = quizData[currentQuestionIndex];
+        const isCorrect =
+          selectedIndices.length === currentData.correct.length &&
+          selectedIndices.every((val) => currentData.correct.includes(val));
+
+        state.isCorrect = isCorrect;
+        if (isCorrect) score++;
+
+        restoreSubmittedState();
+      }
+
+      function restoreSubmittedState() {
         const currentData = quizData[currentQuestionIndex];
         const buttons = optionsEl.children;
 
-        const isCorrect = selectedIndices.length === currentData.correct.length &&
-            selectedIndices.every(val => currentData.correct.includes(val));
-
-        if (isCorrect) score++;
-
         for (let i = 0; i < buttons.length; i++) {
-            buttons[i].disabled = true;
-            buttons[i].classList.remove('selected');
+          buttons[i].disabled = true;
+          buttons[i].classList.remove("selected");
 
-            if (currentData.correct.includes(i)) {
-                buttons[i].classList.add('correct');
-            } else if (selectedIndices.includes(i)) {
-                buttons[i].classList.add('incorrect');
-            }
+          if (currentData.correct.includes(i)) {
+            buttons[i].classList.add("correct");
+          } else if (selectedIndices.includes(i)) {
+            buttons[i].classList.add("incorrect");
+          }
         }
 
-        explainBtn.style.display = 'inline-block';
-        actionBtn.innerText = currentQuestionIndex < quizData.length - 1 ? "Next Question" : "Show Results";
-    }
+        explainBtn.style.display = "inline-block";
+        actionBtn.disabled = false;
+        actionBtn.innerText =
+          currentQuestionIndex < quizData.length - 1
+            ? "Next Question"
+            : "Show Results";
+      }
 
-    function toggleExplanation() {
+      function toggleExplanation() {
         const currentData = quizData[currentQuestionIndex];
         let rawText = currentData.explanation || "No explanation provided.";
 
-        rawText = rawText.replace(/\*\s*([A-E])\s*\n\s*:/g, '* **$1:**');
-        rawText = rawText.replace(/\*\s*\*\*([A-E])\*\*\s*\n\s*:/g, '* **$1:**');
-        rawText = rawText.replace(/\n\s*:\s*/g, ': ');
-        rawText = rawText.replace(/\n\s*\.\s*\n/g, '\n');
+        rawText = rawText.replace(/\*\s*([A-E])\s*\n\s*:/g, "* **$1:**");
+        rawText = rawText.replace(
+          /\*\s*\*\*([A-E])\*\*\s*\n\s*:/g,
+          "* **$1:**",
+        );
+        rawText = rawText.replace(/\n\s*:\s*/g, ": ");
+        rawText = rawText.replace(/\n\s*\.\s*\n/g, "\n");
 
         explanationText.innerHTML = marked.parse(rawText);
-        explanationBox.style.display = (explanationBox.style.display === 'block') ? 'none' : 'block';
-    }
+        explanationBox.style.display =
+          explanationBox.style.display === "block" ? "none" : "block";
+      }
 
-    function nextQuestion() {
+      function prevQuestion() {
+        if (currentQuestionIndex > 0) {
+          currentQuestionIndex--;
+          loadQuestion();
+        }
+      }
+
+      function nextQuestion() {
         currentQuestionIndex++;
         if (currentQuestionIndex < quizData.length) {
-            loadQuestion();
+          loadQuestion();
         } else {
-            showScore();
+          showScore();
         }
-    }
+      }
 
-    function showScore() {
-        quizScreen.style.display = 'none';
-        scoreScreen.style.display = 'block';
+      function showScore() {
+        quizScreen.style.display = "none";
+        scoreScreen.style.display = "block";
         finalScoreEl.innerText = `You scored ${score} out of ${quizData.length} (${Math.round((score / quizData.length) * 100)}%)`;
-    }
+      }
 
-    function restartQuiz() {
+      function restartQuiz() {
         currentQuestionIndex = 0;
         score = 0;
-        scoreScreen.style.display = 'none';
-        quizScreen.style.display = 'block';
+        userState = quizData.map(() => ({
+          selectedIndices: [],
+          isSubmitted: false,
+          isCorrect: false,
+        }));
+        scoreScreen.style.display = "none";
+        quizScreen.style.display = "block";
         loadQuestion();
-    }
+      }
 
-    // Initialize application
-    populateExamDropdown(currentProvider);
-    loadExamFile('practice-exam-1.json');
-</script>
-
-</body>
+      // Initialize application
+      populateExamDropdown(currentProvider);
+      loadExamFile("practice-exam-1.json");
+    </script>
+  </body>
 </html>

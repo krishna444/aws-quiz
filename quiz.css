@@ -1,6 +1,6 @@
 :root {
-            --bg-color: #f4f7f6;
-            --card-bg: #ffffff;
+            --bg-color: #040706;
+            --card-bg: #cfcfcf;
             --text-color: #2c3e50;
             --primary-color: #ff9900;
             --primary-hover: #e68a00;
@@ -9,6 +9,8 @@
             --success-color: #2ecc71;
             --error-color: #e74c3c;
             --border-color: #e0e0e0;
+            --explain-color: #9f25d8;
+            --explain-hover: #a374a3;
         }
 
         body {
@@ -49,7 +51,7 @@
             font-size: 1rem;
             border-radius: 6px;
             border: 2px solid var(--border-color);
-            background-color: #fff;
+            background-color: #efefef;
             color: var(--text-color);
             outline: none;
             cursor: pointer;
@@ -93,7 +95,7 @@
         }
 
         .option-btn {
-            background-color: #fff;
+            background-color: #efefef;
             border: 2px solid var(--border-color);
             border-radius: 6px;
             padding: 14px 18px;
@@ -164,13 +166,18 @@
     color: #154360;
 }
 
-        .footer {
-            margin-top: 25px;
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-            align-items: center;
-        }
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.left-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 
         .btn {
             background-color: var(--primary-color);
@@ -195,6 +202,14 @@
 
         .btn-secondary {
             background-color: var(--secondary-color);
+        }
+
+        .btn-explain {
+            background-color: var(--explain-color);
+        }
+
+        .btn-explain:hover {
+            background-color: var(--explain-hover);
         }
 
         .btn-secondary:hover {
