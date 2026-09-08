@@ -83,12 +83,17 @@
 
             <!-- Toolbar Action Buttons -->
             <div class="flex flex-wrap justify-between items-center gap-4 pt-4 border-t border-slate-700">
-                <!-- Explain Button (Hidden until submitted) -->
-                <button id="explainBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded font-medium transition hidden flex items-center gap-2">
-                    💡 <span>Explain</span>
-                </button>
+                <!-- Left-Side Controls (Previous & Explain) -->
+                <div class="flex items-center gap-3">
+                    <button id="prevBtn" class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-4 py-2 rounded font-medium transition hidden">
+                        ← Previous
+                    </button>
+                    <button id="explainBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded font-medium transition hidden flex items-center gap-2">
+                        💡 <span>Explain</span>
+                    </button>
+                </div>
                 
-                <!-- Action Buttons on Right Side -->
+                <!-- Right-Side Controls (Submit & Next) -->
                 <div class="flex items-center gap-3 ml-auto">
                     <button id="submitBtn" disabled class="bg-slate-600 text-slate-400 cursor-not-allowed font-bold px-6 py-2 rounded transition">
                         Submit
@@ -121,9 +126,9 @@
     <!-- JavaScript Application Logic -->
     <script>
         let questions = [];
+        let userState = []; // Stores user selections and submitted states per question
         let currentIndex = 0;
         let score = 0;
-        let selectedOptionIdx = null;
 
         const providerSelect = document.getElementById('providerSelect');
         const categorySelect = document.getElementById('categorySelect');
@@ -133,6 +138,7 @@
         const summaryCard = document.getElementById('summaryCard');
         const questionText = document.getElementById('questionText');
         const optionsContainer = document.getElementById('optionsContainer');
+        const prevBtn = document.getElementById('prevBtn');
         const explainBtn = document.getElementById('explainBtn');
         const submitBtn = document.getElementById('submitBtn');
         const nextBtn = document.getElementById('nextBtn');
@@ -170,6 +176,12 @@
 
                 currentIndex = 0;
                 score = 0;
+                // Initialize tracking state for each question
+                userState = questions.map(() => ({
+                    selectedIdx: null,
+                    isSubmitted: false,
+                    isCorrect: false
+                }));
                 
                 emptyState.classList.add('hidden');
                 summaryCard.classList.add('hidden');
@@ -186,11 +198,20 @@
         function displayQuestion() {
             resetState();
             const q = questions[currentIndex];
+            const state = userState[currentIndex];
 
             questionCount.textContent = `Question ${currentIndex + 1} of ${questions.length}`;
             scoreTracker.textContent = `Score: ${score}`;
             questionText.textContent = q.question;
 
+            // Manage Previous Button Visibility
+            if (currentIndex > 0) {
+                prevBtn.classList.remove('hidden');
+            } else {
+                prevBtn.classList.add('hidden');
+            }
+
+            // Render Options
             q.options.forEach((optStr, idx) => {
                 const btn = document.createElement('button');
                 btn.className = "option-btn w-full text-left p-3.5 rounded-lg border border-slate-700 bg-slate-700/50 hover:bg-slate-700 text-slate-200 transition flex items-center gap-3";
@@ -198,29 +219,51 @@
                 btn.addEventListener('click', () => handleOptionSelect(idx, btn));
                 optionsContainer.appendChild(btn);
             });
+
+            // Restore state if previously selected or submitted
+            if (state.isSubmitted) {
+                restoreSubmittedQuestion();
+            } else if (state.selectedIdx !== null) {
+                const selectedBtn = optionsContainer.children[state.selectedIdx];
+                highlightSelectedOption(state.selectedIdx, selectedBtn);
+            }
         }
 
         function handleOptionSelect(optionIdx, button) {
-            selectedOptionIdx = optionIdx;
+            userState[currentIndex].selectedIdx = optionIdx;
+            highlightSelectedOption(optionIdx, button);
+        }
 
-            // Highlight selected option visually before submitting
+        function highlightSelectedOption(optionIdx, button) {
             Array.from(optionsContainer.children).forEach(child => {
                 child.classList.remove('border-amber-400', 'bg-slate-700', 'ring-2', 'ring-amber-400/50');
             });
             button.classList.add('border-amber-400', 'bg-slate-700', 'ring-2', 'ring-amber-400/50');
 
-            // Enable "Submit" button
             submitBtn.disabled = false;
             submitBtn.className = "bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold px-6 py-2 rounded transition cursor-pointer";
         }
 
         submitBtn.addEventListener('click', () => {
-            if (selectedOptionIdx === null) return;
+            const state = userState[currentIndex];
+            if (state.selectedIdx === null) return;
 
+            state.isSubmitted = true;
             const q = questions[currentIndex];
-            const isCorrect = q.correct.includes(selectedOptionIdx);
+            state.isCorrect = q.correct.includes(state.selectedIdx);
 
-            // Lock all options
+            if (state.isCorrect) {
+                score++;
+                scoreTracker.textContent = `Score: ${score}`;
+            }
+
+            restoreSubmittedQuestion();
+        });
+
+        function restoreSubmittedQuestion() {
+            const q = questions[currentIndex];
+            const state = userState[currentIndex];
+
             Array.from(optionsContainer.children).forEach((child, idx) => {
                 child.disabled = true;
                 child.classList.remove('ring-2', 'ring-amber-400/50', 'hover:bg-slate-700', 'cursor-pointer');
@@ -232,20 +275,22 @@
                 }
             });
 
-            const selectedBtn = optionsContainer.children[selectedOptionIdx];
-
-            if (isCorrect) {
-                score++;
-                scoreTracker.textContent = `Score: ${score}`;
-            } else {
+            if (!state.isCorrect && state.selectedIdx !== null) {
+                const selectedBtn = optionsContainer.children[state.selectedIdx];
                 selectedBtn.classList.remove('bg-slate-700/50', 'border-slate-700', 'border-amber-400');
                 selectedBtn.classList.add('bg-rose-950', 'border-rose-500', 'text-rose-200');
             }
 
-            // Hide Submit button, show Explain and Next buttons
             submitBtn.classList.add('hidden');
             explainBtn.classList.remove('hidden');
             nextBtn.classList.remove('hidden');
+        }
+
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                displayQuestion();
+            }
         });
 
         explainBtn.addEventListener('click', () => {
@@ -270,14 +315,12 @@
         });
 
         function resetState() {
-            selectedOptionIdx = null;
             optionsContainer.innerHTML = '';
             explanationContainer.innerHTML = '';
             explanationContainer.classList.add('hidden');
             explainBtn.classList.add('hidden');
             nextBtn.classList.add('hidden');
 
-            // Reset Submit Button to grayed out state
             submitBtn.classList.remove('hidden');
             submitBtn.disabled = true;
             submitBtn.className = "bg-slate-600 text-slate-400 cursor-not-allowed font-bold px-6 py-2 rounded transition";
