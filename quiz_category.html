@@ -229,6 +229,12 @@
   const questionCount = document.getElementById("questionCount");
   const scoreTracker = document.getElementById("scoreTracker");
 
+  // Dynamic Storage Key Helper
+  function getStorageKey() {
+    const provider = providerSelect.value;
+    const category = categorySelect.value;
+    return `aws_cat_progress_${provider}_${category}`;
+  }
   // Save current progress, score, and individual question answer states to localStorage
   function saveProgress() {
     const progress = {
@@ -238,26 +244,41 @@
       score: score,
       userState: userState
     };
-    localStorage.setItem(STORAGE_KEY_PROGRESS, JSON.stringify(progress));
+    localStorage.setItem(getStorageKey(), JSON.stringify(progress));
   }
 
-  function loadSavedProgress() {
-    const stored = localStorage.getItem(STORAGE_KEY_PROGRESS);
-    return stored ? JSON.parse(stored) : null;
+function loadSavedProgress(provider, category) {
+  const key = `aws_cat_progress_${provider}_${category}`;
+  const stored = localStorage.getItem(key);
+  return stored ? JSON.parse(stored) : null;
+}
+
+// When changing Provider or Category dropdowns, load that specific category's saved progress
+providerSelect.addEventListener("change", handleCategoryChange);
+categorySelect.addEventListener("change", handleCategoryChange);
+
+function handleCategoryChange() {
+  const techOpt = document.getElementById("opt-tech");
+  if (providerSelect.value.startsWith("kananinirav")) {
+    techOpt.value = "3-cloud-technology-and-services.json";
+  } else {
+    techOpt.value = "3-cloud-technology-services.json";
   }
 
-  providerSelect.addEventListener("change", () => {
-    const techOpt = document.getElementById("opt-tech");
-    if (providerSelect.value.startsWith("kananinirav")) {
-      techOpt.value = "3-cloud-technology-and-services.json";
-    } else {
-      techOpt.value = "3-cloud-technology-services.json";
-    }
-  });
+  // Load saved progress for the newly selected domain
+  const saved = loadSavedProgress(providerSelect.value, categorySelect.value);
+  if (saved) {
+    score = saved.score || 0;
+    loadQuizData(saved.index || 0, saved.userState || null);
+  } else {
+    score = 0;
+    loadQuizData(0, null);
+  }
+}
 
   // Clicking "Start Quiz" manually resets state and starts fresh
   loadBtn.addEventListener("click", () => {
-    localStorage.removeItem(STORAGE_KEY_PROGRESS);
+    localStorage.removeItem(getStorageKey());
     score = 0;
     loadQuizData(0, null);
   });
@@ -321,14 +342,14 @@
     prevBtn.classList.add("hidden");
   }
 
-  // Show 'Next' ONLY if the question was already submitted OR visited in a previous view
-  if (state.isSubmitted || state.visitedBefore) {
+  // Show 'Next' ONLY if the current question has been submitted
+  if (state.isSubmitted) {
     nextBtn.classList.remove("hidden");
   } else {
     nextBtn.classList.add("hidden");
   }
 
-  // Mark as visited NOW (so going Previous -> Next keeps it visible)
+  // Mark as visited for tracking
   state.visitedBefore = true;
 
   q.options.forEach((optStr, idx) => {
@@ -505,6 +526,15 @@
       loadQuizData(saved.index || 0, saved.userState || null);
     }
   }
+
+  function resetAllQuizData() {
+  if (confirm("Are you sure you want to clear all saved progress across all categories?")) {
+    Object.keys(localStorage)
+      .filter(key => key.startsWith("aws_cat_progress_") || key.startsWith("aws_exam_progress_"))
+      .forEach(key => localStorage.removeItem(key));
+    location.reload();
+  }
+}
 
   initApp();
 </script>

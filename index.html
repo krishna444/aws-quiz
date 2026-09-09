@@ -117,8 +117,8 @@
       let score = 0;
       let isAnswerSubmitted = false;
 
-      // LocalStorage Key
-      const STORAGE_KEY_PROGRESS = "aws_quiz_progress";
+      // Storage key references
+      const STORAGE_KEY_LAST_SESSION = "aws_quiz_last_session";
 
       const providerSelect = document.getElementById("provider-select");
       const examSelect = document.getElementById("exam-select");
@@ -135,8 +135,19 @@
       const scoreScreen = document.getElementById("score-screen");
       const finalScoreEl = document.getElementById("final-score");
 
-      // Save overall quiz navigation, score, and individual question states
+      function getExamStorageKey(provider, examFile) {
+        return `aws_exam_progress_${provider}_${examFile}`;
+      }
+
       function saveQuizProgress() {
+        // Save current active exam metadata
+        const sessionInfo = {
+          provider: currentProvider,
+          examFile: currentExamFile,
+        };
+        localStorage.setItem(STORAGE_KEY_LAST_SESSION, JSON.stringify(sessionInfo));
+
+        // Save detailed question states for this specific exam
         const progress = {
           provider: currentProvider,
           examFile: currentExamFile,
@@ -144,12 +155,14 @@
           score: score,
           userState: userState,
         };
-        localStorage.setItem(STORAGE_KEY_PROGRESS, JSON.stringify(progress));
+        localStorage.setItem(
+          getExamStorageKey(currentProvider, currentExamFile),
+          JSON.stringify(progress)
+        );
       }
 
-      // Load saved navigation state
-      function loadSavedProgress() {
-        const stored = localStorage.getItem(STORAGE_KEY_PROGRESS);
+      function loadSavedExamProgress(provider, examFile) {
+        const stored = localStorage.getItem(getExamStorageKey(provider, examFile));
         return stored ? JSON.parse(stored) : null;
       }
 
@@ -165,10 +178,34 @@
         }
       }
 
+      function switchProvider(newProvider) {
+        currentProvider = newProvider;
+        populateExamDropdown(currentProvider);
+        switchExam("practice-exam-1.json");
+      }
+
+      function switchExam(fileName) {
+        currentExamFile = fileName;
+        examSelect.value = fileName;
+
+        const saved = loadSavedExamProgress(currentProvider, currentExamFile);
+        if (saved) {
+          score = saved.score || 0;
+          loadExamFile(
+            currentExamFile,
+            saved.questionIndex || 0,
+            saved.userState || null
+          );
+        } else {
+          score = 0;
+          loadExamFile(currentExamFile, 0, null);
+        }
+      }
+
       async function loadExamFile(
         fileName,
         restoreIndex = 0,
-        savedState = null,
+        savedState = null
       ) {
         currentExamFile = fileName;
         quizScreen.style.display = "block";
@@ -209,18 +246,6 @@
         }
       }
 
-      function switchProvider(newProvider) {
-        currentProvider = newProvider;
-        populateExamDropdown(currentProvider);
-        score = 0;
-        loadExamFile("practice-exam-1.json");
-      }
-
-      function switchExam(fileName) {
-        score = 0;
-        loadExamFile(fileName);
-      }
-
       function loadQuestion() {
         if (quizData.length === 0 || currentQuestionIndex >= quizData.length)
           return;
@@ -251,13 +276,11 @@
         if (isAnswerSubmitted) {
           restoreSubmittedState();
         } else {
-           // Unsubmitted questions ALWAYS require submitting an answer first
-            actionBtn.innerText = "Submit Answer";
-            actionBtn.disabled = selectedIndices.length === 0;
-            updateOptionHighlights();
+          actionBtn.innerText = "Submit Answer";
+          actionBtn.disabled = selectedIndices.length === 0;
+          updateOptionHighlights();
         }
 
-        // Mark as visited now for future backward/forward steps
         state.visitedBefore = true;
         saveQuizProgress();
       }
@@ -291,14 +314,13 @@
         for (let i = 0; i < buttons.length; i++) {
           buttons[i].classList.toggle(
             "selected",
-            selectedIndices.includes(i),
+            selectedIndices.includes(i)
           );
         }
       }
 
       function handleAction() {
         const state = userState[currentQuestionIndex];
-        // If the question is not submitted and no selection is made but it was visited before, treat actionBtn as Next Question
         if (
           !isAnswerSubmitted &&
           selectedIndices.length === 0 &&
@@ -362,7 +384,7 @@
         rawText = rawText.replace(/\*\s*([A-E])\s*\n\s*:/g, "* **$1:**");
         rawText = rawText.replace(
           /\*\s*\*\*([A-E])\*\*\s*\n\s*:/g,
-          "* **$1:**",
+          "* **$1:**"
         );
         rawText = rawText.replace(/\n\s*:\s*/g, ": ");
         rawText = rawText.replace(/\n\s*\.\s*\n/g, "\n");
@@ -395,7 +417,7 @@
       }
 
       function restartQuiz() {
-        localStorage.removeItem(STORAGE_KEY_PROGRESS);
+        localStorage.removeItem(getExamStorageKey(currentProvider, currentExamFile));
         currentQuestionIndex = 0;
         score = 0;
         userState = quizData.map(() => ({
@@ -409,28 +431,21 @@
         loadQuestion();
       }
 
-      // App Initialization with LocalStorage Persistence
+      // App Initialization
       function initApp() {
-        const savedProgress = loadSavedProgress();
+        const lastSession = localStorage.getItem(STORAGE_KEY_LAST_SESSION);
 
-        if (savedProgress) {
-          currentProvider = savedProgress.provider;
-          currentExamFile = savedProgress.examFile;
-          score = savedProgress.score || 0;
-
-          providerSelect.value = currentProvider;
-          populateExamDropdown(currentProvider);
-          examSelect.value = currentExamFile;
-
-          loadExamFile(
-            currentExamFile,
-            savedProgress.questionIndex || 0,
-            savedProgress.userState || null,
-          );
-        } else {
-          populateExamDropdown(currentProvider);
-          loadExamFile("practice-exam-1.json");
+        if (lastSession) {
+          const session = JSON.parse(lastSession);
+          currentProvider = session.provider || "kananinirav";
+          currentExamFile = session.examFile || "practice-exam-1.json";
         }
+
+        providerSelect.value = currentProvider;
+        populateExamDropdown(currentProvider);
+        examSelect.value = currentExamFile;
+
+        switchExam(currentExamFile);
       }
 
       initApp();
