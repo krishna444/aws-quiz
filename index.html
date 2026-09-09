@@ -102,260 +102,328 @@
       </div>
     </div>
 
-    <script>
-      // Configuration for available exams per provider
-      const PROVIDER_CONFIG = {
-        kananinirav: 23,
-        Ditectrev: 12,
-      };
+  <script>
+    const PROVIDER_CONFIG = {
+        'kananinirav': 23,
+        'Ditectrev': 12
+    };
 
-      let currentProvider = "kananinirav";
-      let quizData = [];
-      let userState = []; // Track selections and submission state per question
-      let currentQuestionIndex = 0;
-      let selectedIndices = [];
-      let score = 0;
-      let isAnswerSubmitted = false;
+    let currentProvider = 'kananinirav';
+    let currentExamFile = 'practice-exam-1.json';
+    let quizData = [];
+    let userState = []; 
+    let currentQuestionIndex = 0;
+    let selectedIndices = [];
+    let score = 0;
+    let isAnswerSubmitted = false;
 
-      const providerSelect = document.getElementById("provider-select");
-      const examSelect = document.getElementById("exam-select");
-      const examTitle = document.getElementById("exam-title");
-      const questionEl = document.getElementById("question");
-      const optionsEl = document.getElementById("options");
-      const progressEl = document.getElementById("progress");
-      const actionBtn = document.getElementById("action-btn");
-      const prevBtn = document.getElementById("prev-btn");
-      const explainBtn = document.getElementById("explain-btn");
-      const explanationBox = document.getElementById("explanation-box");
-      const explanationText = document.getElementById("explanation-text");
-      const quizScreen = document.getElementById("quiz-screen");
-      const scoreScreen = document.getElementById("score-screen");
-      const finalScoreEl = document.getElementById("final-score");
+    // LocalStorage Keys
+    const STORAGE_KEY_PROGRESS = 'aws_quiz_progress';
+    const STORAGE_KEY_CORRECT_QUESTIONS = 'aws_quiz_correct_questions';
 
-      function populateExamDropdown(provider) {
-        examSelect.innerHTML = "";
+    const providerSelect = document.getElementById('provider-select');
+    const examSelect = document.getElementById('exam-select');
+    const examTitle = document.getElementById('exam-title');
+    const questionEl = document.getElementById('question');
+    const optionsEl = document.getElementById('options');
+    const progressEl = document.getElementById('progress');
+    const actionBtn = document.getElementById('action-btn');
+    const prevBtn = document.getElementById('prev-btn');
+    const explainBtn = document.getElementById('explain-btn');
+    const explanationBox = document.getElementById('explanation-box');
+    const explanationText = document.getElementById('explanation-text');
+    const quizScreen = document.getElementById('quiz-screen');
+    const scoreScreen = document.getElementById('score-screen');
+    const finalScoreEl = document.getElementById('final-score');
+
+    // Load set of correctly answered questions from localStorage
+    function getCorrectlyAnsweredQuestions() {
+        const stored = localStorage.getItem(STORAGE_KEY_CORRECT_QUESTIONS);
+        return stored ? JSON.parse(stored) : [];
+    }
+
+    // Save a question as correctly answered
+    function markQuestionAsCorrect(questionId) {
+        const correctList = getCorrectlyAnsweredQuestions();
+        if (!correctList.includes(questionId)) {
+            correctList.push(questionId);
+            localStorage.setItem(STORAGE_KEY_CORRECT_QUESTIONS, JSON.stringify(correctList));
+        }
+    }
+
+    // Save overall quiz navigation state
+    function saveQuizProgress() {
+        const progress = {
+            provider: currentProvider,
+            examFile: currentExamFile,
+            questionIndex: currentQuestionIndex
+        };
+        localStorage.setItem(STORAGE_KEY_PROGRESS, JSON.stringify(progress));
+    }
+
+    // Load saved navigation state
+    function loadSavedProgress() {
+        const stored = localStorage.getItem(STORAGE_KEY_PROGRESS);
+        return stored ? JSON.parse(stored) : null;
+    }
+
+    function generateQuestionId(index) {
+        return `${currentProvider}-${currentExamFile}-Q${index}`;
+    }
+
+    function populateExamDropdown(provider) {
+        examSelect.innerHTML = '';
         const totalExams = PROVIDER_CONFIG[provider] || 12;
 
         for (let i = 1; i <= totalExams; i++) {
-          const opt = document.createElement("option");
-          opt.value = `practice-exam-${i}.json`;
-          opt.innerText = `Practice Exam - ${i}`;
-          examSelect.appendChild(opt);
+            const opt = document.createElement('option');
+            opt.value = `practice-exam-${i}.json`;
+            opt.innerText = `Practice Exam - ${i}`;
+            examSelect.appendChild(opt);
         }
-      }
+    }
 
-      async function loadExamFile(fileName) {
-        quizScreen.style.display = "block";
-        scoreScreen.style.display = "none";
+    async function loadExamFile(fileName, restoreIndex = null) {
+        currentExamFile = fileName;
+        quizScreen.style.display = 'block';
+        scoreScreen.style.display = 'none';
         questionEl.innerText = "Loading exam questions...";
-        optionsEl.innerHTML = "";
+        optionsEl.innerHTML = '';
         actionBtn.disabled = true;
-        prevBtn.style.display = "none";
-        explainBtn.style.display = "none";
-        explanationBox.style.display = "none";
+        prevBtn.style.display = 'none';
+        explainBtn.style.display = 'none';
+        explanationBox.style.display = 'none';
 
         try {
-          const response = await fetch(`exams/${currentProvider}/${fileName}`);
-          if (!response.ok) throw new Error("File not found");
+            const response = await fetch(`exams/${currentProvider}/${fileName}`);
+            if (!response.ok) throw new Error("File not found");
+            
+            quizData = await response.json();
+            currentQuestionIndex = restoreIndex !== null ? restoreIndex : 0;
+            score = 0;
+            
+            userState = quizData.map(() => ({
+                selectedIndices: [],
+                isSubmitted: false,
+                isCorrect: false
+            }));
 
-          quizData = await response.json();
-          currentQuestionIndex = 0;
-          score = 0;
+            const examNumber = fileName.replace('practice-exam-', '').replace('.json', '');
+            examTitle.innerText = `[${currentProvider}] Practice Exam - ${examNumber}`;
 
-          // Initialize state array for navigation persistence
-          userState = quizData.map(() => ({
-            selectedIndices: [],
-            isSubmitted: false,
-            isCorrect: false,
-          }));
-
-          const examNumber = fileName
-            .replace("practice-exam-", "")
-            .replace(".json", "");
-          examTitle.innerText = `[${currentProvider}] Practice Exam - ${examNumber}`;
-
-          loadQuestion();
+            // Check if current loaded index was already answered correctly; if so, skip to next available
+            findNextUnansweredQuestion();
         } catch (err) {
-          questionEl.innerText = `Error loading file: exams/${currentProvider}/${fileName}. Ensure the file exists in your workspace.`;
+            questionEl.innerText = `Error loading file: exams/${currentProvider}/${fileName}. Ensure the file exists in your workspace.`;
         }
-      }
+    }
 
-      function switchProvider(newProvider) {
+    function findNextUnansweredQuestion() {
+        const correctList = getCorrectlyAnsweredQuestions();
+
+        // Loop forward to find the first question that hasn't been answered correctly yet
+        while (currentQuestionIndex < quizData.length) {
+            const qId = generateQuestionId(currentQuestionIndex);
+            if (!correctList.includes(qId)) {
+                break; // Found an unanswered/incorrect question
+            }
+            currentQuestionIndex++;
+        }
+
+        // If all questions in this exam are completed correctly
+        if (currentQuestionIndex >= quizData.length) {
+            showScore();
+        } else {
+            loadQuestion();
+        }
+    }
+
+    function switchProvider(newProvider) {
         currentProvider = newProvider;
         populateExamDropdown(currentProvider);
-        loadExamFile("practice-exam-1.json");
-      }
+        loadExamFile('practice-exam-1.json');
+    }
 
-      function switchExam(fileName) {
+    function switchExam(fileName) {
         loadExamFile(fileName);
-      }
+    }
 
-      function loadQuestion() {
-        if (quizData.length === 0) return;
+    function loadQuestion() {
+        if (quizData.length === 0 || currentQuestionIndex >= quizData.length) return;
+
+        saveQuizProgress(); // Persist active progress to LocalStorage
 
         const state = userState[currentQuestionIndex];
         isAnswerSubmitted = state.isSubmitted;
         selectedIndices = [...state.selectedIndices];
 
-        explainBtn.style.display = "none";
-        explanationBox.style.display = "none";
+        explainBtn.style.display = 'none';
+        explanationBox.style.display = 'none';
 
-        // Manage Previous button visibility
-        prevBtn.style.display =
-          currentQuestionIndex > 0 ? "inline-block" : "none";
+        prevBtn.style.display = currentQuestionIndex > 0 ? 'inline-block' : 'none';
 
         const currentData = quizData[currentQuestionIndex];
         progressEl.innerText = `Question ${currentQuestionIndex + 1} of ${quizData.length}`;
         questionEl.innerText = currentData.question;
-        optionsEl.innerHTML = "";
+        optionsEl.innerHTML = '';
 
         currentData.options.forEach((option, index) => {
-          const button = document.createElement("button");
-          button.className = "option-btn";
-          button.innerText = option;
-          button.onclick = () => selectOption(index);
-          optionsEl.appendChild(button);
+            const button = document.createElement('button');
+            button.className = 'option-btn';
+            button.innerText = option;
+            button.onclick = () => selectOption(index);
+            optionsEl.appendChild(button);
         });
 
         if (isAnswerSubmitted) {
-          restoreSubmittedState();
+            restoreSubmittedState();
         } else {
-          actionBtn.innerText = "Submit Answer";
-          actionBtn.disabled = selectedIndices.length === 0;
-          updateOptionHighlights();
+            actionBtn.innerText = "Submit Answer";
+            actionBtn.disabled = selectedIndices.length === 0;
+            updateOptionHighlights();
         }
-      }
+    }
 
-      function selectOption(index) {
+    function selectOption(index) {
         if (isAnswerSubmitted) return;
 
         const currentData = quizData[currentQuestionIndex];
         const isMultiple = currentData.correct.length > 1;
 
         if (isMultiple) {
-          if (selectedIndices.includes(index)) {
-            selectedIndices = selectedIndices.filter((i) => i !== index);
-          } else {
-            selectedIndices.push(index);
-          }
+            if (selectedIndices.includes(index)) {
+                selectedIndices = selectedIndices.filter(i => i !== index);
+            } else {
+                selectedIndices.push(index);
+            }
         } else {
-          selectedIndices = [index];
+            selectedIndices = [index];
         }
 
         userState[currentQuestionIndex].selectedIndices = [...selectedIndices];
         updateOptionHighlights();
         actionBtn.disabled = selectedIndices.length === 0;
-      }
+    }
 
-      function updateOptionHighlights() {
+    function updateOptionHighlights() {
         const buttons = optionsEl.children;
         for (let i = 0; i < buttons.length; i++) {
-          buttons[i].classList.toggle("selected", selectedIndices.includes(i));
+            buttons[i].classList.toggle('selected', selectedIndices.includes(i));
         }
-      }
+    }
 
-      function handleAction() {
+    function handleAction() {
         if (!isAnswerSubmitted) {
-          submitAnswer();
+            submitAnswer();
         } else {
-          nextQuestion();
+            nextQuestion();
         }
-      }
+    }
 
-      function submitAnswer() {
+    function submitAnswer() {
         isAnswerSubmitted = true;
         const state = userState[currentQuestionIndex];
         state.isSubmitted = true;
 
         const currentData = quizData[currentQuestionIndex];
-        const isCorrect =
-          selectedIndices.length === currentData.correct.length &&
-          selectedIndices.every((val) => currentData.correct.includes(val));
+        const isCorrect = selectedIndices.length === currentData.correct.length &&
+            selectedIndices.every(val => currentData.correct.includes(val));
 
         state.isCorrect = isCorrect;
-        if (isCorrect) score++;
+        
+        if (isCorrect) {
+            score++;
+            // Store unique question ID in localStorage so it won't be shown next time
+            markQuestionAsCorrect(generateQuestionId(currentQuestionIndex));
+        }
 
         restoreSubmittedState();
-      }
+    }
 
-      function restoreSubmittedState() {
+    function restoreSubmittedState() {
         const currentData = quizData[currentQuestionIndex];
         const buttons = optionsEl.children;
 
         for (let i = 0; i < buttons.length; i++) {
-          buttons[i].disabled = true;
-          buttons[i].classList.remove("selected");
+            buttons[i].disabled = true;
+            buttons[i].classList.remove('selected');
 
-          if (currentData.correct.includes(i)) {
-            buttons[i].classList.add("correct");
-          } else if (selectedIndices.includes(i)) {
-            buttons[i].classList.add("incorrect");
-          }
+            if (currentData.correct.includes(i)) {
+                buttons[i].classList.add('correct');
+            } else if (selectedIndices.includes(i)) {
+                buttons[i].classList.add('incorrect');
+            }
         }
 
-        explainBtn.style.display = "inline-block";
+        explainBtn.style.display = 'inline-block';
         actionBtn.disabled = false;
-        actionBtn.innerText =
-          currentQuestionIndex < quizData.length - 1
-            ? "Next Question"
-            : "Show Results";
-      }
+        actionBtn.innerText = currentQuestionIndex < quizData.length - 1 ? "Next Question" : "Show Results";
+    }
 
-      function toggleExplanation() {
+    function toggleExplanation() {
         const currentData = quizData[currentQuestionIndex];
         let rawText = currentData.explanation || "No explanation provided.";
 
-        rawText = rawText.replace(/\*\s*([A-E])\s*\n\s*:/g, "* **$1:**");
-        rawText = rawText.replace(
-          /\*\s*\*\*([A-E])\*\*\s*\n\s*:/g,
-          "* **$1:**",
-        );
-        rawText = rawText.replace(/\n\s*:\s*/g, ": ");
-        rawText = rawText.replace(/\n\s*\.\s*\n/g, "\n");
+        rawText = rawText.replace(/\*\s*([A-E])\s*\n\s*:/g, '* **$1:**');
+        rawText = rawText.replace(/\*\s*\*\*([A-E])\*\*\s*\n\s*:/g, '* **$1:**');
+        rawText = rawText.replace(/\n\s*:\s*/g, ': ');
+        rawText = rawText.replace(/\n\s*\.\s*\n/g, '\n');
 
         explanationText.innerHTML = marked.parse(rawText);
-        explanationBox.style.display =
-          explanationBox.style.display === "block" ? "none" : "block";
-      }
+        explanationBox.style.display = (explanationBox.style.display === 'block') ? 'none' : 'block';
+    }
 
-      function prevQuestion() {
+    function prevQuestion() {
         if (currentQuestionIndex > 0) {
-          currentQuestionIndex--;
-          loadQuestion();
+            currentQuestionIndex--;
+            loadQuestion();
         }
-      }
+    }
 
-      function nextQuestion() {
+    function nextQuestion() {
         currentQuestionIndex++;
-        if (currentQuestionIndex < quizData.length) {
-          loadQuestion();
-        } else {
-          showScore();
-        }
-      }
+        findNextUnansweredQuestion(); // Automatically skips questions answered correctly in past sessions
+    }
 
-      function showScore() {
-        quizScreen.style.display = "none";
-        scoreScreen.style.display = "block";
+    function showScore() {
+        quizScreen.style.display = 'none';
+        scoreScreen.style.display = 'block';
         finalScoreEl.innerText = `You scored ${score} out of ${quizData.length} (${Math.round((score / quizData.length) * 100)}%)`;
-      }
+    }
 
-      function restartQuiz() {
+    function restartQuiz() {
         currentQuestionIndex = 0;
         score = 0;
         userState = quizData.map(() => ({
-          selectedIndices: [],
-          isSubmitted: false,
-          isCorrect: false,
+            selectedIndices: [],
+            isSubmitted: false,
+            isCorrect: false
         }));
-        scoreScreen.style.display = "none";
-        quizScreen.style.display = "block";
-        loadQuestion();
-      }
+        scoreScreen.style.display = 'none';
+        quizScreen.style.display = 'block';
+        findNextUnansweredQuestion();
+    }
 
-      // Initialize application
-      populateExamDropdown(currentProvider);
-      loadExamFile("practice-exam-1.json");
-    </script>
+    // App Initialization with LocalStorage Persistence
+    function initApp() {
+        const savedProgress = loadSavedProgress();
+
+        if (savedProgress) {
+            currentProvider = savedProgress.provider;
+            currentExamFile = savedProgress.examFile;
+            
+            providerSelect.value = currentProvider;
+            populateExamDropdown(currentProvider);
+            examSelect.value = currentExamFile;
+
+            loadExamFile(currentExamFile, savedProgress.questionIndex);
+        } else {
+            populateExamDropdown(currentProvider);
+            loadExamFile('practice-exam-1.json');
+        }
+    }
+
+    initApp();
+</script>
   </body>
 </html>

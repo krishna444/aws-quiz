@@ -206,9 +206,13 @@
     <!-- JavaScript Application Logic -->
     <script>
       let questions = [];
-      let userState = []; // Stores selections and submitted states per question
+      let userState = [];
       let currentIndex = 0;
       let score = 0;
+
+      // LocalStorage Keys
+      const STORAGE_KEY_PROGRESS = "aws_category_quiz_progress";
+      const STORAGE_KEY_CORRECT = "aws_category_quiz_correct";
 
       const providerSelect = document.getElementById("providerSelect");
       const categorySelect = document.getElementById("categorySelect");
@@ -222,12 +226,42 @@
       const explainBtn = document.getElementById("explainBtn");
       const submitBtn = document.getElementById("submitBtn");
       const nextBtn = document.getElementById("nextBtn");
-      const explanationContainer = document.getElementById(
-        "explanationContainer",
-      );
+      const explanationContainer = document.getElementById("explanationContainer");
       const progressTracker = document.getElementById("progressTracker");
       const questionCount = document.getElementById("questionCount");
       const scoreTracker = document.getElementById("scoreTracker");
+
+      // LocalStorage Helper Functions
+      function getCorrectQuestions() {
+        const stored = localStorage.getItem(STORAGE_KEY_CORRECT);
+        return stored ? JSON.parse(stored) : [];
+      }
+
+      function markQuestionCorrect(qId) {
+        const correctList = getCorrectQuestions();
+        if (!correctList.includes(qId)) {
+          correctList.push(qId);
+          localStorage.setItem(STORAGE_KEY_CORRECT, JSON.stringify(correctList));
+        }
+      }
+
+      function saveProgress() {
+        const progress = {
+          provider: providerSelect.value,
+          categoryFile: categorySelect.value,
+          index: currentIndex
+        };
+        localStorage.setItem(STORAGE_KEY_PROGRESS, JSON.stringify(progress));
+      }
+
+      function loadSavedProgress() {
+        const stored = localStorage.getItem(STORAGE_KEY_PROGRESS);
+        return stored ? JSON.parse(stored) : null;
+      }
+
+      function generateQuestionId(idx) {
+        return `cat-${providerSelect.value}-${categorySelect.value}-Q${idx}`;
+      }
 
       providerSelect.addEventListener("change", () => {
         const techOpt = document.getElementById("opt-tech");
@@ -238,9 +272,9 @@
         }
       });
 
-      loadBtn.addEventListener("click", loadQuizData);
+      loadBtn.addEventListener("click", () => loadQuizData());
 
-      async function loadQuizData() {
+      async function loadQuizData(restoreIndex = null) {
         const provider = providerSelect.value;
         const file = categorySelect.value;
         const filePath = `exams/catgories/${provider}/${file}`;
@@ -257,7 +291,7 @@
             return;
           }
 
-          currentIndex = 0;
+          currentIndex = restoreIndex !== null ? restoreIndex : 0;
           score = 0;
 
           userState = questions.map(() => ({
@@ -271,15 +305,35 @@
           quizCard.classList.remove("hidden");
           progressTracker.classList.remove("hidden");
 
-          displayQuestion();
+          findNextUnansweredQuestion();
         } catch (error) {
           console.error("Error fetching data:", error);
           alert(`Failed to load file: ${filePath}. Please check path.`);
         }
       }
 
+      function findNextUnansweredQuestion() {
+        const correctList = getCorrectQuestions();
+
+        while (currentIndex < questions.length) {
+          const qId = generateQuestionId(currentIndex);
+          if (!correctList.includes(qId)) {
+            break;
+          }
+          currentIndex++;
+        }
+
+        if (currentIndex >= questions.length) {
+          showSummary();
+        } else {
+          displayQuestion();
+        }
+      }
+
       function displayQuestion() {
         resetState();
+        saveProgress();
+
         const q = questions[currentIndex];
         const state = userState[currentIndex];
 
@@ -315,7 +369,6 @@
         const isMultipleChoice = q.correct.length > 1;
 
         if (isMultipleChoice) {
-          // Toggle selection for multiple choice questions
           if (state.selectedIndices.includes(optionIdx)) {
             state.selectedIndices = state.selectedIndices.filter(
               (i) => i !== optionIdx,
@@ -324,7 +377,6 @@
             state.selectedIndices.push(optionIdx);
           }
         } else {
-          // Single choice replacement
           state.selectedIndices = [optionIdx];
         }
 
@@ -370,7 +422,6 @@
         state.isSubmitted = true;
         const q = questions[currentIndex];
 
-        // Verify if selected answers match correct answers array
         const isCorrect =
           state.selectedIndices.length === q.correct.length &&
           state.selectedIndices.every((val) => q.correct.includes(val));
@@ -380,6 +431,7 @@
         if (isCorrect) {
           score++;
           scoreTracker.textContent = `Score: ${score}`;
+          markQuestionCorrect(generateQuestionId(currentIndex));
         }
 
         restoreSubmittedQuestion();
@@ -399,7 +451,6 @@
           );
           child.classList.add("cursor-not-allowed", "opacity-90");
 
-          // Highlight correct options in green
           if (q.correct.includes(idx)) {
             child.classList.remove(
               "bg-slate-700/50",
@@ -411,9 +462,7 @@
               "border-emerald-500",
               "text-emerald-200",
             );
-          }
-          // Highlight incorrectly selected options in red
-          else if (state.selectedIndices.includes(idx)) {
+          } else if (state.selectedIndices.includes(idx)) {
             child.classList.remove(
               "bg-slate-700/50",
               "border-slate-700",
@@ -455,11 +504,7 @@
 
       nextBtn.addEventListener("click", () => {
         currentIndex++;
-        if (currentIndex < questions.length) {
-          displayQuestion();
-        } else {
-          showSummary();
-        }
+        findNextUnansweredQuestion();
       });
 
       function resetState() {
@@ -484,6 +529,24 @@
         document.getElementById("finalScoreText").innerHTML =
           `You scored <span class="text-amber-400 font-bold">${score}</span> out of <span class="font-bold">${questions.length}</span> (${percentage}%).`;
       }
+
+      // App Initialization
+      function initApp() {
+        const saved = loadSavedProgress();
+        if (saved) {
+          providerSelect.value = saved.provider;
+          const techOpt = document.getElementById("opt-tech");
+          if (saved.provider.startsWith("kananinirav")) {
+            techOpt.value = "3-cloud-technology-and-services.json";
+          } else {
+            techOpt.value = "3-cloud-technology-services.json";
+          }
+          categorySelect.value = saved.categoryFile;
+          loadQuizData(saved.index);
+        }
+      }
+
+      initApp();
     </script>
   </body>
 </html>
