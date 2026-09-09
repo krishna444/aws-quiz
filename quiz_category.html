@@ -205,348 +205,308 @@
 
     <!-- JavaScript Application Logic -->
     <script>
-      let questions = [];
-      let userState = [];
-      let currentIndex = 0;
-      let score = 0;
+  let questions = [];
+  let userState = [];
+  let currentIndex = 0;
+  let score = 0;
 
-      // LocalStorage Keys
-      const STORAGE_KEY_PROGRESS = "aws_category_quiz_progress";
-      const STORAGE_KEY_CORRECT = "aws_category_quiz_correct";
+  const STORAGE_KEY_PROGRESS = "aws_category_quiz_progress";
 
-      const providerSelect = document.getElementById("providerSelect");
-      const categorySelect = document.getElementById("categorySelect");
-      const loadBtn = document.getElementById("loadBtn");
-      const quizCard = document.getElementById("quizCard");
-      const emptyState = document.getElementById("emptyState");
-      const summaryCard = document.getElementById("summaryCard");
-      const questionText = document.getElementById("questionText");
-      const optionsContainer = document.getElementById("optionsContainer");
-      const prevBtn = document.getElementById("prevBtn");
-      const explainBtn = document.getElementById("explainBtn");
-      const submitBtn = document.getElementById("submitBtn");
-      const nextBtn = document.getElementById("nextBtn");
-      const explanationContainer = document.getElementById("explanationContainer");
-      const progressTracker = document.getElementById("progressTracker");
-      const questionCount = document.getElementById("questionCount");
-      const scoreTracker = document.getElementById("scoreTracker");
+  const providerSelect = document.getElementById("providerSelect");
+  const categorySelect = document.getElementById("categorySelect");
+  const loadBtn = document.getElementById("loadBtn");
+  const quizCard = document.getElementById("quizCard");
+  const emptyState = document.getElementById("emptyState");
+  const summaryCard = document.getElementById("summaryCard");
+  const questionText = document.getElementById("questionText");
+  const optionsContainer = document.getElementById("optionsContainer");
+  const prevBtn = document.getElementById("prevBtn");
+  const explainBtn = document.getElementById("explainBtn");
+  const submitBtn = document.getElementById("submitBtn");
+  const nextBtn = document.getElementById("nextBtn");
+  const explanationContainer = document.getElementById("explanationContainer");
+  const progressTracker = document.getElementById("progressTracker");
+  const questionCount = document.getElementById("questionCount");
+  const scoreTracker = document.getElementById("scoreTracker");
 
-      // LocalStorage Helper Functions
-      function getCorrectQuestions() {
-        const stored = localStorage.getItem(STORAGE_KEY_CORRECT);
-        return stored ? JSON.parse(stored) : [];
+  // Save current progress, score, and individual question answer states to localStorage
+  function saveProgress() {
+    const progress = {
+      provider: providerSelect.value,
+      categoryFile: categorySelect.value,
+      index: currentIndex,
+      score: score,
+      userState: userState
+    };
+    localStorage.setItem(STORAGE_KEY_PROGRESS, JSON.stringify(progress));
+  }
+
+  function loadSavedProgress() {
+    const stored = localStorage.getItem(STORAGE_KEY_PROGRESS);
+    return stored ? JSON.parse(stored) : null;
+  }
+
+  providerSelect.addEventListener("change", () => {
+    const techOpt = document.getElementById("opt-tech");
+    if (providerSelect.value.startsWith("kananinirav")) {
+      techOpt.value = "3-cloud-technology-and-services.json";
+    } else {
+      techOpt.value = "3-cloud-technology-services.json";
+    }
+  });
+
+  // Clicking "Start Quiz" manually resets state and starts fresh
+  loadBtn.addEventListener("click", () => {
+    localStorage.removeItem(STORAGE_KEY_PROGRESS);
+    score = 0;
+    loadQuizData(0, null);
+  });
+
+  async function loadQuizData(restoreIndex = 0, savedState = null) {
+    const provider = providerSelect.value;
+    const file = categorySelect.value;
+    const filePath = `exams/catgories/${provider}/${file}`;
+
+    try {
+      const response = await fetch(filePath);
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+      questions = await response.json();
+
+      if (!questions || questions.length === 0) {
+        alert("No questions found in this category file.");
+        return;
       }
 
-      function markQuestionCorrect(qId) {
-        const correctList = getCorrectQuestions();
-        if (!correctList.includes(qId)) {
-          correctList.push(qId);
-          localStorage.setItem(STORAGE_KEY_CORRECT, JSON.stringify(correctList));
-        }
+      currentIndex = restoreIndex;
+
+      // Restore saved question states if available; otherwise initialize defaults
+      if (savedState && savedState.length === questions.length) {
+        userState = savedState;
+      } else {
+        userState = questions.map(() => ({
+          selectedIndices: [],
+          isSubmitted: false,
+          isCorrect: false,
+          visitedBefore: false
+        }));
       }
 
-      function saveProgress() {
-        const progress = {
-          provider: providerSelect.value,
-          categoryFile: categorySelect.value,
-          index: currentIndex
-        };
-        localStorage.setItem(STORAGE_KEY_PROGRESS, JSON.stringify(progress));
+      emptyState.classList.add("hidden");
+      summaryCard.classList.add("hidden");
+      quizCard.classList.remove("hidden");
+      progressTracker.classList.remove("hidden");
+
+      displayQuestion();
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      alert(`Failed to load file: ${filePath}. Please check server routing.`);
+    }
+  }
+
+  function displayQuestion() {
+  resetState();
+
+  const q = questions[currentIndex];
+  const state = userState[currentIndex];
+
+  questionCount.textContent = `Question ${currentIndex + 1} of ${questions.length}`;
+  scoreTracker.textContent = `Score: ${score}`;
+  questionText.textContent = q.question;
+
+  // Previous Button Visibility
+  if (currentIndex > 0) {
+    prevBtn.classList.remove("hidden");
+  } else {
+    prevBtn.classList.add("hidden");
+  }
+
+  // Show 'Next' ONLY if the question was already submitted OR visited in a previous view
+  if (state.isSubmitted || state.visitedBefore) {
+    nextBtn.classList.remove("hidden");
+  } else {
+    nextBtn.classList.add("hidden");
+  }
+
+  // Mark as visited NOW (so going Previous -> Next keeps it visible)
+  state.visitedBefore = true;
+
+  q.options.forEach((optStr, idx) => {
+    const btn = document.createElement("button");
+    btn.className =
+      "option-btn w-full text-left p-3.5 rounded-lg border border-slate-700 bg-slate-700/50 hover:bg-slate-700 text-slate-200 transition flex items-center gap-3 cursor-pointer";
+    btn.innerHTML = `<span class="font-semibold text-amber-400">${optStr.substring(0, 2)}</span> <span>${optStr.substring(3)}</span>`;
+    btn.addEventListener("click", () => handleOptionSelect(idx));
+    optionsContainer.appendChild(btn);
+  });
+
+  if (state.isSubmitted) {
+    restoreSubmittedQuestion();
+  } else if (state.selectedIndices.length > 0) {
+    updateOptionHighlights();
+  }
+
+  saveProgress();
+}
+   
+
+  function handleOptionSelect(optionIdx) {
+    const state = userState[currentIndex];
+    if (state.isSubmitted) return;
+
+    const q = questions[currentIndex];
+    const isMultipleChoice = q.correct.length > 1;
+
+    if (isMultipleChoice) {
+      if (state.selectedIndices.includes(optionIdx)) {
+        state.selectedIndices = state.selectedIndices.filter((i) => i !== optionIdx);
+      } else {
+        state.selectedIndices.push(optionIdx);
       }
+    } else {
+      state.selectedIndices = [optionIdx];
+    }
 
-      function loadSavedProgress() {
-        const stored = localStorage.getItem(STORAGE_KEY_PROGRESS);
-        return stored ? JSON.parse(stored) : null;
+    updateOptionHighlights();
+    saveProgress();
+  }
+
+  function updateOptionHighlights() {
+    const state = userState[currentIndex];
+
+    Array.from(optionsContainer.children).forEach((child, idx) => {
+      if (state.selectedIndices.includes(idx)) {
+        child.classList.add("border-amber-400", "bg-slate-700", "ring-2", "ring-amber-400/50");
+      } else {
+        child.classList.remove("border-amber-400", "bg-slate-700", "ring-2", "ring-amber-400/50");
       }
+    });
 
-      function generateQuestionId(idx) {
-        return `cat-${providerSelect.value}-${categorySelect.value}-Q${idx}`;
+    if (state.selectedIndices.length > 0) {
+      submitBtn.disabled = false;
+      submitBtn.className =
+        "bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold px-6 py-2 rounded transition cursor-pointer";
+    } else {
+      submitBtn.disabled = true;
+      submitBtn.className =
+        "bg-slate-600 text-slate-400 cursor-not-allowed font-bold px-6 py-2 rounded transition";
+    }
+  }
+
+  submitBtn.addEventListener("click", () => {
+    const state = userState[currentIndex];
+    if (state.selectedIndices.length === 0 || state.isSubmitted) return;
+
+    state.isSubmitted = true;
+    const q = questions[currentIndex];
+
+    const isCorrect =
+      state.selectedIndices.length === q.correct.length &&
+      state.selectedIndices.every((val) => q.correct.includes(val));
+
+    state.isCorrect = isCorrect;
+
+    if (isCorrect) {
+      score++;
+      scoreTracker.textContent = `Score: ${score}`;
+    }
+
+    saveProgress();
+    restoreSubmittedQuestion();
+  });
+
+  function restoreSubmittedQuestion() {
+    const q = questions[currentIndex];
+    const state = userState[currentIndex];
+
+    Array.from(optionsContainer.children).forEach((child, idx) => {
+      child.disabled = true;
+      child.classList.remove("ring-2", "ring-amber-400/50", "hover:bg-slate-700", "cursor-pointer");
+      child.classList.add("cursor-not-allowed", "opacity-90");
+
+      if (q.correct.includes(idx)) {
+        child.classList.remove("bg-slate-700/50", "border-slate-700", "border-amber-400");
+        child.classList.add("bg-emerald-950", "border-emerald-500", "text-emerald-200");
+      } else if (state.selectedIndices.includes(idx)) {
+        child.classList.remove("bg-slate-700/50", "border-slate-700", "border-amber-400");
+        child.classList.add("bg-rose-950", "border-rose-500", "text-rose-200");
       }
+    });
 
-      providerSelect.addEventListener("change", () => {
-        const techOpt = document.getElementById("opt-tech");
-        if (providerSelect.value.startsWith("kananinirav")) {
-          techOpt.value = "3-cloud-technology-and-services.json";
-        } else {
-          techOpt.value = "3-cloud-technology-services.json";
-        }
-      });
+    submitBtn.classList.add("hidden");
+    explainBtn.classList.remove("hidden");
+    nextBtn.classList.remove("hidden");
+  }
 
-      loadBtn.addEventListener("click", () => loadQuizData());
+  prevBtn.addEventListener("click", () => {
+    if (currentIndex > 0) {
+      currentIndex--;
+      displayQuestion();
+    }
+  });
 
-      async function loadQuizData(restoreIndex = null) {
-        const provider = providerSelect.value;
-        const file = categorySelect.value;
-        const filePath = `exams/catgories/${provider}/${file}`;
+  nextBtn.addEventListener("click", () => {
+    if (currentIndex < questions.length - 1) {
+      currentIndex++;
+      displayQuestion();
+    } else {
+      showSummary();
+    }
+  });
 
-        try {
-          const response = await fetch(filePath);
-          if (!response.ok)
-            throw new Error(`HTTP error! status: ${response.status}`);
+  explainBtn.addEventListener("click", () => {
+    const q = questions[currentIndex];
 
-          questions = await response.json();
+    if (explanationContainer.classList.contains("hidden")) {
+      const rawMarkdown =
+        q.explanation || "No detailed explanation is available for this question.";
+      explanationContainer.innerHTML = marked.parse(rawMarkdown);
+      explanationContainer.classList.remove("hidden");
+    } else {
+      explanationContainer.classList.add("hidden");
+    }
+  });
 
-          if (!questions || questions.length === 0) {
-            alert("No questions found in this category file.");
-            return;
-          }
+  function resetState() {
+    optionsContainer.innerHTML = "";
+    explanationContainer.innerHTML = "";
+    explanationContainer.classList.add("hidden");
+    explainBtn.classList.add("hidden");
 
-          currentIndex = restoreIndex !== null ? restoreIndex : 0;
-          score = 0;
+    submitBtn.classList.remove("hidden");
+    submitBtn.disabled = true;
+    submitBtn.className =
+      "bg-slate-600 text-slate-400 cursor-not-allowed font-bold px-6 py-2 rounded transition";
+  }
 
-          userState = questions.map(() => ({
-            selectedIndices: [],
-            isSubmitted: false,
-            isCorrect: false,
-          }));
+  function showSummary() {
+    quizCard.classList.add("hidden");
+    progressTracker.classList.add("hidden");
+    summaryCard.classList.remove("hidden");
 
-          emptyState.classList.add("hidden");
-          summaryCard.classList.add("hidden");
-          quizCard.classList.remove("hidden");
-          progressTracker.classList.remove("hidden");
+    const percentage = Math.round((score / questions.length) * 100);
+    document.getElementById("finalScoreText").innerHTML =
+      `You scored <span class="text-amber-400 font-bold">${score}</span> out of <span class="font-bold">${questions.length}</span> (${percentage}%).`;
+  }
 
-          findNextUnansweredQuestion();
-        } catch (error) {
-          console.error("Error fetching data:", error);
-          alert(`Failed to load file: ${filePath}. Please check path.`);
-        }
+  function initApp() {
+    const saved = loadSavedProgress();
+    if (saved) {
+      providerSelect.value = saved.provider;
+      const techOpt = document.getElementById("opt-tech");
+      if (saved.provider.startsWith("kananinirav")) {
+        techOpt.value = "3-cloud-technology-and-services.json";
+      } else {
+        techOpt.value = "3-cloud-technology-services.json";
       }
+      categorySelect.value = saved.categoryFile;
+      score = saved.score || 0;
 
-      function findNextUnansweredQuestion() {
-        const correctList = getCorrectQuestions();
+      loadQuizData(saved.index || 0, saved.userState || null);
+    }
+  }
 
-        while (currentIndex < questions.length) {
-          const qId = generateQuestionId(currentIndex);
-          if (!correctList.includes(qId)) {
-            break;
-          }
-          currentIndex++;
-        }
-
-        if (currentIndex >= questions.length) {
-          showSummary();
-        } else {
-          displayQuestion();
-        }
-      }
-
-      function displayQuestion() {
-        resetState();
-        saveProgress();
-
-        const q = questions[currentIndex];
-        const state = userState[currentIndex];
-
-        questionCount.textContent = `Question ${currentIndex + 1} of ${questions.length}`;
-        scoreTracker.textContent = `Score: ${score}`;
-        questionText.textContent = q.question;
-
-        if (currentIndex > 0) {
-          prevBtn.classList.remove("hidden");
-        } else {
-          prevBtn.classList.add("hidden");
-        }
-
-        q.options.forEach((optStr, idx) => {
-          const btn = document.createElement("button");
-          btn.className =
-            "option-btn w-full text-left p-3.5 rounded-lg border border-slate-700 bg-slate-700/50 hover:bg-slate-700 text-slate-200 transition flex items-center gap-3 cursor-pointer";
-          btn.innerHTML = `<span class="font-semibold text-amber-400">${optStr.substring(0, 2)}</span> <span>${optStr.substring(3)}</span>`;
-          btn.addEventListener("click", () => handleOptionSelect(idx));
-          optionsContainer.appendChild(btn);
-        });
-
-        if (state.isSubmitted) {
-          restoreSubmittedQuestion();
-        } else if (state.selectedIndices.length > 0) {
-          updateOptionHighlights();
-        }
-      }
-
-      function handleOptionSelect(optionIdx) {
-        const state = userState[currentIndex];
-        const q = questions[currentIndex];
-        const isMultipleChoice = q.correct.length > 1;
-
-        if (isMultipleChoice) {
-          if (state.selectedIndices.includes(optionIdx)) {
-            state.selectedIndices = state.selectedIndices.filter(
-              (i) => i !== optionIdx,
-            );
-          } else {
-            state.selectedIndices.push(optionIdx);
-          }
-        } else {
-          state.selectedIndices = [optionIdx];
-        }
-
-        updateOptionHighlights();
-      }
-
-      function updateOptionHighlights() {
-        const state = userState[currentIndex];
-
-        Array.from(optionsContainer.children).forEach((child, idx) => {
-          if (state.selectedIndices.includes(idx)) {
-            child.classList.add(
-              "border-amber-400",
-              "bg-slate-700",
-              "ring-2",
-              "ring-amber-400/50",
-            );
-          } else {
-            child.classList.remove(
-              "border-amber-400",
-              "bg-slate-700",
-              "ring-2",
-              "ring-amber-400/50",
-            );
-          }
-        });
-
-        if (state.selectedIndices.length > 0) {
-          submitBtn.disabled = false;
-          submitBtn.className =
-            "bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold px-6 py-2 rounded transition cursor-pointer";
-        } else {
-          submitBtn.disabled = true;
-          submitBtn.className =
-            "bg-slate-600 text-slate-400 cursor-not-allowed font-bold px-6 py-2 rounded transition";
-        }
-      }
-
-      submitBtn.addEventListener("click", () => {
-        const state = userState[currentIndex];
-        if (state.selectedIndices.length === 0) return;
-
-        state.isSubmitted = true;
-        const q = questions[currentIndex];
-
-        const isCorrect =
-          state.selectedIndices.length === q.correct.length &&
-          state.selectedIndices.every((val) => q.correct.includes(val));
-
-        state.isCorrect = isCorrect;
-
-        if (isCorrect) {
-          score++;
-          scoreTracker.textContent = `Score: ${score}`;
-          markQuestionCorrect(generateQuestionId(currentIndex));
-        }
-
-        restoreSubmittedQuestion();
-      });
-
-      function restoreSubmittedQuestion() {
-        const q = questions[currentIndex];
-        const state = userState[currentIndex];
-
-        Array.from(optionsContainer.children).forEach((child, idx) => {
-          child.disabled = true;
-          child.classList.remove(
-            "ring-2",
-            "ring-amber-400/50",
-            "hover:bg-slate-700",
-            "cursor-pointer",
-          );
-          child.classList.add("cursor-not-allowed", "opacity-90");
-
-          if (q.correct.includes(idx)) {
-            child.classList.remove(
-              "bg-slate-700/50",
-              "border-slate-700",
-              "border-amber-400",
-            );
-            child.classList.add(
-              "bg-emerald-950",
-              "border-emerald-500",
-              "text-emerald-200",
-            );
-          } else if (state.selectedIndices.includes(idx)) {
-            child.classList.remove(
-              "bg-slate-700/50",
-              "border-slate-700",
-              "border-amber-400",
-            );
-            child.classList.add(
-              "bg-rose-950",
-              "border-rose-500",
-              "text-rose-200",
-            );
-          }
-        });
-
-        submitBtn.classList.add("hidden");
-        explainBtn.classList.remove("hidden");
-        nextBtn.classList.remove("hidden");
-      }
-
-      prevBtn.addEventListener("click", () => {
-        if (currentIndex > 0) {
-          currentIndex--;
-          displayQuestion();
-        }
-      });
-
-      explainBtn.addEventListener("click", () => {
-        const q = questions[currentIndex];
-
-        if (explanationContainer.classList.contains("hidden")) {
-          const rawMarkdown =
-            q.explanation ||
-            "No detailed explanation is available for this question.";
-          explanationContainer.innerHTML = marked.parse(rawMarkdown);
-          explanationContainer.classList.remove("hidden");
-        } else {
-          explanationContainer.classList.add("hidden");
-        }
-      });
-
-      nextBtn.addEventListener("click", () => {
-        currentIndex++;
-        findNextUnansweredQuestion();
-      });
-
-      function resetState() {
-        optionsContainer.innerHTML = "";
-        explanationContainer.innerHTML = "";
-        explanationContainer.classList.add("hidden");
-        explainBtn.classList.add("hidden");
-        nextBtn.classList.add("hidden");
-
-        submitBtn.classList.remove("hidden");
-        submitBtn.disabled = true;
-        submitBtn.className =
-          "bg-slate-600 text-slate-400 cursor-not-allowed font-bold px-6 py-2 rounded transition";
-      }
-
-      function showSummary() {
-        quizCard.classList.add("hidden");
-        progressTracker.classList.add("hidden");
-        summaryCard.classList.remove("hidden");
-
-        const percentage = Math.round((score / questions.length) * 100);
-        document.getElementById("finalScoreText").innerHTML =
-          `You scored <span class="text-amber-400 font-bold">${score}</span> out of <span class="font-bold">${questions.length}</span> (${percentage}%).`;
-      }
-
-      // App Initialization
-      function initApp() {
-        const saved = loadSavedProgress();
-        if (saved) {
-          providerSelect.value = saved.provider;
-          const techOpt = document.getElementById("opt-tech");
-          if (saved.provider.startsWith("kananinirav")) {
-            techOpt.value = "3-cloud-technology-and-services.json";
-          } else {
-            techOpt.value = "3-cloud-technology-services.json";
-          }
-          categorySelect.value = saved.categoryFile;
-          loadQuizData(saved.index);
-        }
-      }
-
-      initApp();
-    </script>
+  initApp();
+</script>
   </body>
 </html>
