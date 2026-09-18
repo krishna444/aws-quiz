@@ -32,7 +32,7 @@
   </head>
   <body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col font-sans">
     <header class="bg-slate-800 border-b border-slate-700 p-4 shadow-md">
-      <div class="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+      <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
         <a
           href="index.html"
           class="text-s bg-slate-700 hover:bg-slate-600 border border-slate-600 text-amber-300 font-medium px-3 py-1.5 rounded transition"
@@ -45,6 +45,7 @@
         </div>
 
         <div class="flex flex-wrap items-center gap-3">
+          <!-- 1. Certification Level -->
           <div>
             <label for="certSelect" class="text-xs text-slate-400 block mb-1">Certification:</label>
             <select
@@ -56,18 +57,25 @@
             </select>
           </div>
 
+          <!-- 2. Provider Source -->
           <div>
             <label for="providerSelect" class="text-xs text-slate-400 block mb-1">Provider Source:</label>
             <select
               id="providerSelect"
               class="bg-slate-700 text-slate-100 px-3 py-1.5 rounded border border-slate-600 focus:outline-none focus:border-amber-400"
-            >
-              <option value="kananinirav_1">kananinirav_1</option>
-              <option value="kananinirav_2">kananinirav_2</option>
-              <option value="Ditectrev">Ditectrev</option>
-            </select>
+            ></select>
           </div>
 
+          <!-- 3. Dynamic Sub-Set Selector (Hidden if Provider has no subfolders) -->
+          <div id="subSetWrapper" class="hidden">
+            <label for="subSetSelect" class="text-xs text-slate-400 block mb-1">Set / Variation:</label>
+            <select
+              id="subSetSelect"
+              class="bg-slate-700 text-slate-100 px-3 py-1.5 rounded border border-slate-600 focus:outline-none focus:border-amber-400"
+            ></select>
+          </div>
+
+          <!-- 4. Category / Domain -->
           <div>
             <label for="categorySelect" class="text-xs text-slate-400 block mb-1">Select Domain/Category:</label>
             <select
@@ -168,23 +176,64 @@
       let currentIndex = 0;
       let score = 0;
 
-      const CATEGORY_MAP = {
-        'clf-c02': [
-          { value: "1-cloud-concepts.json", label: "1. Cloud Concepts" },
-          { value: "2-security-and-compliance.json", label: "2. Security & Compliance" },
-          { value: "3-cloud-technology-services.json", label: "3. Cloud Technology & Services" },
-          { value: "4-billing-pricing-and-support.json", label: "4. Billing, Pricing & Support" }
-        ],
-        'saa-c03': [
-          { value: "1-secure-architectures.json", label: "1. Secure Architectures" },
-          { value: "2-resilient-architectures.json", label: "2. Resilient Architectures" },
-          { value: "2-cost-optimized-architectures.json", label: "3. Cost-Optimized Architectures" },
-          { value: "3-high-performance-architectures.json", label: "4. High-Performance Architectures" }
-        ]
+      // Schema mapping matching directory layout
+      const CONFIG_MAP = {
+        'clf-c02': {
+          providers: {
+            'kananinirav': {
+              subSets: ['kananinirav_1', 'kananinirav_2'],
+              defaultSubSet: 'kananinirav_1',
+              categories: [
+                { value: "1-cloud-concepts.json", label: "1. Cloud Concepts" },
+                { value: "2-security-and-compliance.json", label: "2. Security & Compliance" },
+                { value: "3-cloud-technology-and-services.json", label: "3. Cloud Technology & Services" },
+                { value: "4-billing-pricing-and-support.json", label: "4. Billing, Pricing & Support" }
+              ]
+            },
+            'Ditectrev': {
+              subSets: [],
+              categories: [
+                { value: "1-cloud-concepts.json", label: "1. Cloud Concepts" },
+                { value: "2-security-and-compliance.json", label: "2. Security & Compliance" },
+                { value: "3-cloud-technology-services.json", label: "3. Cloud Technology & Services" },
+                { value: "4-billing-pricing-and-support.json", label: "4. Billing, Pricing & Support" }
+              ]
+            }
+          },
+          defaultProvider: 'kananinirav'
+        },
+        'saa-c03': {
+          providers: {
+            'Ditectrev': {
+              subSets: [],
+              categories: [
+                { value: "1-secure-architectures.json", label: "1. Secure Architectures" },
+                { value: "2-resilient-architectures.json", label: "2. Resilient Architectures" },
+                { value: "2-cost-optimized-architectures.json", label: "3. Cost-Optimized Architectures" },
+                { value: "3-high-performance-architectures.json", label: "4. High-Performance Architectures" }
+              ]
+            },
+            'kananinirav': {
+              subSets: ['kananinirav_1'],
+              defaultSubSet: 'kananinirav_1',
+              categories: [
+                { value: "1-secure-architectures.json", label: "1. Secure Architectures" },
+                { value: "2-resilient-architectures.json", label: "2. Resilient Architectures" },
+                { value: "2-cost-optimized-architectures.json", label: "3. Cost-Optimized Architectures" },
+                { value: "3-high-performance-architectures.json", label: "4. High-Performance Architectures" }
+              ]
+            }
+          },
+          defaultProvider: 'Ditectrev'
+        }
       };
+
+      const STORAGE_KEY_LAST_CAT_SESSION = "aws_cat_last_session";
 
       const certSelect = document.getElementById("certSelect");
       const providerSelect = document.getElementById("providerSelect");
+      const subSetWrapper = document.getElementById("subSetWrapper");
+      const subSetSelect = document.getElementById("subSetSelect");
       const categorySelect = document.getElementById("categorySelect");
       const loadBtn = document.getElementById("loadBtn");
       const quizCard = document.getElementById("quizCard");
@@ -202,13 +251,26 @@
       const scoreTracker = document.getElementById("scoreTracker");
 
       function getStorageKey() {
-        return `aws_cat_progress_${certSelect.value}_${providerSelect.value}_${categorySelect.value}`;
+        const cert = certSelect.value;
+        const provider = providerSelect.value;
+        const subSet = subSetSelect.value || "none";
+        const category = categorySelect.value;
+        return `aws_cat_progress_${cert}_${provider}_${subSet}_${category}`;
       }
 
       function saveProgress() {
+        const sessionInfo = {
+          cert: certSelect.value,
+          provider: providerSelect.value,
+          subSet: subSetSelect.value || "",
+          categoryFile: categorySelect.value
+        };
+        localStorage.setItem(STORAGE_KEY_LAST_CAT_SESSION, JSON.stringify(sessionInfo));
+
         const progress = {
           cert: certSelect.value,
           provider: providerSelect.value,
+          subSet: subSetSelect.value || "",
           categoryFile: categorySelect.value,
           index: currentIndex,
           score: score,
@@ -217,18 +279,61 @@
         localStorage.setItem(getStorageKey(), JSON.stringify(progress));
       }
 
-      function loadSavedProgress(cert, provider, category) {
-        const key = `aws_cat_progress_${cert}_${provider}_${category}`;
+      function loadSavedProgress(cert, provider, subSet, category) {
+        const sub = subSet || "none";
+        const key = `aws_cat_progress_${cert}_${provider}_${sub}_${category}`;
         const stored = localStorage.getItem(key);
         return stored ? JSON.parse(stored) : null;
       }
 
-      function updateCategoryDropdown() {
+      function renderDropdowns() {
         const cert = certSelect.value;
-        categorySelect.innerHTML = "";
-        const categories = CATEGORY_MAP[cert] || [];
+        const certData = CONFIG_MAP[cert];
+        
+        // Populate Providers
+        providerSelect.innerHTML = "";
+        Object.keys(certData.providers).forEach(p => {
+          const opt = document.createElement("option");
+          opt.value = p;
+          opt.textContent = p;
+          providerSelect.appendChild(opt);
+        });
 
-        categories.forEach(cat => {
+        if (!providerSelect.value || !certData.providers[providerSelect.value]) {
+          providerSelect.value = certData.defaultProvider;
+        }
+
+        renderSubSetAndCategories();
+      }
+
+      function renderSubSetAndCategories() {
+        const cert = certSelect.value;
+        const provider = providerSelect.value;
+        const providerData = CONFIG_MAP[cert].providers[provider];
+
+        if (!providerData) return;
+
+        // Populate Sub-Sets if available
+        if (providerData.subSets && providerData.subSets.length > 0) {
+          subSetWrapper.classList.remove("hidden");
+          subSetSelect.innerHTML = "";
+          providerData.subSets.forEach(sub => {
+            const opt = document.createElement("option");
+            opt.value = sub;
+            opt.textContent = sub;
+            subSetSelect.appendChild(opt);
+          });
+          if (providerData.defaultSubSet) {
+            subSetSelect.value = providerData.defaultSubSet;
+          }
+        } else {
+          subSetWrapper.classList.add("hidden");
+          subSetSelect.innerHTML = "";
+        }
+
+        // Populate Categories
+        categorySelect.innerHTML = "";
+        providerData.categories.forEach(cat => {
           const opt = document.createElement("option");
           opt.value = cat.value;
           opt.textContent = cat.label;
@@ -237,15 +342,26 @@
       }
 
       certSelect.addEventListener("change", () => {
-        updateCategoryDropdown();
-        handleCategoryChange();
+        renderDropdowns();
+        handleSelectionChange();
       });
 
-      providerSelect.addEventListener("change", handleCategoryChange);
-      categorySelect.addEventListener("change", handleCategoryChange);
+      providerSelect.addEventListener("change", () => {
+        renderSubSetAndCategories();
+        handleSelectionChange();
+      });
 
-      function handleCategoryChange() {
-        const saved = loadSavedProgress(certSelect.value, providerSelect.value, categorySelect.value);
+      subSetSelect.addEventListener("change", handleSelectionChange);
+      categorySelect.addEventListener("change", handleSelectionChange);
+
+      function handleSelectionChange() {
+        const saved = loadSavedProgress(
+          certSelect.value,
+          providerSelect.value,
+          subSetSelect.value,
+          categorySelect.value
+        );
+
         if (saved) {
           score = saved.score || 0;
           loadQuizData(saved.index || 0, saved.userState || null);
@@ -264,10 +380,16 @@
       async function loadQuizData(restoreIndex = 0, savedState = null) {
         const cert = certSelect.value;
         const provider = providerSelect.value;
+        const subSet = subSetSelect.value;
         const file = categorySelect.value;
-        
-        // Path mapped to /categories/ directory
-        const filePath = `exams/${cert}/${provider}/categories/${file}`;
+
+        // Path mapped to /categories/ directory (supports nested sub-sets)
+        let filePath = `exams/${cert}/${provider}/categories/`;
+        if (subSet) {
+          filePath += `${subSet}/${file}`;
+        } else {
+          filePath += `${file}`;
+        }
 
         try {
           const response = await fetch(filePath);
@@ -295,7 +417,7 @@
           displayQuestion();
         } catch (error) {
           console.error("Error fetching data:", error);
-          alert(`Failed to load file: ${filePath}. Please check file path.`);
+          alert(`Failed to load file: ${filePath}. Please check path.`);
         }
       }
 
@@ -481,8 +603,40 @@
       }
 
       function initApp() {
-        updateCategoryDropdown();
-        handleCategoryChange();
+        const lastSession = localStorage.getItem(STORAGE_KEY_LAST_CAT_SESSION);
+
+        if (lastSession) {
+          const session = JSON.parse(lastSession);
+          certSelect.value = session.cert || "clf-c02";
+          renderDropdowns();
+
+          providerSelect.value = session.provider || "kananinirav";
+          renderSubSetAndCategories();
+
+          if (session.subSet && subSetSelect) {
+            subSetSelect.value = session.subSet;
+          }
+          if (session.categoryFile) {
+            categorySelect.value = session.categoryFile;
+          }
+
+          const saved = loadSavedProgress(
+            certSelect.value,
+            providerSelect.value,
+            subSetSelect.value,
+            categorySelect.value
+          );
+
+          if (saved) {
+            score = saved.score || 0;
+            loadQuizData(saved.index || 0, saved.userState || null);
+          } else {
+            loadQuizData(0, null);
+          }
+        } else {
+          renderDropdowns();
+          handleSelectionChange();
+        }
       }
 
       initApp();
