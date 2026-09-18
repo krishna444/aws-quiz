@@ -11,7 +11,7 @@
     "correct": [
       1
     ],
-    "explanation": ""
+    "explanation": "**AWS Domain:** Cloud Technology & Services\n\n**Detailed Explanation:**\nAmazon S3 provides mechanisms to ensure data durability and protection against human error or malicious deletion. Object Versioning allows you to keep multiple variants of an object in the same bucket, enabling you to recover from accidental overwrites or deletions, while MFA Delete adds an extra layer of security by requiring a hardware or virtual token to permanently delete a version.\n\n**Why Other Options are Incorrect:**\n* **A:** Object lifecycle manages data transitions to cheaper storage classes and service access logging tracks requests, neither of which prevents or recovers data from accidental deletion.\n* **C:** Access controls (ACLs) and server-side encryption focus on security and privacy (who can see the data and how it is encrypted), not on the recovery of lost data.\n* **D:** Website hosting allows S3 to serve static content and policies manage permissions, but neither feature provides a mechanism to restore deleted objects.\n\n**💡 Exam Tip:**\nWhenever you see \"recover from accidental deletion\" or \"prevent data loss\" in an S3 context, immediately look for \"Versioning\" and \"MFA Delete\" as the primary keywords.\n\n**⚠️ Trap Alert:**\nDo not confuse \"Lifecycle Policies\" with \"Data Recovery\"; Lifecycle policies are used for cost optimization (moving data to Glacier) or automatic expiration, not for restoring accidentally deleted files."
   },
   {
     "examId": 2,
@@ -26,7 +26,7 @@
     "correct": [
       2
     ],
-    "explanation": ""
+    "explanation": "**AWS Domain:** Cloud Technology & Services\n\n**Detailed Explanation:**\nAmazon CloudWatch is a monitoring and observability service that collects data in the form of metrics, which are time-series data points. By default, standard monitoring for most AWS services aggregates data at a one-minute interval, representing the baseline minimum for standard resolution.\n\n**Why Other Options are Incorrect:**\n* **A:** One second is not the standard minimum aggregation interval for basic CloudWatch metrics, although high-resolution metrics can go as low as one second.\n* **B:** Five seconds is not a standard default aggregation interval for CloudWatch metrics.\n* **C:** This is the correct answer as one minute is the default minimum interval for standard monitoring.\n* **D:** Three minutes is not a standard minimum interval for CloudWatch data aggregation.\n* **E:** Five minutes is the default interval for some legacy EC2 monitoring, but it is not the minimum interval the service is capable of aggregating.\n\n**💡 Exam Tip:**\nRemember that \"Standard Monitoring\" is free and typically occurs at 5-minute intervals for EC launch instances, but \"Detailed Monitoring\" allows for 1-minute intervals.\n\n**⚠️ Trap Alert:**\nDo not confuse \"Standard Monitoring\" (5-minute intervals for EC2) with the \"Minimum Interval\" the service supports (1-minute for standard metrics or 1-second for High-Resolution metrics). If the question asks for the general minimum aggregation interval, the answer is one minute."
   },
   {
     "examId": 3,

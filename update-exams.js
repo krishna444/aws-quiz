@@ -22,7 +22,7 @@ function delay(ms) {
 async function generateDetailedExplanation(question, options, correctIndices) {
     const correctAnswersText = correctIndices.map(idx => options[idx]).join(', ');
 
-    const prompt1 = `You are an expert AWS Certified Cloud Practitioner instructor. 
+    const prompt1 = `You are an expert AWS Certified Solutions Architect instructor. 
 Analyze the following exam question and generate an in-depth, structured explanation.
 
 Question: ${question}
@@ -32,10 +32,10 @@ Correct Answer(s): ${correctAnswersText}
 
 Format your response in Markdown strictly using this layout. Output each bullet point on a single continuous line without ANY line breaks inside the bullet:
 
-**AWS Domain:** [Specify AWS Domain : Cloud Concepts / Security & Compliance / Cloud Technology & Services / Billing, Pricing & Support]
+**AWS Domain:** [Specify AWS Domain : Secure Architectures / Resilient Architectures / High Performance Architectures / Cost Optimized Architectures]
 
 **Detailed Explanation:**
-[2-3 sentences explaining the core concept]
+[Some sentences (3-5) explaining the core concept, and why the correct answer is right]
 
 **Why Other Options are Incorrect:**
 * **A:** [Explanation text on the same line]
@@ -55,7 +55,7 @@ Format your response in Markdown strictly using this layout. Output each bullet 
                 model: MODEL_NAME,
                 messages: [{ role: 'user', content: prompt1 }],
                 temperature: 0.1,
-                max_tokens: 2500
+                max_tokens: 4500
             });
 
             return response.choices[0]?.message?.content?.trim() || `**Correct Answer:** ${correctAnswersText}`;
@@ -150,17 +150,18 @@ async function main() {
     console.log("🚀 Starting Local JSON Explanation Generator...\n");
 
     // Example 1: Target an entire folder (processes all JSON files in the path)
-    //const targetFolder = path.join(__dirname, 'exams', 'saa-c03', 'Ditectrev', 'normal');
+    const targetFolder = path.join(__dirname, 'exams', 'saa-c03', 'Ditectrev', 'normal');
     
     // Example 2: Target a specific file
-    const targetFile = path.join(__dirname, 'exams', 'saa-c03', 'Ditectrev', 'normal', 'practice-exam-1.json');
+    //const targetFile = path.join(__dirname, 'exams', 'saa-c03', 'Ditectrev', 'normal', 'practice-exam-1.json');
+    //const targetFile = path.join(__dirname, 'exams', 'backup', 'saa-c03-practice-questions.json');
 
-    //if (fs.existsSync(targetFolder)) {
-    //    await processDirectory(targetFolder);
-    //} else {
-    //    console.log(`Target directory ${targetFolder} does not exist. Update path in script.`);
-    //}
-    await processLocalJsonFile(targetFile);
+    if (fs.existsSync(targetFolder)) {
+        await processDirectory(targetFolder);
+    } else {
+        console.log(`Target directory ${targetFolder} does not exist. Update path in script.`);
+    }
+    //await processLocalJsonFile(targetFile);
 
     console.log("\n🎉 All tasks finished!");
 }
