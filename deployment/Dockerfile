@@ -17,6 +17,7 @@ COPY exams/ /app/exams/
 COPY serve.json /app/serve.json
 COPY ebTest.html /app/ebTest.html
 COPY comcaveAWSTest.html /app/aws.html
+COPY grok/ /app/grok/
 
 # Install serve globally or execute via npx
 EXPOSE 3000
