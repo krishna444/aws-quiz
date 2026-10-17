@@ -15,6 +15,7 @@ COPY styles/quiz.css /app/styles/quiz.css
 COPY quiz_category.html /app/quiz_category.html
 COPY exams/ /app/exams/
 COPY serve.json /app/serve.json
+COPY grok/ /app/grok/
 
 # Install serve globally or execute via npx
 EXPOSE 3000
