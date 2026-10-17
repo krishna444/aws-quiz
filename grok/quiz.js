@@ -393,6 +393,11 @@ function hideExplanation() {
 function showExplanation() {
   const q = currentQuestion();
   if (!q || !answerOf(q.id)) return;
+  // Toggle: second click hides the panel
+  if (!els.explainBox.classList.contains("hidden")) {
+    hideExplanation();
+    return;
+  }
   const text = (q.explanation || "").trim();
   //const label = document.createElement("span");
   //label.className = "explain-label";
