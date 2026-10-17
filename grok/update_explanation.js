@@ -11,7 +11,7 @@ const openai = new OpenAI({
 });
 
 const MODEL_NAME = 'google/gemma-4-31b-it';
-const MAX_TOKENS = 4000;
+const MAX_TOKENS = 4500;
 
 function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
