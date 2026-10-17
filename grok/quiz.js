@@ -128,6 +128,84 @@ function answerOf(id) {
   return state.answers[String(id)] || null;
 }
 
+function clip(s, n) { return s.length > n ? s.slice(0, n - 1) + "…" : s; }
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, function (c) {
+    return ({
+      "&": "\u0026amp;",
+      "<": "\u0026lt;",
+      ">": "\u0026gt;",
+      "\"": "\u0026quot;",
+      "'": "\u0026#39;"
+    })[c];
+  });
+}
+
+/** Convert the quiz explanation markdown into safe HTML. */
+function markdownToHtml(md) {
+  if (!md) return "";
+  // Normalize line endings and soft-wrapped breaks from JSON export
+  let text = String(md).replace(/\r\n/g, "\n").replace(/\r/g, "\n");
+
+  const lines = text.split("\n");
+  const out = [];
+  let inList = false;
+
+  function closeList() {
+    if (inList) {
+      out.push("</ul>");
+      inList = false;
+    }
+  }
+
+  function inlineFormat(s) {
+    // Escape first, then restore intentional markdown
+    let t = escapeHtml(s);
+    // Inline code `code`
+    t = t.replace(/`([^`]+)`/g, "<code>$1</code>");
+    // Bold **text**
+    t = t.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+    // Italic *text* (avoid list markers already handled)
+    t = t.replace(/(^|[^*])\*([^*]+)\*(?!\*)/g, "$1<em>$2</em>");
+    return t;
+  }
+
+  for (let i = 0; i < lines.length; i++) {
+    const raw = lines[i];
+    const line = raw.trim();
+
+    if (!line) {
+      closeList();
+      continue;
+    }
+
+    // Bullet: * **A:** reason  or  * text
+    const bullet = line.match(/^\*\s+(.*)$/);
+    if (bullet) {
+      if (!inList) {
+        out.push("<ul>");
+        inList = true;
+      }
+      out.push("<li>" + inlineFormat(bullet[1]) + "</li>");
+      continue;
+    }
+
+    closeList();
+
+    // Section headers that are fully bold on one line, e.g. **Detailed Explanation:**
+    const section = line.match(/^\*\*(.+?)\*\*\s*$/);
+    if (section) {
+      out.push('<p class="section-title">' + inlineFormat("**" + section[1] + "**") + "</p>");
+      continue;
+    }
+
+    // Domain line or normal paragraph
+    out.push("<p>" + inlineFormat(line) + "</p>");
+  }
+  closeList();
+  return out.join("");
+}
+
 function renderResults() {
   const list = matches();
   const term = els.search.value.trim();
@@ -168,19 +246,6 @@ function renderResults() {
     els.results.appendChild(more);
   }
   els.resume.classList.toggle("hidden", !state.session);
-}
-
-function clip(s, n) { return s.length > n ? s.slice(0, n - 1) + "…" : s; }
-function escapeHtml(s) {
-  return s.replace(/[&<>"']/g, function (c) {
-    return ({
-      "&": "\u0026amp;",
-      "<": "\u0026lt;",
-      ">": "\u0026gt;",
-      "\"": "\u0026quot;",
-      "'": "\u0026#39;"
-    })[c];
-  });
 }
 
 function startQuiz(opts) {
@@ -322,18 +387,27 @@ function move(delta) {
 
 function hideExplanation() {
   els.explainBox.classList.add("hidden");
-  els.explainBox.textContent = "";
+  els.explainBox.innerHTML = "";
 }
 
 function showExplanation() {
   const q = currentQuestion();
   if (!q || !answerOf(q.id)) return;
   const text = (q.explanation || "").trim();
-  els.explainBox.textContent = "";
-  const title = document.createElement("strong");
-  title.textContent = "Explanation";
-  els.explainBox.appendChild(title);
-  els.explainBox.appendChild(document.createTextNode(text || "No explanation has been added for this question yet."));
+  //const label = document.createElement("span");
+  //label.className = "explain-label";
+  //label.textContent = "Explanation";
+  els.explainBox.innerHTML = "";
+  //els.explainBox.appendChild(label);
+  if (!text) {
+    const p = document.createElement("p");
+    p.textContent = "No explanation has been added for this question yet.";
+    els.explainBox.appendChild(p);
+  } else {
+    const body = document.createElement("div");
+    body.innerHTML = markdownToHtml(text);
+    els.explainBox.appendChild(body);
+  }
   els.explainBox.classList.remove("hidden");
 }
 
