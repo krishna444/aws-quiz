@@ -46,7 +46,7 @@ function delay(ms) {
 async function generateDetailedExplanation(question, options, correctIndices) {
     const correctAnswersText = correctIndices.map(idx => options[idx]).join(', ');
 
-    const prompt = `You are an AWS Certified Cloud Practitioner instructor. Provide a brief, structured explanation for this exam question.
+    const prompt = `You are an AWS Certified Solutions Architect. Provide a brief, structured explanation for this exam question.
 
 Question: ${question}
 Options:
@@ -238,7 +238,7 @@ async function downloadExam(index) {
         }
 }
 
-for (let i = 11; i <= TOTAL_EXAMS; i++) {
+/*for (let i = 11; i <= TOTAL_EXAMS; i++) {
     downloadExam(i);
-}
-//downloadExam(10);
+}*/
+downloadExam(10);
