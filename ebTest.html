@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Einbürgerungstest B2 - Kategorien-Lernbuch</title>
+    <style>
+        :root {
+            --primary: #1a365d;
+            --primary-light: #2b6cb0;
+            --bg: #f7fafc;
+            --card-bg: #ffffff;
+            --text: #2d3748;
+            --correct-bg: #c6f6d5;
+            --correct-border: #38a169;
+            --correct-text: #22543d;
+            --incorrect-bg: #fed7d7;
+            --incorrect-border: #e53e3e;
+            --incorrect-text: #742a2a;
+            --explanation-bg: #edf2f7;
+            --explanation-border: #cbd5e0;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            margin: 0 0 10px 0;
+            font-size: 24px;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .category-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 25px;
+        }
+
+        .cat-btn {
+            background-color: white;
+            border: 1px solid #cbd5e0;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+            font-size: 13px;
+        }
+
+        .cat-btn:hover {
+            background-color: #e2e8f0;
+        }
+
+        .cat-btn.active {
+            background-color: var(--primary-light);
+            color: white;
+            border-color: var(--primary-light);
+        }
+
+        .chapter-overview {
+            background-color: var(--card-bg);
+            border-left: 4px solid var(--primary-light);
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+
+        .chapter-overview h2 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+
+        .merkhilfe {
+            background-color: #feebc8;
+            border-left: 4px solid #dd6b20;
+            padding: 12px;
+            margin-top: 15px;
+            border-radius: 0 4px 4px 0;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .question-card {
+            background-color: var(--card-bg);
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: border-color 0.3s;
+        }
+
+        .question-card.status-correct {
+            border-color: var(--correct-border);
+            background-color: #f0fff4;
+        }
+
+        .question-card.status-incorrect {
+            border-color: var(--incorrect-border);
+            background-color: #fff5f5;
+        }
+
+        .question-header {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 15px 0;
+        }
+
+        .option-item {
+            margin-bottom: 8px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: flex-start;
+            padding: 10px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            cursor: pointer;
+            background-color: white;
+            transition: background-color 0.2s;
+        }
+
+        .option-label:hover {
+            background-color: #f7fafc;
+        }
+
+        .option-label input {
+            margin-right: 12px;
+            margin-top: 3px;
+            flex-shrink: 0;
+        }
+
+        .option-label.selected-correct {
+            background-color: var(--correct-bg);
+            border-color: var(--correct-border);
+        }
+
+        .option-label.selected-incorrect {
+            background-color: var(--incorrect-bg);
+            border-color: var(--incorrect-border);
+        }
+
+        .option-label.show-correct {
+            background-color: var(--correct-bg);
+            border-color: var(--correct-border);
+        }
+
+        .btn-submit {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--primary-light);
+        }
+
+        .btn-submit:disabled {
+            background-color: #a0aec0;
+            cursor: not-allowed;
+        }
+
+        .btn-reset {
+            background-color: #e53e3e;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .explanation-box {
+            display: none;
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid var(--explanation-border);
+            background-color: var(--explanation-bg);
+            font-size: 14px;
+        }
+
+        .question-card.status-correct .explanation-box,
+        .question-card.status-incorrect .explanation-box {
+            display: block;
+        }
+
+        .question-card.status-correct .explanation-box {
+            border-color: var(--correct-border);
+            background-color: var(--correct-bg);
+            color: var(--correct-text);
+        }
+
+        .question-card.status-incorrect .explanation-box {
+            border-color: var(--incorrect-border);
+            background-color: var(--incorrect-bg);
+            color: var(--incorrect-text);
+        }
+
+        .progress-note {
+            font-size: 13px;
+            color: #718096;
+            margin-top: 8px;
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            .cat-btn { font-size: 12px; padding: 6px 10px; }
+            .stats-bar { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Einbürgerungstest – Kategorien-Lernbuch (B2)</h1>
+        <div>Generalfragen + Baden-Württemberg · Ausführliche Erklärungen auf Deutsch B2-Niveau</div>
+        <div class="stats-bar">
+            <span>Beantwortet: <strong id="answered-count">0</strong> / <strong id="total-count">0</strong></span>
+            <span>Richtig: <strong id="correct-count">0</strong></span>
+            <span>Falsch: <strong id="incorrect-count">0</strong></span>
+            <button class="btn-reset" onclick="resetProgress()">Fortschritt zurücksetzen</button>
+        </div>
+    </header>
+
+    <nav class="category-nav" id="category-buttons"></nav>
+
+    <div id="chapter-overview-container" class="chapter-overview" style="display:none;"></div>
+
+    <div id="questions-container"></div>
+</div>
+
+<script>
+const quizData = [
+    {
+        id: 1,
+        title: "1. Föderales System (Bundesstaat)",
+        description: "Deutschland ist ein Bundesstaat. Das bedeutet: Die staatliche Macht ist zwischen dem Bund und den 16 Bundesländern aufgeteilt. Diese Aufteilung nennt man Föderalismus. Der Föderalismus ist eine bewusste Entscheidung nach 1945. Nach der Erfahrung mit dem zentralistischen NS-Staat sollte die Macht dezentralisiert werden, damit keine einzelne Stelle zu mächtig wird.\n\nJedes Bundesland hat eine eigene Verfassung, ein eigenes Parlament (den Landtag) und eine eigene Regierung mit einem Ministerpräsidenten oder einer Ministerpräsidentin an der Spitze. Die Länder sind besonders zuständig für Bildung und Schulen, Polizei, Kultur und einen großen Teil der Verwaltung. Der Bund ist zuständig für Außenpolitik, Verteidigung, Währung und viele wirtschaftliche und soziale Regelungen.\n\nAuf Bundesebene vertritt der Bundesrat die Interessen der Länder. Seine Mitglieder sind Vertreterinnen und Vertreter der Landesregierungen – sie werden nicht direkt vom Volk gewählt. Bei vielen Gesetzen muss der Bundesrat zustimmen oder kann mitwirken. Wichtig: Die Länder haben keinen eigenen Außenminister und keine eigene Armee. Außenpolitik und Verteidigung sind allein Sache des Bundes.\n\nUnterhalb der Länder stehen die Kommunen (Städte, Gemeinden und Landkreise). Sie haben das Recht auf kommunale Selbstverwaltung. Das bedeutet: Sie regeln die örtlichen Angelegenheiten im Rahmen der Gesetze selbst – zum Beispiel durch den Gemeinderat und den Bürgermeister oder die Bürgermeisterin.",
+        merkhilfe: "Merkhilfe: 16 Bundesländer • jedes Land hat eine eigene Regierung • Bundesrat = Vertreter der Länder • Schulpolitik = Sache der Länder • Aufbau = Bund + Länder + Kommunen • kein Landes-Außenminister",
+        questions: [
+            { qId: "44", text: "Wie viele Bundesländer hat die Bundesrepublik Deutschland?", options: { a: "16", b: "15", c: "14", d: "17" }, correct: "a", explanation: "Die Bundesrepublik Deutschland ist ein föderaler Staat in Europa und besteht aus 16 Bundesländern." },
+            { qId: "54", text: "Deutschland ist …", options: { a: "ein sozialistischer Staat.", b: "eine Diktatur.", c: "ein Bundesstaat.", d: "eine Monarchie." }, correct: "c", explanation: "Deutschland ist ein föderaler und demokratischer Bundesstaat." },
+            { qId: "58", text: "Was hat jedes deutsche Bundesland?", options: { a: "eine eigene Regierung", b: "einen eigenen Außenminister/eine eigene Außenministerin", c: "eine eigene Armee", d: "eine eigene Währung" }, correct: "a", explanation: "Jedes Bundesland hat eine eigene Landesregierung. Außenpolitik, Währung und Armee sind reine Bundessache." },
+            { qId: "61", text: "Wer bildet den deutschen Bundesrat?", options: { a: "die Regierungsvertreter der Bundesländer", b: "die Parteimitglieder", c: "die Abgeordneten des Bundestages", d: "die Minister und Ministerinnen der Bundesregierung" }, correct: "a", explanation: "Der Bundesrat besteht aus Vertretern der 16 Landesregierungen." },
+            { qId: "88", text: "Wer bestimmt in Deutschland die Schulpolitik?", options: { a: "das Familienministerium", b: "die Universitäten", c: "die Lehrer und Lehrerinnen", d: "die Bundesländer" }, correct: "d", explanation: "Schul- und Bildungspolitik ist aufgrund der Kulturhoheit Sache der einzelnen Bundesländer." },
+            { qId: "135", text: "Die Bundesrepublik Deutschland ist heute gegliedert in …", options: { a: "16 Kantone.", b: "vier Besatzungszonen.", c: "Bund, Länder und Kommunen.", d: "einen Oststaat und einen Weststaat." }, correct: "c", explanation: "Der vertikale Staatsaufbau Deutschlands unterteilt sich in Bund, Bundesländer und Kommunen." }
+        ]
+    },
+    {
+        id: 2,
+        title: "2. Verfassung und Staatsaufbau",
+        description: "Die Verfassung der Bundesrepublik Deutschland heißt Grundgesetz. Sie wurde 1949 im Parlamentarischen Rat erarbeitet und trat am 23. Mai 1949 in Kraft. Das Grundgesetz ist die höchste Rechtsnorm in Deutschland. Alle anderen Gesetze und jede staatliche Handlung müssen damit vereinbar sein. Das Bundesverfassungsgericht in Karlsruhe wacht darüber. Wenn ein Gesetz gegen das Grundgesetz verstößt, kann es für nichtig erklärt werden.\n\nDer wichtigste Satz steht in Artikel 1: „Die Würde des Menschen ist unantastbar. Sie zu achten und zu schützen ist Verpflichtung aller staatlichen Gewalt.“ Dieser Satz ist die Antwort auf die systematische Entwürdigung von Menschen im Nationalsozialismus. Die Menschenwürde gilt für jeden Menschen – unabhängig von Herkunft, Religion, Geschlecht oder Status.\n\nArtikel 20 legt fest: Die Bundesrepublik Deutschland ist ein demokratischer und sozialer Bundesstaat. Daraus folgen vier zentrale Prinzipien: Demokratie (alle Staatsgewalt geht vom Volke aus), Rechtsstaat (Staat und Bürger sind an das Recht gebunden), Sozialstaat (der Staat sorgt für sozialen Ausgleich) und Bundesstaat/Föderalismus (Machtteilung zwischen Bund und Ländern).\n\nZusätzlich gilt die Gewaltenteilung: Die gesetzgebende Gewalt (Legislative: Bundestag und Bundesrat), die ausführende Gewalt (Exekutive: Bundesregierung und Verwaltung) und die rechtsprechende Gewalt (Judikative: unabhängige Gerichte) sind getrennt und kontrollieren sich gegenseitig. Das schützt vor Machtkonzentration und ist eine wichtige Lehre aus der Geschichte.\n\nDas Grundgesetz kennt außerdem die „wehrhafte“ oder „streitbare“ Demokratie. Parteien, die die freiheitliche demokratische Grundordnung beseitigen wollen, können vom Bundesverfassungsgericht verboten werden.",
+        merkhilfe: "Merkhilfe: Grundgesetz (1949) • Art. 1 Menschenwürde • Art. 20 demokratischer und sozialer Bundesstaat • Gewaltenteilung: Legislative – Exekutive – Judikative • Bundesverfassungsgericht in Karlsruhe • wehrhafte Demokratie",
+        questions: [
+            { qId: "41", text: "Was für eine Staatsform hat Deutschland?", options: { a: "Monarchie", b: "Fürstentum", c: "Republik", d: "Diktatur" }, correct: "c", explanation: "Deutschland ist eine parlamentarische Republik." },
+            { qId: "49", text: "Was ist keine staatliche Gewalt in Deutschland?", options: { a: "Regierung", b: "Rechtsprechung", c: "Gesetzgebung", d: "Presse" }, correct: "d", explanation: "Die staatlichen Gewalten sind Legislative, Exekutive und Judikative. Die Presse ist keine staatliche Gewalt." },
+            { qId: "50", text: "Deutschland ist …", options: { a: "ein sozialer und sozialistischer Bundesstaat.", b: "eine kommunistische Republik.", c: "ein demokratischer und sozialer Bundesstaat.", d: "eine kapitalistische und soziale Monarchie." }, correct: "c", explanation: "Artikel 20 Grundgesetz definiert Deutschland als demokratischen und sozialen Bundesstaat." },
+            { qId: "63", text: "Ein Richter/eine Richterin gehört in Deutschland zur …", options: { a: "rechtsprechenden Gewalt.", b: "vollziehenden Gewalt.", c: "gesetzgebenden Gewalt.", d: "planenden Gewalt." }, correct: "a", explanation: "Richter gehören zur Judikative (rechtsprechende Gewalt)." },
+            { qId: "70", text: "Wer ist das Staatsoberhaupt der Bundesrepublik Deutschland?", options: { a: "der Bundespräsident/die Bundespräsidentin", b: "der Bundestagspräsident/die Bundestagspräsidentin", c: "der Bundeskanzler/die Bundeskanzlerin", d: "der Bundesratspräsident/die Bundesratspräsidentin" }, correct: "a", explanation: "Das offizielle Staatsoberhaupt der Bundesrepublik Deutschland ist der Bundespräsident." },
+            { qId: "73", text: "Wann kann in Deutschland eine Partei verboten werden?", options: { a: "wenn sie gegen die Verfassung kämpft", b: "wenn ihr Programm eine neue Richtung vorschlägt", c: "wenn ihr Wahlkampf zu teuer ist", d: "wenn sie Kritik am Staatsoberhaupt äußert" }, correct: "a", explanation: "Parteien, die die freiheitliche demokratische Grundordnung bekämpfen, können verboten werden." },
+            { qId: "77", text: "Wie heißt die deutsche Verfassung?", options: { a: "Grundgesetz", b: "Deutsches Gesetz", c: "Volksgesetz", d: "Bundesgesetz" }, correct: "a", explanation: "Die Verfassung Deutschlands trägt den Namen Grundgesetz." },
+            { qId: "86", text: "Was steht nicht im Grundgesetz von Deutschland?", options: { a: "Alle sind vor dem Gesetz gleich.", b: "Jeder Mensch darf seine Meinung sagen.", c: "Die Würde des Menschen ist unantastbar.", d: "Alle sollen gleich viel Geld haben." }, correct: "d", explanation: "Eine völlige Einkommens- und Vermögensgleichheit ist im Grundgesetz nicht vorgesehen." },
+            { qId: "93", text: "Was ist keine staatliche Gewalt in Deutschland?", options: { a: "Judikative", b: "Direktive", c: "Legislative", d: "Exekutive" }, correct: "b", explanation: "„Direktive“ ist keine staatliche Gewalt der Gewaltenteilung." },
+            { qId: "96", text: "Was ist mit dem deutschen Grundgesetz vereinbar?", options: { a: "die Folter", b: "die Geldstrafe", c: "die Prügelstrafe", d: "die Todesstrafe" }, correct: "b", explanation: "Geldstrafen sind legal und mit dem Grundgesetz vereinbar. Folter, Prügel- und Todesstrafe sind verboten." },
+            { qId: "118", text: "Was verbietet das deutsche Grundgesetz?", options: { a: "freie Berufswahl", b: "Arbeit im Ausland", c: "Militärdienst", d: "Zwangsarbeit" }, correct: "d", explanation: "Zwangsarbeit ist laut Artikel 12 Grundgesetz verboten." },
+            { qId: "130", text: "Was gehört in Deutschland nicht zur Exekutive?", options: { a: "das Finanzamt", b: "die Polizei", c: "die Ministerien", d: "die Gerichte" }, correct: "d", explanation: "Gerichte gehören zur Judikative, nicht zur Exekutive." },
+            { qId: "184", text: "Was bedeutet „Volkssouveränität“? Alle Staatsgewalt geht vom …", options: { a: "preußischen König aus.", b: "Bundesverfassungsgericht aus.", c: "Volke aus.", d: "Bundestag aus." }, correct: "c", explanation: "Volkssouveränität bedeutet: Alle Staatsgewalt geht vom Volke aus (Art. 20 Abs. 2 GG)." },
+            { qId: "188", text: "Was bedeutet „Rechtsstaat“ in Deutschland?", options: { a: "Die Bürger und Bürgerinnen entscheiden über Gesetze.", b: "Der Staat muss die Gesetze einhalten.", c: "Der Staat hat Recht.", d: "Es gibt nur rechte Parteien." }, correct: "b", explanation: "In einem Rechtsstaat ist auch der Staat selbst an Recht und Gesetz gebunden." }
+        ]
+    },
+    {
+        id: 3,
+        title: "3. Grundrechte und Freiheiten",
+        description: "Die Grundrechte stehen am Anfang des Grundgesetzes (Artikel 1 bis 19). Sie schützen den einzelnen Menschen gegenüber dem Staat. Zu den wichtigsten Grundrechten gehören: die Menschenwürde, die Meinungsfreiheit, die Pressefreiheit, die Glaubens- und Gewissensfreiheit, die Versammlungsfreiheit, die Freizügigkeit (Wohnort frei wählen), die Gleichheit vor dem Gesetz und das Asylrecht für politisch Verfolgte.\n\nDie Meinungsfreiheit bedeutet: Man darf seine Meinung frei äußern und auch die Regierung öffentlich kritisieren. Das ist ein zentrales Merkmal der Demokratie. Die Meinungsfreiheit ist aber nicht grenzenlos. Beleidigungen, Verleumdungen, Volksverhetzung und Holocaustleugnung sind strafbar.\n\nDer Staat ist weltanschaulich neutral. Es gibt keine Staatskirche. Gleichzeitig schützt das Grundgesetz die freie Religionsausübung. Eltern entscheiden bis zum 14. Lebensjahr, ob ihr Kind am Religionsunterricht teilnimmt. Ab 14 Jahren entscheidet das Kind selbst.\n\nAntisemitismus, Rassismus und andere Formen der Menschenverachtung widersprechen den Werten des Grundgesetzes. Deutschland trägt wegen der Verbrechen des Nationalsozialismus eine besondere historische Verantwortung – besonders für den Schutz jüdischen Lebens.",
+        merkhilfe: "Merkhilfe: Grundrechte schützen den Einzelnen gegenüber dem Staat • Meinungsfreiheit ja, aber keine Volksverhetzung oder Beleidigung • keine Staatskirche • Menschenwürde gilt für alle • Antisemitismus ist mit dem Grundgesetz unvereinbar",
+        questions: [
+            { qId: "71", text: "Welches Recht gehört zu den Grundrechten in Deutschland?", options: { a: "Selbstjustiz", b: "Meinungsfreiheit", c: "Waffenbesitz", d: "Faustrecht" }, correct: "b", explanation: "Die Meinungsfreiheit ist ein im Grundgesetz geschütztes Grundrecht." },
+            { qId: "177", text: "Was ist ein Beispiel für antisemitisches Verhalten?", options: { a: "ein jüdisches Fest besuchen", b: "den Holocaust leugnen", c: "gegen Juden Fußball spielen", d: "die israelische Regierung kritisieren" }, correct: "b", explanation: "Die Leugnung des Holocausts ist antisemitisches Verhalten und in Deutschland strafbar." }
+        ]
+    },
+    {
+        id: 4,
+        title: "4. Demokratie und Politik",
+        description: "Deutschland ist eine parlamentarische Demokratie. Alle Staatsgewalt geht vom Volke aus (Volkssouveränität). Die Bürgerinnen und Bürger wählen ihre Abgeordneten. Auf Bundesebene ist der Deutsche Bundestag das zentrale Parlament. Er beschließt Gesetze, kontrolliert die Bundesregierung und wählt den Bundeskanzler oder die Bundeskanzlerin.\n\nPolitische Parteien wirken an der politischen Willensbildung des Volkes mit (Artikel 21 Grundgesetz). Sie müssen demokratisch organisiert sein. Parteien, die die freiheitliche demokratische Grundordnung beseitigen wollen, sind verfassungswidrig und können verboten werden. Das ist Teil der „wehrhaften Demokratie“.\n\nDie Opposition sind die Abgeordneten, die nicht zur Regierungsmehrheit gehören. Ihre Aufgabe ist es, die Regierung zu kontrollieren und alternative Vorschläge zu machen. Ohne Opposition gäbe es keine echte Kontrolle der Macht.\n\nDeutschland ist Gründungsmitglied der Europäischen Union (EU). Die EU steht für Frieden, Freiheit, Demokratie, Rechtsstaatlichkeit und wirtschaftliche Zusammenarbeit. Deutsche Bürgerinnen und Bürger wählen die Abgeordneten des Europäischen Parlaments. Es gibt die Personenfreizügigkeit innerhalb der EU.",
+        merkhilfe: "Merkhilfe: parlamentarische Demokratie • Volkssouveränität • Parteien nach Art. 21 GG • Opposition = Kontrolle der Regierung • wehrhafte Demokratie • EU = Frieden und Zusammenarbeit",
+        questions: [
+            { qId: "59", text: "Was bedeutet die Abkürzung EU?", options: { a: "Einheitliche Union", b: "Europäische Union", c: "Europäische Unternehmen", d: "Euro Union" }, correct: "b", explanation: "EU steht für Europäische Union." },
+            { qId: "64", text: "Was ist kein Merkmal unserer Demokratie?", options: { a: "Pressezensur", b: "regelmäßige Wahlen", c: "verschiedene Parteien", d: "Meinungsfreiheit" }, correct: "a", explanation: "Zensur ist in einer Demokratie verboten." },
+            { qId: "94", text: "Was bedeutet die Abkürzung CSU in Deutschland?", options: { a: "Christlich Süddeutsche Union", b: "Christlich Sozialer Unternehmerverband", c: "Christlich Soziale Union", d: "Christlich Sichere Union" }, correct: "c", explanation: "CSU steht für Christlich-Soziale Union." },
+            { qId: "139", text: "Was ist Deutschland nicht?", options: { a: "eine Monarchie", b: "ein Sozialstaat", c: "eine Demokratie", d: "ein Rechtsstaat" }, correct: "a", explanation: "Deutschland hat keinen König oder Kaiser und ist daher keine Monarchie." },
+            { qId: "178", text: "Wie heißt das Parlament für ganz Deutschland?", options: { a: "Bundestag", b: "Bundesversammlung", c: "Bundesgerichtshof", d: "Volkskammer" }, correct: "a", explanation: "Das gesamtdeutsche Parlament ist der Deutsche Bundestag." },
+            { qId: "182", text: "Wie heißt Deutschlands heutiges Staatsoberhaupt?", options: { a: "Bärbel Bas", b: "Bodo Ramelow", c: "Frank-Walter Steinmeier", d: "Joachim Gauck" }, correct: "c", explanation: "Frank-Walter Steinmeier ist der Bundespräsident der Bundesrepublik Deutschland." },
+            { qId: "187", text: "Was bedeutet die Abkürzung CDU in Deutschland?", options: { a: "Christlicher Deutscher Umweltschutz", b: "Christlich Demokratische Union", c: "Christliche Deutsche Union", d: "Club Deutscher Unternehmer" }, correct: "b", explanation: "CDU steht für Christlich Demokratische Union." },
+            { qId: "196", text: "Was bedeutet die Abkürzung SPD?", options: { a: "Sozialpolitische Partei Deutschlands", b: "Sozialgerechte Partei Deutschlands", c: "Sozialistische Partei Deutschlands", d: "Sozialdemokratische Partei Deutschlands" }, correct: "d", explanation: "SPD steht für Sozialdemokratische Partei Deutschlands." },
+            { qId: "199", text: "Was bedeutet die Abkürzung FDP in Deutschland?", options: { a: "Freie Demokratische Partei", b: "Führende Demokratische Partei", c: "Friedliche Demonstrative Partei", d: "Freie Deutschland Partei" }, correct: "a", explanation: "FDP steht für Freie Demokratische Partei." }
+        ]
+    },
+    {
+        id: 5,
+        title: "5. Wahlen",
+        description: "Wahlen in Deutschland sind allgemein, unmittelbar, frei, gleich und geheim. Diese fünf Grundsätze sind zentral: Allgemein heißt, dass grundsätzlich alle Bürgerinnen und Bürger ab einem bestimmten Alter wählen dürfen. Unmittelbar bedeutet, dass die Wähler die Abgeordneten direkt wählen (nicht über Wahlmänner). Frei heißt, dass niemand gezwungen oder unzulässig beeinflusst werden darf. Gleich bedeutet, dass jede Stimme gleich viel zählt. Geheim heißt, dass niemand sehen darf, wen man wählt.\n\nBei der Bundestagswahl und den meisten Landtagswahlen ist man ab 18 Jahren wahlberechtigt (deutsche Staatsangehörigkeit vorausgesetzt). Bei Kommunalwahlen in Baden-Württemberg dürfen bereits 16-Jährige wählen.\n\nDeutschland hat ein personalisiertes Verhältniswahlrecht. Jeder Wähler hat zwei Stimmen: Die Erststimme wählt einen Direktkandidaten im Wahlkreis. Die Zweitstimme wählt eine Landesliste einer Partei und entscheidet über die Verteilung der Sitze. Es gibt eine 5-Prozent-Hürde: Parteien mit weniger als 5 % der Zweitstimmen (und weniger als drei Direktmandate) ziehen in der Regel nicht in den Bundestag ein.\n\nDer Bundestag wird in der Regel für vier Jahre gewählt. Der Landtag von Baden-Württemberg wird für fünf Jahre gewählt.",
+        merkhilfe: "Merkhilfe: allgemein – unmittelbar – frei – gleich – geheim • Erststimme = Direktkandidat • Zweitstimme = Sitzverteilung • 5-%-Hürde • Bundestag 4 Jahre • BW-Landtag 5 Jahre • Kommunalwahl BW ab 16",
+        questions: [
+            { qId: "11", text: "Wer wird bei der Europawahl gewählt?", options: { a: "die europäische Verfassung", b: "die Abgeordneten des Europäischen Parlaments", c: "die Europäische Kommission", d: "die Länder, die in die EU eintreten dürfen" }, correct: "b", explanation: "Bei der Europawahl wählen Bürger die Abgeordneten des Europäischen Parlaments." },
+            { qId: "43", text: "Wer wählt in Deutschland die Abgeordneten zum Bundestag?", options: { a: "das wahlberechtigte Volk", b: "die Wirtschaft", c: "das Militär", d: "die Verwaltung" }, correct: "a", explanation: "Die Bundestagsabgeordneten werden vom wahlberechtigten Volk gewählt." },
+            { qId: "124", text: "Für wie viele Jahre wird der Bundestag in Deutschland gewählt?", options: { a: "2 Jahre", b: "4 Jahre", c: "6 Jahre", d: "8 Jahre" }, correct: "b", explanation: "Die Legislaturperiode des Deutschen Bundestages beträgt 4 Jahre." },
+            { qId: "132", text: "Wie oft gibt es normalerweise Bundestagswahlen in Deutschland?", options: { a: "alle drei Jahre", b: "alle vier Jahre", c: "alle fünf Jahre", d: "alle sechs Jahre" }, correct: "b", explanation: "Bundestagswahlen finden in der Regel alle vier Jahre statt." },
+            { qId: "136", text: "Für wie viele Jahre wird der Bundestag in Deutschland gewählt?", options: { a: "2 Jahre", b: "3 Jahre", c: "4 Jahre", d: "5 Jahre" }, correct: "c", explanation: "Die Legislaturperiode beträgt vier Jahre." },
+            { qId: "147", text: "Die Wahlen in Deutschland sind …", options: { a: "berufsbezogen.", b: "speziell.", c: "geschlechtsabhängig.", d: "geheim." }, correct: "d", explanation: "Geheim ist einer der fünf zentralen Wahlgrundsätze." },
+            { qId: "156", text: "An demokratischen Wahlen in Deutschland teilzunehmen ist …", options: { a: "ein Zwang.", b: "eine Last.", c: "ein Recht.", d: "eine Pflicht." }, correct: "c", explanation: "Wählen ist ein demokratisches Recht, keine rechtliche Pflicht." },
+            { qId: "161", text: "Was bedeutet „aktives Wahlrecht“ in Deutschland?", options: { a: "Man muss zur Auszählung der Stimmen gehen.", b: "Man kann wählen.", c: "Man kann gewählt werden.", d: "Man muss wählen gehen." }, correct: "b", explanation: "Aktives Wahlrecht ist das Recht, seine Stimme abzugeben." },
+            { qId: "189", text: "Das Wahlsystem in Deutschland ist ein …", options: { a: "allgemeines Männerwahlrecht.", b: "Mehrheits- und Verhältniswahlrecht.", c: "Dreiklassenwahlrecht.", d: "Zensuswahlrecht." }, correct: "b", explanation: "Deutschland nutzt ein personalisiertes Verhältniswahlrecht." },
+            { qId: "202", text: "Was ist in Deutschland die „5 %-Hürde“?", options: { a: "Anwesenheitskontrolle im Bundestag für Abstimmungen", b: "Mindestanteil an Wählerstimmen, um ins Parlament zu kommen", c: "Anwesenheitskontrolle im Bundesrat für Abstimmungen", d: "Abstimmungsregelung im Bundestag für kleine Parteien" }, correct: "b", explanation: "Parteien benötigen mindestens 5 % der Zweitstimmen, um über Listen in das Parlament einzuziehen." },
+            { qId: "204", text: "Die Bundestagswahl in Deutschland ist die Wahl …", options: { a: "der Parlamente der Länder.", b: "des Bundespräsidenten/der Bundespräsidentin.", c: "des Bundeskanzlers/der Bundeskanzlerin.", d: "des Parlaments für Deutschland." }, correct: "d", explanation: "Mit der Bundestagswahl wählen die Bürger das Parlament der Bundesrepublik." },
+            { qId: "102", text: "Ab welchem Alter darf man in Deutschland an der Wahl zum Deutschen Bundestag teilnehmen?", options: { a: "23", b: "21", c: "16", d: "18" }, correct: "d", explanation: "Das aktive Wahlrecht zum Bundestag beginnt mit 18 Jahren." }
+        ]
+    },
+    {
+        id: 6,
+        title: "6. Recht und Verwaltung",
+        description: "Deutschland ist ein Rechtsstaat. Das bedeutet: Alle Einwohnerinnen und Einwohner und der Staat selbst müssen sich an die Gesetze halten. Es gibt keine willkürliche Herrschaft. Staatliches Handeln muss gesetzlich begründet sein und kann vor Gericht überprüft werden. Unabhängige Gerichte sind deshalb ein Kernbestandteil des Rechtsstaates. Richterinnen und Richter sind nur dem Gesetz unterworfen.\n\nDie Volljährigkeit beginnt in Deutschland mit 18 Jahren. Gewalt gegen Kinder ist verboten – auch in der Erziehung. Es gibt kein Recht, ein Kind zu schlagen. Bei Konflikten in der Arbeit geht man zum Arbeitsgericht. Bei familiären Problemen oder Erziehungsfragen kann man sich an das Jugendamt wenden. Das Jugendamt ist die zuständige Behörde für den Schutz von Kindern und Jugendlichen.\n\nDas Europäische Parlament hat seinen Sitz in Straßburg; weitere Arbeitsorte sind Brüssel und Luxemburg. Bürgerinnen und Bürger können sich an verschiedene Behörden wenden: Polizei, Jugendamt, Sozialamt, Finanzamt und viele andere. Jede Behörde hat klar definierte Aufgaben.",
+        merkhilfe: "Merkhilfe: Rechtsstaat = alle sind an das Recht gebunden • unabhängige Gerichte • Volljährigkeit ab 18 • Gewalt gegen Kinder verboten • Jugendamt bei Erziehungsproblemen • Arbeitsgericht bei Arbeitskonflikten",
+        questions: [
+            { qId: "3", text: "Ab welchem Alter ist man in Deutschland volljährig?", options: { a: "16", b: "18", c: "19", d: "21" }, correct: "b", explanation: "Die Volljährigkeit beginnt mit der Vollendung des 18. Lebensjahres." },
+            { qId: "17", text: "Wenn man in Deutschland ein Kind schlägt, …", options: { a: "geht das nur die Familie etwas an", b: "geht das niemanden etwas an", c: "kann man dafür bestraft werden", d: "kann man dafür nicht bestraft werden" }, correct: "c", explanation: "Kinder haben ein Recht auf gewaltfreie Erziehung; körperliche Bestrafung ist strafbar." },
+            { qId: "19", text: "Wo ist der Sitz des Europäischen Parlaments?", options: { a: "Berlin", b: "Straßburg", c: "Paris", d: "London" }, correct: "b", explanation: "Der offizielle Sitz des Europäischen Parlaments ist Straßburg." },
+            { qId: "27", text: "Wer darf in Deutschland nicht als Paar zusammenleben?", options: { a: "Hans (20 Jahre) und Marie (19 Jahre)", b: "Sofie (35 Jahre) und Lisa (40 Jahre)", c: "Tom (20 Jahre) und Klaus (45 Jahre)", d: "Anne (13 Jahre) und Tim (25 Jahre)" }, correct: "d", explanation: "Minderjährige unter 14 Jahren dürfen nicht mit Erwachsenen als Paar zusammenleben; das wäre strafbar." },
+            { qId: "36", text: "An welchen Orten arbeitet das Europäische Parlament?", options: { a: "Straßburg, Luxemburg und Brüssel", b: "Rom, Bern und Wien", c: "Paris, London und Den Haag", d: "Bonn, Zürich und Mailand" }, correct: "a", explanation: "Das Europäische Parlament hat seinen Sitz in Straßburg und arbeitet auch in Brüssel und Luxemburg." },
+            { qId: "58b", text: "Was macht ein Schöffe/eine Schöffin in Deutschland? Er/Sie …", options: { a: "verteidigt den Angeklagten/die Angeklagte", b: "stellt Urkunden aus", c: "gibt Bürgern/Bürgerinnen rechtlichen Rat", d: "entscheidet mit Richtern/Richterinnen über Schuld und Strafe" }, correct: "d", explanation: "Schöffen sind ehrenamtliche Laienrichter an Gerichten." },
+            { qId: "67", text: "Wer beschließt in Deutschland ein neues Gesetz?", options: { a: "die Gerichte", b: "die Polizei", c: "die Regierung", d: "das Parlament" }, correct: "d", explanation: "Gesetze werden von der Legislative (dem Parlament) beschlossen." },
+            { qId: "68", text: "Wie nennt man in Deutschland ein Verfahren vor einem Gericht?", options: { a: "Protokoll", b: "Prozess", c: "Programm", d: "Prozedur" }, correct: "b", explanation: "Ein Gerichtsverfahren wird als Prozess bezeichnet." },
+            { qId: "72", text: "Was braucht man in Deutschland für eine Ehescheidung?", options: { a: "die Einwilligung der Eltern", b: "die Unterstützung eines Anwalts/einer Anwältin", c: "ein Attest eines Arztes/einer Ärztin", d: "die Einwilligung der Kinder" }, correct: "b", explanation: "Für eine Ehescheidung ist in der Regel anwaltliche Unterstützung erforderlich." },
+            { qId: "72b", text: "Welches Amt gehört in Deutschland zur Gemeindeverwaltung?", options: { a: "Finanzamt", b: "Ordnungsamt", c: "Pfarramt", d: "Auswärtiges Amt" }, correct: "b", explanation: "Das Ordnungsamt ist Teil der Gemeindeverwaltung." },
+            { qId: "73b", text: "Was ist eine Aufgabe der Polizei in Deutschland?", options: { a: "die Bürgerinnen und Bürger abzuhören", b: "das Land zu verteidigen", c: "die Einhaltung von Gesetzen zu überwachen", d: "die Gesetze zu beschließen" }, correct: "c", explanation: "Die Polizei sorgt als Exekutivorgan für Sicherheit und Rechtseinhaltung." },
+            { qId: "74", text: "Wie kann jemand, der den Holocaust leugnet, bestraft werden?", options: { a: "gar nicht, Holocaustleugnung ist erlaubt", b: "Kürzung sozialer Leistungen", c: "mit Freiheitsstrafe bis zu fünf Jahren oder mit Geldstrafe", d: "bis zu 100 Sozialstunden" }, correct: "c", explanation: "Holocaustleugnung ist in Deutschland strafbar und kann mit Freiheits- oder Geldstrafe geahndet werden." },
+            { qId: "75", text: "Ein Gerichtsschöffe/eine Gerichtsschöffin in Deutschland ist …", options: { a: "ein Mitglied eines Gemeinderats.", b: "eine Person, die Jura studiert hat", c: "der Stellvertreter/die Stellvertreterin des Stadtoberhaupts", d: "ein ehrenamtlicher Richter/eine ehrenamtliche Richterin" }, correct: "d", explanation: "Schöffen sind ehrenamtliche Laienrichter." },
+            { qId: "76", text: "In Deutschland ist eine Bürgermeisterin/ein Bürgermeister …", options: { a: "das Oberhaupt einer Gemeinde", b: "der Leiter/die Leiterin einer Schule", c: "der Chef/die Chefin einer Bank", d: "der/die Vorsitzende einer Partei" }, correct: "a", explanation: "Der Bürgermeister ist das Oberhaupt einer Gemeinde." },
+            { qId: "92", text: "Wo müssen Sie sich anmelden, wenn Sie in Deutschland umziehen?", options: { a: "beim Gewerbeamt", b: "beim Einwohnermeldeamt", c: "beim Standesamt", d: "beim Ordnungsamt" }, correct: "b", explanation: "Bei einem Wohnungswechsel muss man sich beim Einwohnermeldeamt/Bürgerbüro anmelden." },
+            { qId: "103", text: "Wann beginnt die gesetzliche Nachtruhe in Deutschland?", options: { a: "um 22 Uhr", b: "wenn die Sonne untergeht", c: "um 0 Uhr, Mitternacht", d: "wenn die Nachbarn schlafen gehen" }, correct: "a", explanation: "Die gesetzliche Nachtruhe beginnt in Deutschland grundsätzlich um 22:00 Uhr." },
+            { qId: "119", text: "In Deutschland gehören der Bundestag und der Bundesrat zur …", options: { a: "Judikative.", b: "Direktive.", c: "Exekutive.", d: "Legislative." }, correct: "d", explanation: "Bundestag und Bundesrat gehören zur Legislative (gesetzgebenden Gewalt)." },
+            { qId: "140", text: "Es gehört nicht zu den Aufgaben des Deutschen Bundestages, …", options: { a: "die Bundesregierung zu kontrollieren.", b: "den Bundeskanzler/die Bundeskanzlerin zu wählen.", c: "Gesetze zu entwerfen.", d: "das Bundeskabinett zu bilden." }, correct: "d", explanation: "Das Bundeskabinett wird vom Bundeskanzler gebildet, nicht vom Bundestag." },
+            { qId: "180", text: "Zu einem demokratischen Rechtsstaat gehört es nicht, dass …", options: { a: "Bürger friedlich demonstrieren gehen dürfen.", b: "Menschen sich kritisch über die Regierung äußern können.", c: "jemand ein Verbrechen begeht und deshalb verhaftet wird.", d: "Menschen von einer Privatpolizei ohne Grund verhaftet werden." }, correct: "d", explanation: "Willkürliche Verhaftungen durch Privatpolizei widersprechen dem Rechtsstaat." },
+            { qId: "192", text: "Was ist die Bundeswehr?", options: { a: "ein deutscher Hafen", b: "die deutsche Polizei", c: "die deutsche Armee", d: "eine deutsche Bürgerinitiative" }, correct: "c", explanation: "Die Bundeswehr ist die Armee der Bundesrepublik Deutschland." },
+            { qId: "205", text: "Wer leitet das deutsche Bundeskabinett?", options: { a: "der Bundespräsident/die Bundespräsidentin", b: "der Bundesratspräsident/die Bundesratspräsidentin", c: "der Bundeskanzler/die Bundeskanzlerin", d: "der Bundestagspräsident/die Bundestagspräsidentin" }, correct: "c", explanation: "Der Bundeskanzler leitet das Bundeskabinett." },
+            { qId: "54b", text: "Wer berät in Deutschland Personen bei Rechtsfragen und vertritt sie vor Gericht?", options: { a: "eine Schöffin/ein Schöffe", b: "eine Staatsanwältin/ein Staatsanwalt", c: "eine Rechtsanwältin/ein Rechtsanwalt", d: "eine Richterin/ein Richter" }, correct: "c", explanation: "Rechtsanwälte beraten und vertreten Bürger vor Gericht." }
+        ]
+    },
+    {
+        id: 7,
+        title: "7. Wirtschaft und Arbeit",
+        description: "Die Wirtschaftsordnung in Deutschland heißt soziale Marktwirtschaft. Das bedeutet: Die Wirtschaft richtet sich grundsätzlich nach Angebot und Nachfrage (Marktwirtschaft). Gleichzeitig sorgt der Staat für einen sozialen Ausgleich und setzt Regeln – zum Beispiel im Wettbewerbsrecht, beim Arbeitsschutz, beim Umweltschutz und durch die Sozialversicherungen. Es ist weder eine reine Planwirtschaft noch ein unregulierter Kapitalismus.\n\nDie meisten Erwerbstätigen sind Arbeitnehmerinnen und Arbeitnehmer. Für sie gibt es die gesetzlichen Sozialversicherungen: Krankenversicherung, Rentenversicherung, Arbeitslosenversicherung, Pflegeversicherung und Unfallversicherung. Die Beiträge werden in der Regel von Arbeitgebern und Arbeitnehmern gemeinsam getragen.\n\nDie Gewerkschaften vertreten die Interessen der Arbeitnehmerinnen und Arbeitnehmer. Bei Streitigkeiten aus dem Arbeitsverhältnis (zum Beispiel bei Kündigung) ist das Arbeitsgericht zuständig. Ein besonderes Merkmal des deutschen Arbeitsmarktes ist das duale Ausbildungssystem: Die Ausbildung findet gleichzeitig im Betrieb und in der Berufsschule statt.",
+        merkhilfe: "Merkhilfe: soziale Marktwirtschaft = Markt + sozialer Ausgleich • Sozialversicherungen (Krankheit, Rente, Arbeitslosigkeit, Pflege, Unfall) • Gewerkschaften vertreten Arbeitnehmer • Arbeitsgericht bei Konflikten • duale Ausbildung",
+        questions: [
+            { qId: "2", text: "Die Wirtschaftsform in Deutschland nennt man …", options: { a: "Planwirtschaft.", b: "gelenkte Zentralwirtschaft.", c: "freie Zentralwirtschaft.", d: "soziale Marktwirtschaft." }, correct: "d", explanation: "Deutschland hat eine soziale Marktwirtschaft." },
+            { qId: "5", text: "Wen vertreten die Gewerkschaften in Deutschland?", options: { a: "kleine Unternehmen", b: "Arbeitnehmerinnen und Arbeitnehmer", c: "grosse Unternehmen", d: "Selbstständige" }, correct: "b", explanation: "Gewerkschaften vertreten die Interessen der Arbeitnehmer." },
+            { qId: "10", text: "Sie gehen in Deutschland zum Arbeitsgericht bei …", options: { a: "ungerechtfertigter Kündigung durch Ihren Chef/Ihre Chefin.", b: "Schwierigkeiten nach einem Verkehrsunfall.", c: "falscher Nebenkostenabrechnung.", d: "Problemen mit den Nachbarn/Nachbarinnen." }, correct: "a", explanation: "Das Arbeitsgericht ist für Streitigkeiten aus dem Arbeitsverhältnis zuständig." },
+            { qId: "12", text: "Was gehört nicht zur gesetzlichen Sozialversicherung?", options: { a: "die Pflegeversicherung", b: "die Lebensversicherung", c: "die gesetzliche Rentenversicherung", d: "die Arbeitslosenversicherung" }, correct: "b", explanation: "Die Lebensversicherung ist eine private Versicherung, keine gesetzliche Sozialversicherung." },
+            { qId: "16", text: "Gewerkschaften sind Interessenverbände der …", options: { a: "Rentnerinnen und Rentner.", b: "Arbeitgeberinnen und Arbeitgeber.", c: "Arbeitnehmerinnen und Arbeitnehmer.", d: "Jugendlichen." }, correct: "c", explanation: "Gewerkschaften vertreten Arbeitnehmerinteressen." },
+            { qId: "145", text: "Womit finanziert der deutsche Staat die Sozialversicherung?", options: { a: "Spendengeldern", b: "Sozialabgaben", c: "Kirchensteuern", d: "Vereinsbeiträgen" }, correct: "b", explanation: "Die Sozialversicherung wird durch Sozialabgaben von Arbeitgebern und Arbeitnehmern finanziert." },
+            { qId: "151", text: "Welche Maßnahme schafft in Deutschland soziale Sicherheit?", options: { a: "die Krankenversicherung", b: "die Haftpflichtversicherung", c: "die Gebäudeversicherung", d: "die Autoversicherung" }, correct: "a", explanation: "Die gesetzliche Krankenversicherung ist Teil der sozialen Sicherheit." },
+            { qId: "168", text: "Zu welcher Versicherung gehört die Pflegeversicherung?", options: { a: "Hausratversicherung", b: "Haftpflicht- und Feuerversicherung", c: "Sozialversicherung", d: "Unfallversicherung" }, correct: "c", explanation: "Die Pflegeversicherung ist Teil der gesetzlichen Sozialversicherung." },
+            { qId: "215", text: "In Deutschland sind die meisten Erwerbstätigen …", options: { a: "bei einer Firma oder Behörde beschäftigt.", b: "selbständig mit einer eigenen Firma tätig.", c: "in kleinen Familienunternehmen beschäftigt.", d: "ehrenamtlich für ein Bundesland tätig." }, correct: "a", explanation: "Die Mehrheit der Erwerbstätigen ist abhängig beschäftigt." }
+        ]
+    },
+    {
+        id: 8,
+        title: "8. Bildung und Religion",
+        description: "Bildung liegt in Deutschland in der Zuständigkeit der Bundesländer (Kulturhoheit der Länder). Es besteht allgemeine Schulpflicht. Kinder und Jugendliche müssen die gesetzlich vorgeschriebene Schulzeit besuchen. Sie haben ein Recht auf Bildung, aber auch die Pflicht zur Anwesenheit. Schulgebühren für die allgemeine Schulpflicht gibt es in der Regel nicht. Die Volkshochschule ist eine Einrichtung der Weiterbildung für Erwachsene – sie steht allen Altersgruppen offen und ist nicht auf Religion oder eine bestimmte Gruppe beschränkt.\n\nDer Staat ist religiös und weltanschaulich neutral. Es gibt keine Staatskirche. Staat und Religionsgemeinschaften sind voneinander getrennt. Gleichzeitig gibt es Kooperationen (zum Beispiel Religionsunterricht an Schulen oder Kirchensteuer für Mitglieder bestimmter Kirchen). Die Glaubens- und Gewissensfreiheit ist ein Grundrecht. Man darf seinen Glauben frei wählen und ausüben oder auch keiner Religion angehören.\n\nDas jüdische Gotteshaus heißt Synagoge. Christliche Feste prägen den Kalender und viele Bräuche: Zu Weihnachten schmückt man einen Tannenbaum, zu Ostern bemalt man Eier. Pfingsten ist ein christlicher Feiertag. Bei ernsthaften Erziehungsproblemen ist das Jugendamt die richtige Anlaufstelle.",
+        merkhilfe: "Merkhilfe: Schulpflicht • Bildung = Sache der Länder • Volkshochschule = Weiterbildung • Staat und Religion sind getrennt • Synagoge = jüdisches Gotteshaus • Jugendamt bei Erziehungsproblemen",
+        questions: [
+            { qId: "6", text: "Was gilt für die meisten Kinder in Deutschland?", options: { a: "Schulpflicht", b: "Religionspflicht", c: "Schweigepflicht", d: "Wahlpflicht" }, correct: "a", explanation: "In Deutschland besteht allgemeine Schulpflicht." },
+            { qId: "47", text: "In Deutschland hat ein Kind in der Schule…", options: { a: "Wahlfreiheit für alle Fächer.", b: "Recht auf unbegrenzte Freizeit.", c: "Anwesenheitspflicht.", d: "Anspruch auf Schulgeld." }, correct: "c", explanation: "Kinder haben in der Schule Anwesenheitspflicht." },
+            { qId: "56", text: "Wie heißt das jüdische Gebetshaus?", options: { a: "Basilika", b: "Moschee", c: "Synagoge", d: "Kirche" }, correct: "c", explanation: "Das jüdische Gotteshaus heißt Synagoge." },
+            { qId: "67b", text: "Die Volkshochschule in Deutschland ist eine Einrichtung …", options: { a: "zur Weiterbildung.", b: "für den Religionsunterricht.", c: "nur für Jugendliche.", d: "nur für Rentner und Rentnerinnen." }, correct: "a", explanation: "Die Volkshochschule dient der Weiterbildung für Erwachsene." },
+            { qId: "68b", text: "Welche Aussage ist richtig? In Deutschland …", options: { a: "bilden die Religionsgemeinschaften den Staat.", b: "sind Staat und Religionsgemeinschaften voneinander getrennt", c: "bilden Staat und Religionsgemeinschaften eine Einheit.", d: "ist der Staat abhängig von den Religionsgemeinschaften." }, correct: "b", explanation: "In Deutschland sind Staat und Religionsgemeinschaften getrennt." },
+            { qId: "70b", text: "Bei Erziehungsproblemen gehen Sie in Deutschland …", options: { a: "zum Arzt/zur Ärztin", b: "zum Jugendamt", c: "zum Gesundheitsamt", d: "zum Einwohnermeldeamt" }, correct: "b", explanation: "Das Jugendamt ist die zuständige Stelle bei Erziehungsproblemen." },
+            { qId: "179", text: "Was ist in Deutschland ein Brauch zu Weihnachten?", options: { a: "sich mit Masken und Kostümen verkleiden", b: "bunte Eier verstecken", c: "Kürbisse vor die Tür stellen", d: "einen Tannenbaum schmücken" }, correct: "d", explanation: "Zu Weihnachten schmückt man traditionell einen Tannenbaum." },
+            { qId: "185", text: "Was ist in Deutschland ein Brauch zu Ostern?", options: { a: "Raketen in die Luft schießen", b: "einen Tannenbaum schmücken", c: "Kürbisse vor die Tür stellen", d: "Eier bemalen" }, correct: "d", explanation: "Zu Ostern werden traditionell Eier bemalt." },
+            { qId: "191", text: "Pfingsten ist ein …", options: { a: "internationaler Trauertag.", b: "christlicher Feiertag.", c: "bayerischer Brauch.", d: "deutscher Gedenktag." }, correct: "b", explanation: "Pfingsten ist ein christlicher Feiertag." }
+        ]
+    },
+    {
+        id: 9,
+        title: "9. Geschichte und Geografie",
+        description: "Um die heutige Verfassung und die besondere Verantwortung Deutschlands zu verstehen, braucht man einen Überblick über die Geschichte des 20. Jahrhunderts. Nach dem Ersten Weltkrieg entstand 1919 die Weimarer Republik – die erste umfassende Demokratie auf deutschem Boden. Sie scheiterte unter dem Druck von Wirtschaftskrise, politischer Zersplitterung und der Ablehnung der Demokratie durch Teile der Eliten und der Bevölkerung.\n\nAm 30. Januar 1933 wurde Adolf Hitler zum Reichskanzler ernannt. Die Nationalsozialisten verwandelten die Demokratie innerhalb kurzer Zeit in eine Diktatur. Der Holocaust (die Shoah) war die systematische Ermordung von etwa sechs Millionen europäischen Jüdinnen und Juden. Am 9. November 1938 (Novemberpogrome) wurden Synagogen und jüdische Geschäfte zerstört. Der Zweite Weltkrieg in Europa endete mit der bedingungslosen Kapitulation Deutschlands am 8. Mai 1945.\n\nNach 1945 wurde Deutschland in vier Besatzungszonen aufgeteilt. 1949 entstanden zwei Staaten: die Bundesrepublik Deutschland (West) und die Deutsche Demokratische Republik (Ost). 1961 baute die DDR die Berliner Mauer. Am 9. November 1989 fiel die Berliner Mauer. Am 3. Oktober 1990 trat die DDR der Bundesrepublik bei – das ist der Tag der Deutschen Einheit.\n\nDeutschland hat neun Nachbarländer. Der erste Bundeskanzler der Bundesrepublik war Konrad Adenauer. Wegen der Verbrechen des Holocaust trägt Deutschland eine besondere historische Verantwortung gegenüber dem jüdischen Volk und dem Staat Israel. Holocaustleugnung ist in Deutschland strafbar.",
+        merkhilfe: "Wichtige Daten: 1933 NS-Machtübernahme • 9.11.1938 Novemberpogrome • 8.5.1945 Ende des Zweiten Weltkriegs • 1949 Gründung von BRD und DDR • 1961 Mauerbau • 9.11.1989 Mauerfall • 3.10.1990 Wiedervereinigung (Tag der Deutschen Einheit)",
+        questions: [
+            { qId: "1", text: "Was war am 8. Mai 1945?", options: { a: "Ende des Zweiten Weltkriegs in Europa", b: "Tod Adolf Hitlers", c: "Wahl von Konrad Adenauer zum Bundeskanzler", d: "Beginn des Berliner Mauerbaus" }, correct: "a", explanation: "Am 8. Mai 1945 endete der Zweite Weltkrieg in Europa mit der Kapitulation Deutschlands." },
+            { qId: "3a", text: "Welches Land ist ein Nachbarland von Deutschland?", options: { a: "Spanien", b: "Portugal", c: "Ungarn", d: "Schweiz" }, correct: "d", explanation: "Die Schweiz ist eines der neun Nachbarländer Deutschlands." },
+            { qId: "3b", text: "Wie hieß der erste Bundeskanzler der Bundesrepublik Deutschland?", options: { a: "Willy Brandt", b: "Konrad Adenauer", c: "Kurt Georg Kiesinger", d: "Helmut Schmidt" }, correct: "b", explanation: "Konrad Adenauer war der erste Bundeskanzler der Bundesrepublik Deutschland." },
+            { qId: "4", text: "Wie endete der Zweite Weltkrieg in Europa offiziell?", options: { a: "durch eine Revolution in Deutschland", b: "mit dem Rückzug der Deutschen aus den besetzten Gebieten", c: "mit dem Tod Adolf Hitlers", d: "durch die bedingungslose Kapitulation Deutschlands" }, correct: "d", explanation: "Der Zweite Weltkrieg endete mit der bedingungslosen Kapitulation Deutschlands." },
+            { qId: "5a", text: "In welchem Jahr wurde Hitler Reichskanzler?", options: { a: "1923", b: "1927", c: "1933", d: "1936" }, correct: "c", explanation: "Adolf Hitler wurde am 30. Januar 1933 zum Reichskanzler ernannt." },
+            { qId: "7a", text: "Das „Dritte Reich“ war eine …", options: { a: "Räterepublik.", b: "Monarchie.", c: "Diktatur.", d: "Demokratie." }, correct: "c", explanation: "Das NS-Regime war eine Diktatur." },
+            { qId: "7b", text: "Welches Land ist ein Nachbarland von Deutschland?", options: { a: "Griechenland", b: "Bulgarien", c: "Rumänien", d: "Polen" }, correct: "d", explanation: "Polen ist ein Nachbarland Deutschlands." },
+            { qId: "8", text: "Welcher Krieg dauerte von 1939 bis 1945?", options: { a: "der Golfkrieg", b: "der Erste Weltkrieg", c: "der Zweite Weltkrieg", d: "der Vietnamkrieg" }, correct: "c", explanation: "Der Zweite Weltkrieg dauerte von 1939 bis 1945." },
+            { qId: "11a", text: "Wann waren die Nationalsozialisten in Deutschland an der Macht?", options: { a: "1888 bis 1918", b: "1921 bis 1934", c: "1933 bis 1945", d: "1949 bis 1963" }, correct: "c", explanation: "Die Nationalsozialisten waren von 1933 bis 1945 an der Macht." },
+            { qId: "12a", text: "Claus Schenk Graf von Stauffenberg wurde bekannt durch …", options: { a: "das Attentat auf Hitler am 20. Juli 1944.", b: "den Aufbau der Wehrmacht.", c: "eine Goldmedaille bei den Olympischen Spielen 1936.", d: "den Bau des Reichstagsgebäudes." }, correct: "a", explanation: "Stauffenberg war eine zentrale Figur des Attentats vom 20. Juli 1944." },
+            { qId: "13", text: "Wann war der Zweite Weltkrieg zu Ende?", options: { a: "1945", b: "1961", c: "1949", d: "1933" }, correct: "a", explanation: "Der Zweite Weltkrieg endete 1945." },
+            { qId: "14", text: "Was kennzeichnete den NS-Staat? Eine Politik …", options: { a: "der allgemeinen Religionsfreiheit", b: "der Entwicklung der Demokratie", c: "der Meinungsfreiheit", d: "des staatlichen Rassismus" }, correct: "d", explanation: "Der NS-Staat war geprägt von staatlichem Rassismus und Antisemitismus." },
+            { qId: "16a", text: "Welches Land ist ein Nachbarland von Deutschland?", options: { a: "Griechenland", b: "Bulgarien", c: "Portugal", d: "Tschechien" }, correct: "d", explanation: "Tschechien grenzt an Deutschland." },
+            { qId: "17a", text: "Wer baute die Mauer in Berlin?", options: { a: "die DDR", b: "die USA", c: "Großbritannien", d: "die Bundesrepublik Deutschland" }, correct: "a", explanation: "Die DDR baute 1961 die Berliner Mauer." },
+            { qId: "21", text: "Wann wurde die Bundesrepublik Deutschland gegründet?", options: { a: "1939", b: "1945", c: "1949", d: "1951" }, correct: "c", explanation: "Die Bundesrepublik Deutschland wurde 1949 gegründet." },
+            { qId: "22a", text: "In welcher Besatzungszone wurde die DDR gegründet? In der …", options: { a: "sowjetischen Besatzungszone", b: "französischen Besatzungszone", c: "amerikanischen Besatzungszone", d: "britischen Besatzungszone" }, correct: "a", explanation: "Die DDR entstand in der sowjetischen Besatzungszone." },
+            { qId: "22b", text: "Welches Land ist ein Nachbarland von Deutschland?", options: { a: "Schweden", b: "Norwegen", c: "Finnland", d: "Dänemark" }, correct: "d", explanation: "Dänemark ist ein Nachbarland Deutschlands." },
+            { qId: "23", text: "Wann wurde die DDR gegründet?", options: { a: "1947", b: "1949", c: "1953", d: "1956" }, correct: "b", explanation: "Die DDR wurde 1949 gegründet." },
+            { qId: "26a", text: "Welches Land ist ein Nachbarland von Deutschland?", options: { a: "Norwegen", b: "Luxemburg", c: "Spanien", d: "Bulgarien" }, correct: "b", explanation: "Luxemburg grenzt an Deutschland." },
+            { qId: "28a", text: "Der erste Bundeskanzler der Bundesrepublik Deutschland war …", options: { a: "Konrad Adenauer.", b: "Willy Brandt.", c: "Ludwig Erhard.", d: "Gerhard Schröder." }, correct: "a", explanation: "Konrad Adenauer war der erste Bundeskanzler." },
+            { qId: "28b", text: "Wie viele Mitgliedstaaten hat die EU heute?", options: { a: "21", b: "23", c: "25", d: "27" }, correct: "d", explanation: "Die EU hat derzeit 27 Mitgliedstaaten." },
+            { qId: "32", text: "Woran erinnern die sogenannten „Stolpersteine“ in Deutschland?", options: { a: "an berühmte deutsche Politikerinnen und Politiker", b: "an Verkehrstote", c: "an bekannte jüdische Musiker", d: "an die Opfer des Nationalsozialismus" }, correct: "d", explanation: "Stolpersteine erinnern an Opfer des Nationalsozialismus." },
+            { qId: "37", text: "In welchem Jahr wurde die Mauer in Berlin gebaut?", options: { a: "1961", b: "1959", c: "1956", d: "1953" }, correct: "a", explanation: "Die Berliner Mauer wurde 1961 gebaut." },
+            { qId: "40", text: "Wann baute die DDR die Mauer in Berlin?", options: { a: "1990", b: "1961", c: "1933", d: "1919" }, correct: "b", explanation: "Die Mauer wurde 1961 gebaut." },
+            { qId: "42", text: "Was bedeutet die Abkürzung DDR?", options: { a: "Deutsche Demokratische Republik", b: "Dritte Deutsche Republik", c: "Dritter Deutscher Rundfunk", d: "Die Deutsche Republik" }, correct: "a", explanation: "DDR steht für Deutsche Demokratische Republik." },
+            { qId: "43a", text: "Seit wann bezahlt man in Deutschland mit dem Euro in bar?", options: { a: "1995", b: "1998", c: "2002", d: "2005" }, correct: "c", explanation: "Der Euro wurde 2002 als Bargeld eingeführt." },
+            { qId: "45", text: "Wann wurde die Mauer in Berlin für alle geöffnet?", options: { a: "1995", b: "1992", c: "1989", d: "1987" }, correct: "c", explanation: "Die Berliner Mauer wurde am 9. November 1989 geöffnet." },
+            { qId: "46", text: "Was ist kein Bundesland der Bundesrepublik Deutschland?", options: { a: "Sachsen-Anhalt", b: "Mecklenburg-Vorpommern", c: "Nordrhein-Westfalen", d: "Elsass-Lothringen" }, correct: "d", explanation: "Elsass-Lothringen ist kein deutsches Bundesland." },
+            { qId: "52", text: "Von 1961 bis 1989 war Berlin …", options: { a: "durch eine Mauer geteilt.", b: "ein eigener Staat.", c: "nur mit dem Flugzeug erreichbar.", d: "ohne Bürgermeister." }, correct: "a", explanation: "Berlin war von 1961 bis 1989 durch die Mauer geteilt." },
+            { qId: "57", text: "Am 3. Oktober feiert man in Deutschland den Tag der Deutschen …", options: { a: "Bundesländer.", b: "Einheit.", c: "Nation.", d: "Städte." }, correct: "b", explanation: "Der 3. Oktober ist der Tag der Deutschen Einheit." },
+            { qId: "59a", text: "Welches Tier ist das Wappentier der Bundesrepublik Deutschland?", options: { a: "Bär", b: "Adler", c: "Löwe", d: "Pferd" }, correct: "b", explanation: "Der Bundesadler ist das Wappentier Deutschlands." },
+            { qId: "83", text: "Mit der Abkürzung „Stasi“ meinte man in der DDR …", options: { a: "das Ministerium für Volksbildung.", b: "eine regierende Partei.", c: "das Parlament.", d: "das Ministerium für Staatssicherheit." }, correct: "d", explanation: "Stasi stand für das Ministerium für Staatssicherheit der DDR." },
+            { qId: "100", text: "Zu wem gehörte die DDR im „Kalten Krieg“?", options: { a: "zur NATO", b: "zu den Westmächten", c: "zu den blockfreien Staaten", d: "zum Warschauer Pakt" }, correct: "d", explanation: "Die DDR gehörte zum Warschauer Pakt." },
+            { qId: "105", text: "Wie hieß das Wirtschaftssystem der DDR?", options: { a: "Planwirtschaft", b: "Kapitalismus", c: "Marktwirtschaft", d: "Angebot und Nachfrage" }, correct: "a", explanation: "Die DDR hatte eine Planwirtschaft." },
+            { qId: "122", text: "In welchem Militärbündnis war die DDR Mitglied?", options: { a: "im Warschauer Pakt", b: "in der NATO", c: "im Rheinbund", d: "im Europabündnis" }, correct: "a", explanation: "Die DDR war Mitglied im Warschauer Pakt." },
+            { qId: "126", text: "Was war die „Stasi“?", options: { a: "der Geheimdienst der DDR", b: "ein deutscher Sportverein während des Zweiten Weltkrieges", c: "der Geheimdienst im „Dritten Reich“", d: "eine berühmte deutsche Gedenkstätte" }, correct: "a", explanation: "Die Stasi war der Geheimdienst der DDR." },
+            { qId: "137", text: "Was ereignete sich am 17. Juni 1953 in der DDR?", options: { a: "landesweite Streiks und ein Volksaufstand", b: "der erste Besuch Fidel Castros", c: "der feierliche Beitritt zum Warschauer Pakt", d: "der 1. SED-Parteitag" }, correct: "a", explanation: "Am 17. Juni 1953 gab es einen Volksaufstand in der DDR." },
+            { qId: "143", text: "Wie heißt Deutschland mit vollem Namen?", options: { a: "Bundesbezirk Deutschland", b: "Bundesrepublik Deutschland", c: "Bundesstaat Deutschland", d: "Bundesländer Deutschland" }, correct: "b", explanation: "Der volle Name lautet Bundesrepublik Deutschland." },
+            { qId: "149", text: "Wie viele Einwohner hat Deutschland?", options: { a: "90 Millionen", b: "84 Millionen", c: "78 Millionen", d: "70 Millionen" }, correct: "b", explanation: "Deutschland hat etwa 84 Millionen Einwohner." },
+            { qId: "154", text: "Welche Farben hat die deutsche Flagge?", options: { a: "rot-weiß-schwarz", b: "schwarz-rot-grün", c: "schwarz-rot-gold", d: "schwarz-gelb-rot" }, correct: "c", explanation: "Die deutsche Flagge ist schwarz-rot-gold." },
+            { qId: "159", text: "Wer wird als „Kanzler der Deutschen Einheit“ bezeichnet?", options: { a: "Helmut Schmidt", b: "Konrad Adenauer", c: "Gerhard Schröder", d: "Helmut Kohl" }, correct: "d", explanation: "Helmut Kohl wird als Kanzler der Deutschen Einheit bezeichnet." },
+            { qId: "163", text: "Mit welchen Worten beginnt die deutsche Nationalhymne?", options: { a: "Freude schöner Götterfunken…", b: "Deutschland einig Vaterland…", c: "Völker, hört die Signale…", d: "Einigkeit und Recht und Freiheit…" }, correct: "d", explanation: "Die Nationalhymne beginnt mit „Einigkeit und Recht und Freiheit“." },
+            { qId: "181", text: "Die Bundesrepublik Deutschland hat die Grenzen von heute seit …", options: { a: "1933", b: "1949", c: "1971", d: "1990" }, correct: "d", explanation: "Die heutigen Grenzen bestehen seit der Wiedervereinigung 1990." },
+            { qId: "190", text: "Welcher Politiker steht für die „Ostverträge“?", options: { a: "Willy Brandt", b: "Ludwig Erhard", c: "Helmut Kohl", d: "Michail Gorbatschow" }, correct: "a", explanation: "Willy Brandt steht für die Ostpolitik und die Ostverträge." },
+            { qId: "214", text: "Die Bundesrepublik Deutschland ist ein Gründungsmitglied …", options: { a: "der Europäischen Union (EU)", b: "des Nordatlantikpakts (NATO)", c: "des Warschauer Pakts", d: "der Vereinten Nationen (VN)" }, correct: "a", explanation: "Deutschland ist Gründungsmitglied der EU (bzw. ihrer Vorläufer)." },
+            { qId: "BW-1", text: "Welches Wappen gehört zum Bundesland Baden-Württemberg?", options: { a: "2", b: "4", c: "1", d: "3" }, correct: "c", explanation: "Das Wappen von Baden-Württemberg zeigt drei schreitende Löwen." },
+            { qId: "BW-4a", text: "Welches ist ein Landkreis in Baden-Württemberg?", options: { a: "Neckar-Odenwald-Kreis", b: "Nordfriesland", c: "Altötting", d: "Mecklenburgische Seenplatte" }, correct: "a", explanation: "Der Neckar-Odenwald-Kreis liegt in Baden-Württemberg." },
+            { qId: "BW-10a", text: "Die Landeshauptstadt von Baden-Württemberg heißt …", options: { a: "Mannheim", b: "Stuttgart", c: "Heidelberg", d: "Karlsruhe" }, correct: "b", explanation: "Die Landeshauptstadt von Baden-Württemberg ist Stuttgart." },
+            { qId: "BW-10b", text: "Welche Farben hat die Landesflagge von Baden-Württemberg?", options: { a: "grün-weiß-rot", b: "weiß-blau", c: "blau-weiß-rot", d: "schwarz-gold" }, correct: "d", explanation: "Die Landesflagge von Baden-Württemberg ist schwarz-gold." },
+            { qId: "BW-4b", text: "Wie nennt man den Regierungschef / die Regierungschefin in Baden-Württemberg?", options: { a: "Bürgermeister / Bürgermeisterin", b: "Ministerpräsident / Ministerpräsidentin", c: "Premierminister / Premierministerin", d: "Erster Minister / Erste Ministerin" }, correct: "b", explanation: "Der Regierungschef in Baden-Württemberg heißt Ministerpräsident." },
+            { qId: "BW-8a", text: "Für wie viele Jahre wird der Landtag in Baden-Württemberg gewählt?", options: { a: "6", b: "3", c: "5", d: "4" }, correct: "c", explanation: "Der Landtag von Baden-Württemberg wird für fünf Jahre gewählt." },
+            { qId: "BW-8b", text: "Welchen Minister / welche Ministerin hat Baden-Württemberg nicht?", options: { a: "Finanzminister / Finanzministerin", b: "Innenminister / Innenministerin", c: "Außenminister / Außenministerin", d: "Justizminister / Justizministerin" }, correct: "c", explanation: "Außenpolitik ist Bundessache; die Länder haben keinen Außenminister." },
+            { qId: "BW-10c", text: "Ab welchem Alter darf man in Baden-Württemberg bei Kommunalwahlen wählen?", options: { a: "16", b: "18", c: "20", d: "14" }, correct: "a", explanation: "In Baden-Württemberg dürfen 16-Jährige bei Kommunalwahlen wählen." },
+            { qId: "BW-10d", text: "Wo können Sie sich in Baden-Württemberg über politische Themen informieren?", options: { a: "bei der Landeszentrale für politische Bildung", b: "beim Ordnungsamt der Gemeinde", c: "bei den Kirchen", d: "bei der Verbraucherzentrale" }, correct: "a", explanation: "Die Landeszentrale für politische Bildung informiert über politische Themen." }
+        ]
+    },
+    {
+        id: 10,
+        title: "10. Allgemeine Fragen (gemischt)",
+        description: "In der Kategorie „General“ sind viele Fragen aus unterschiedlichen Themenbereichen zusammengefasst: Geschichte, Institutionen, Sozialversicherungen, Europa, Alltag, Familie und Symbole. Viele dieser Fragen wiederholen und vertiefen die Prinzipien, die in den vorherigen Kapiteln erklärt wurden. Wenn eine Frage klar zu einem anderen Thema gehört (zum Beispiel Nationalsozialismus oder Sozialversicherung), behandeln Sie sie als zusätzliche Übung zu diesem Thema.\n\nLesen Sie jede Frage genau. Achten Sie auf Wörter wie „nicht“, „richtig“, „falsch“, „Bund“, „Land“ oder „Kommunen“. Vergleichen Sie die Antwortmöglichkeiten mit dem Grundprinzip des jeweiligen Kapitels. So können Sie auch bei ungewohnten Formulierungen die richtige Antwort finden.",
+        merkhilfe: "Tipp: Lesen Sie jede Frage und alle vier Antworten in Ruhe. Streichen Sie eindeutig falsche Möglichkeiten. Wenn Sie unsicher sind, raten Sie – es gibt keine Punktabzüge für falsche Antworten.",
+        questions: [
+            { qId: "2a", text: "Das Europäische Parlament wird regelmäßig gewählt, nämlich alle …", options: { a: "5 Jahre", b: "6 Jahre", c: "7 Jahre", d: "8 Jahre" }, correct: "a", explanation: "Das Europäische Parlament wird alle fünf Jahre gewählt." },
+            { qId: "2b", text: "Was gab es während der Zeit des Nationalsozialismus in Deutschland?", options: { a: "das Recht zur freien Entfaltung der Persönlichkeit", b: "den Schutz der Menschenwürde", c: "das Verbot von Parteien", d: "Pressefreiheit" }, correct: "c", explanation: "Im NS-Regime wurden Parteien verboten." },
+            { qId: "5b", text: "Was bezahlt man in Deutschland automatisch, wenn man fest angestellt ist?", options: { a: "Kindergeld", b: "Wohngeld", c: "Sozialhilfe", d: "Sozialversicherung" }, correct: "d", explanation: "Bei fester Anstellung werden automatisch Sozialversicherungsbeiträge abgeführt." },
+            { qId: "6a", text: "Wann waren die Nationalsozialisten mit Adolf Hitler in Deutschland an der Macht?", options: { a: "1945 bis 1989", b: "1933 bis 1945", c: "1932 bis 1950", d: "1918 bis 1923" }, correct: "b", explanation: "Die NS-Zeit dauerte von 1933 bis 1945." },
+            { qId: "6b", text: "Was bedeutet der Begriff „europäische Integration“?", options: { a: "Der Begriff meint den Zusammenschluss europäischer Staaten zur EU", b: "Damit sind amerikanische Einwanderer in Europa gemeint", c: "Damit sind europäische Auswanderer in den USA gemeint", d: "Der Begriff meint den Einwanderungsstopp nach Europa" }, correct: "a", explanation: "Europäische Integration bezeichnet den Zusammenschluss europäischer Staaten." },
+            { qId: "9a", text: "Die Erziehung der Kinder ist in Deutschland vor allem Aufgabe …", options: { a: "der Eltern", b: "der Schulen", c: "der Großeltern", d: "des Staates" }, correct: "a", explanation: "Die Erziehung ist vor allem Aufgabe der Eltern." },
+            { qId: "9b", text: "In welchem Jahr zerstörten die Nationalsozialisten Synagogen und jüdische Geschäfte in Deutschland?", options: { a: "1925", b: "1930", c: "1938", d: "1945" }, correct: "c", explanation: "Die Novemberpogrome fanden 1938 statt." },
+            { qId: "9c", text: "Wer bezahlt in Deutschland die Sozialversicherungen?", options: { a: "nur Arbeitgeberinnen/Arbeitgeber", b: "alle Staatsangehörigen", c: "Arbeitgeberinnen/Arbeitgeber und Arbeitnehmerinnen/Arbeitnehmer", d: "nur Arbeitnehmerinnen/Arbeitnehmer" }, correct: "c", explanation: "Die Beiträge werden von Arbeitgebern und Arbeitnehmern gemeinsam getragen." },
+            { qId: "10a", text: "Was passierte am 9. November 1938 in Deutschland?", options: { a: "Die Nationalsozialisten verlieren eine Wahl und lösen den Reichstag auf", b: "Jüdische Geschäfte und Synagogen werden durch Nationalsozialisten und ihre Anhänger zerstört", c: "Mit dem Angriff auf Polen beginnt der Zweite Weltkrieg", d: "Hitler wird Reichspräsident und lässt alle Parteien verbieten" }, correct: "b", explanation: "Am 9. November 1938 fanden die Novemberpogrome statt." },
+            { qId: "10b", text: "Welche Lebensform ist in Deutschland nicht erlaubt?", options: { a: "Ein alleinerziehender Vater lebt mit seinen zwei Kindern zusammen.", b: "Mann und Frau sind geschieden und leben mit neuen Partnern zusammen", c: "Ein Mann ist mit zwei Frauen zur selben Zeit verheiratet", d: "Zwei Frauen leben zusammen" }, correct: "c", explanation: "Polygamie (Mehrehe) ist in Deutschland nicht erlaubt." },
+            { qId: "11b", text: "Wer darf bei den rund 40 jüdischen Makkabi-Sportvereinen Mitglied werden?", options: { a: "nur Deutsche", b: "nur Israelis", c: "alle Menschen", d: "nur religiöse Menschen" }, correct: "c", explanation: "Die Makkabi-Vereine sind für alle Menschen offen." },
+            { qId: "13b", text: "Wer ist in Deutschland hauptsächlich verantwortlich für die Kindererziehung?", options: { a: "der Staat", b: "die Verwandten", c: "die Eltern", d: "der Schulen" }, correct: "c", explanation: "Die Eltern sind hauptsächlich für die Erziehung verantwortlich." },
+            { qId: "14a", text: "Frau Seger bekommt ein Kind. Was muss sie tun, um Elterngeld zu erhalten?", options: { a: "Sie muss das Arbeitsamt um Erlaubnis bitten", b: "Sie muss an ihre Krankenkasse schreiben", c: "Sie muss nichts tun, denn sie bekommt automatisch Elterngeld", d: "Sie muss einen Antrag bei der Elterngeldstelle stellen" }, correct: "d", explanation: "Elterngeld muss beantragt werden." },
+            { qId: "14b", text: "Welches Gericht ist in Deutschland bei Konflikten in der Arbeitswelt zuständig?", options: { a: "das Strafgericht", b: "das Arbeitsgericht", c: "das Amtsgericht", d: "das Familiengericht" }, correct: "b", explanation: "Das Arbeitsgericht ist für Arbeitskonflikte zuständig." },
+            { qId: "15a", text: "In welchem anderen Land gibt es eine große deutschsprachige Bevölkerung?", options: { a: "Österreich", b: "Spanien", c: "Tschechien", d: "Norwegen" }, correct: "a", explanation: "In Österreich wird Deutsch gesprochen." },
+            { qId: "15b", text: "Was gab es in Deutschland nicht während der Zeit des Nationalsozialismus?", options: { a: "Verfolgung der Juden", b: "freie Wahlen", c: "Pressezensur", d: "willkürliche Verhaftungen" }, correct: "b", explanation: "Im NS-Regime gab es keine freien Wahlen." },
+            { qId: "16b", text: "Die Nationalsozialisten mit Adolf Hitler errichteten 1933 in Deutschland …", options: { a: "ein Fürstentum.", b: "einen demokratischen Staat.", c: "eine Diktatur.", d: "eine Monarchie." }, correct: "c", explanation: "Die Nationalsozialisten errichteten eine Diktatur." },
+            { qId: "18a", text: "Bei welchen Demonstrationen in Deutschland riefen die Menschen „Wir sind das Volk“?", options: { a: "bei den Demonstrationen 1968 in der Bundesrepublik Deutschland", b: "bei den Montagsdemonstrationen 1989 in der DDR", c: "beim Arbeiteraufstand 1953 in der DDR", d: "bei den Anti-Atomkraft-Demonstrationen 1985 in der Bundesrepublik Deutschland" }, correct: "b", explanation: "„Wir sind das Volk“ war der Ruf der Montagsdemonstrationen 1989." },
+            { qId: "18b", text: "Soziale Marktwirtschaft bedeutet, die Wirtschaft …", options: { a: "wird vom Staat geplant und gesteuert, Angebot und Nachfrage werden nicht berücksichtigt.", b: "richtet sich nach der Nachfrage im Ausland.", c: "richtet sich nach Angebot und Nachfrage, aber der Staat sorgt für einen sozialen Ausgleich.", d: "steuert sich allein nach Angebot und Nachfrage." }, correct: "c", explanation: "Soziale Marktwirtschaft verbindet Markt mit sozialem Ausgleich." },
+            { qId: "19a", text: "Welche Länder wurden nach dem Zweiten Weltkrieg in Deutschland als „Alliierte Besatzungsmächte“ bezeichnet?", options: { a: "Frankreich, Sowjetunion, Italien, Japan", b: "USA, Sowjetunion, Spanien, Portugal", c: "USA, Sowjetunion, Großbritannien, Frankreich", d: "Sowjetunion, Großbritannien, Polen, Schweden" }, correct: "c", explanation: "Die vier Alliierten waren USA, Sowjetunion, Großbritannien und Frankreich." },
+            { qId: "19b", text: "Wer entscheidet, ob ein Kind in Deutschland in den Kindergarten geht?", options: { a: "die Bundesländer", b: "die Schulen", c: "der Staat", d: "die Eltern/die Erziehungsberechtigten" }, correct: "d", explanation: "Die Eltern entscheiden über den Kindergartenbesuch." },
+            { qId: "20a", text: "Welches Land war keine „Alliierte Besatzungsmacht“ in Deutschland?", options: { a: "Sowjetunion", b: "Japan", c: "USA", d: "Frankreich" }, correct: "b", explanation: "Japan war keine Besatzungsmacht in Deutschland." },
+            { qId: "20b", text: "Womit kann man in der Bundesrepublik Deutschland geehrt werden, wenn man auf politischem, wirtschaftlichem, kulturellem, geistigem oder sozialem Gebiet eine besondere Leistung erbracht hat? Mit dem …", options: { a: "Bundesadler", b: "Ehrentitel „Held der Deutschen Demokratischen Republik“", c: "Bundesverdienstkreuz", d: "Vaterländischen Verdienstorden" }, correct: "c", explanation: "Das Bundesverdienstkreuz ist die höchste Auszeichnung der Bundesrepublik." },
+            { qId: "21a", text: "In Deutschland …", options: { a: "kann man mehrere Ehepartnerinnen/Ehepartner gleichzeitig haben.", b: "darf man zur gleichen Zeit nur mit einer Partnerin/einem Partner verheiratet sein.", c: "darf eine Frau nicht wieder heiraten, wenn ihr Mann gestorben ist.", d: "darf man nicht wieder heiraten, wenn man einmal verheiratet war." }, correct: "b", explanation: "In Deutschland gilt die Einehe (Monogamie)." },
+            { qId: "22c", text: "Eine Frau ist schwanger. Sie ist kurz vor und nach der Geburt ihres Kindes vom Gesetz besonders beschützt. Wie heißt dieser Schutz?", options: { a: "Geburtsvorbereitung", b: "Elternzeit", c: "Wochenbett", d: "Mutterschutz" }, correct: "d", explanation: "Der besondere Schutz heißt Mutterschutz." },
+            { qId: "23a", text: "Welchen Schulabschluss braucht man normalerweise, um an einer Universität in Deutschland ein Studium zu beginnen?", options: { a: "das Abitur", b: "die Prokura", c: "eine Gesellenprüfung", d: "ein Diplom" }, correct: "a", explanation: "Für ein Universitätsstudium braucht man in der Regel das Abitur." },
+            { qId: "24a", text: "Wie viele Besatzungszonen gab es in Deutschland nach dem Zweiten Weltkrieg?", options: { a: "3", b: "4", c: "5", d: "6" }, correct: "b", explanation: "Es gab vier Besatzungszonen." },
+            { qId: "25a", text: "Eine Frau in Deutschland verliert ihre Arbeit. Was darf nicht der Grund für diese Entlassung sein?", options: { a: "Die Frau kam oft zu spät zur Arbeit.", b: "Die Frau bekommt ein Kind und ihr Chef weiß das.", c: "Die Frau ist lange krank und arbeitsunfähig.", d: "Die Frau erledigt private Sachen während der Arbeitszeit." }, correct: "b", explanation: "Eine Kündigung wegen Schwangerschaft ist unzulässig." },
+            { qId: "25b", text: "In Deutschland dürfen Ehepaare sich scheiden lassen. Meistens müssen sie dazu das „Trennungsjahr“ einhalten. Was bedeutet das?", options: { a: "Die Ehegatten sind ein Jahr verheiratet, dann ist die Scheidung möglich.", b: "Der Scheidungsprozess dauert ein Jahr.", c: "Die Ehegatten führen mindestens ein Jahr getrennt ihr eigenes Leben. Danach ist die Scheidung möglich.", d: "Das Besuchsrecht für die Kinder gilt ein Jahr." }, correct: "c", explanation: "Das Trennungsjahr bedeutet mindestens ein Jahr getrennten Lebens." },
+            { qId: "25c", text: "Welche deutsche Stadt wurde nach dem Zweiten Weltkrieg in vier Sektoren aufgeteilt?", options: { a: "Dresden", b: "München", c: "Frankfurt/Oder", d: "Berlin" }, correct: "d", explanation: "Berlin wurde in vier Sektoren aufgeteilt." },
+            { qId: "26b", text: "Ein Ehepaar möchte in Deutschland ein Restaurant eröffnen. Was braucht es dazu unbedingt?", options: { a: "eine Genehmigung des Einwohnermeldeamts", b: "eine Genehmigung einer Partei", c: "eine Erlaubnis der Polizei", d: "eine Gaststättenerlaubnis von der zuständigen Behörde" }, correct: "d", explanation: "Für ein Restaurant braucht man eine Gaststättenerlaubnis." },
+            { qId: "27a", text: "Vom Juni 1948 bis zum Mai 1949 wurden die Bürgerinnen und Bürger von West-Berlin durch eine Luftbrücke versorgt. Welcher Umstand war dafür verantwortlich?", options: { a: "Für Großbritannien war die Versorgung über die Luftbrücke schneller.", b: "Für Frankreich war eine Versorgung der West-Berliner Bevölkerung mit dem Flugzeug kostengünstiger.", c: "Die Sowjetunion unterbrach den gesamten Verkehr auf dem Landwege.", d: "Die amerikanischen Soldaten/Soldatinnen hatten beim Landtransport Angst vor Überfällen." }, correct: "c", explanation: "Die Sowjetunion blockierte den Landweg (Berlin-Blockade)." },
+            { qId: "29a", text: "Viele Menschen in Deutschland arbeiten in ihrer Freizeit ehrenamtlich. Was bedeutet das?", options: { a: "Sie arbeiten in der Bundesregierung.", b: "Sie arbeiten in einem Krankenhaus und verdienen dabei Geld.", c: "Sie arbeiten freiwillig und unbezahlt in Vereinen und Verbänden.", d: "Sie arbeiten als Soldatinnen/Soldaten." }, correct: "c", explanation: "Ehrenamt bedeutet freiwillige und unbezahlte Tätigkeit." },
+            { qId: "29b", text: "Was wollte Willy Brandt mit seinem Kniefall 1970 im ehemaligen jüdischen Ghetto in Warschau ausdrücken?", options: { a: "Er sprach ein Gebet am Grab des Unbekannten Soldaten", b: "Er zeigte seine Demut vor dem Warschauer Pakt", c: "Er hat sich den ehemaligen Alliierten unterworfen", d: "Er bat Polen und die polnischen Juden um Vergebung" }, correct: "d", explanation: "Der Kniefall war eine Geste der Demut und Bitte um Vergebung." },
+            { qId: "29c", text: "Welches Ehrenamt müssen deutsche Staatsbürgerinnen und Staatsbürger übernehmen, wenn sie dazu aufgefordert werden?", options: { a: "Bibliotheksaufsicht", b: "Vereinstrainerin/Vereinstrainer", c: "Lehrerin/Lehrer", d: "Wahlhelferin/Wahlhelfer" }, correct: "d", explanation: "Das Amt des Wahlhelfers ist ein Pflicht-Ehrenamt." },
+            { qId: "30a", text: "Bei Erziehungsproblemen können Eltern in Deutschland Hilfe erhalten vom …", options: { a: "Ordnungsamt.", b: "Jugendamt.", c: "Schulamt.", d: "Gesundheitsamt." }, correct: "b", explanation: "Das Jugendamt hilft bei Erziehungsproblemen." },
+            { qId: "31a", text: "2007 wurde das 50-jährige Jubiläum der „Römischen Verträge“ gefeiert. Was war der Inhalt der Verträge?", options: { a: "Gründung der Europäischen Wirtschaftsgemeinschaft (EWG)", b: "Festlegung der Oder-Neiße-Linie als Ostgrenze", c: "Beitritt Deutschlands zur NATO", d: "Verpflichtung Deutschlands zu Reparationsleistungen" }, correct: "a", explanation: "Die Römischen Verträge gründeten die EWG." },
+            { qId: "31b", text: "Wann war in der Bundesrepublik Deutschland das „Wirtschaftswunder“?", options: { a: "80er Jahre", b: "70er Jahre", c: "50er Jahre", d: "40er Jahre" }, correct: "c", explanation: "Das Wirtschaftswunder fand in den 1950er Jahren statt." },
+            { qId: "33a", text: "Eine erwachsene Frau möchte in Deutschland das Abitur nachholen. Das kann sie an …", options: { a: "einer Privatuniversität", b: "einem Abendgymnasium", c: "einer Hauptschule", d: "einer Hochschule." }, correct: "b", explanation: "Das Abitur kann man am Abendgymnasium nachholen." },
+            { qId: "33b", text: "Wofür stand der Ausdruck „Eiserner Vorhang“? Für die Abschottung …", options: { a: "Nazi-Deutschlands gegen die Alliierten", b: "Europas gegen die USA", c: "Norddeutschlands gegen Süddeutschland", d: "des Warschauer Pakts gegen den Westen" }, correct: "d", explanation: "Der Eiserne Vorhang trennte den Osten vom Westen." },
+            { qId: "34a", text: "Im Jahr 1953 gab es in der DDR einen Aufstand, an den lange Zeit in der Bundesrepublik Deutschland ein Feiertag erinnerte. Wann war das?", options: { a: "9. November", b: "20. Juli", c: "17. Juni", d: "1. Mai" }, correct: "c", explanation: "Der Aufstand war am 17. Juni 1953." },
+            { qId: "34b", text: "Was man für die Arbeit können muss, ändert sich in Zukunft sehr schnell. Was kann man tun?", options: { a: "Kinder lernen in der Schule alles, was im Beruf wichtig ist. Nach der Schule muss man nicht weiter lernen.", b: "Alle müssen früher aufhören zu arbeiten, weil sich alles ändert.", c: "Es ist egal, was man lernt.", d: "Erwachsene müssen auch nach der Ausbildung immer weiter lernen." }, correct: "d", explanation: "Lebenslanges Lernen ist wichtig." },
+            { qId: "35", text: "Welcher deutsche Staat hatte eine schwarz-rot-goldene Flagge mit Hammer, Zirkel und Ährenkranz?", options: { a: "DDR", b: "Drittes Reich", c: "Preußen", d: "Bundesrepublik Deutschland" }, correct: "a", explanation: "Das war die Flagge der DDR." },
+            { qId: "36a", text: "Wahlen in Deutschland sind frei. Was bedeutet das?", options: { a: "Alle wahlberechtigten Personen müssen wählen.", b: "Man darf Geld annehmen, wenn man dafür einen bestimmten Kandidaten/eine bestimmte Kandidatin wählt.", c: "Der Wähler darf bei der Wahl weder beeinflusst noch zu einer bestimmten Stimmabgabe gezwungen werden und keine Nachteile durch die Wahl haben.", d: "Nur Personen, die noch nie im Gefängnis waren, dürfen wählen." }, correct: "c", explanation: "Frei bedeutet ohne Zwang und ohne Nachteile." },
+            { qId: "37a", text: "Frau Frost arbeitet als fest angestellte Mitarbeiterin in einem Büro. Was muss sie nicht von ihrem Gehalt bezahlen?", options: { a: "Beiträge zur Arbeitslosenversicherung", b: "Beiträge zur Renten- und Krankenversicherung", c: "Umsatzsteuer", d: "Lohnsteuer" }, correct: "c", explanation: "Umsatzsteuer wird nicht vom Gehalt abgezogen." },
+            { qId: "38", text: "In Deutschland hat man die besten Chancen auf einen gut bezahlten Arbeitsplatz, wenn man …", options: { a: "eine Frau ist.", b: "katholisch ist.", c: "Mitglied einer Partei ist.", d: "gut ausgebildet ist." }, correct: "d", explanation: "Gute Ausbildung verbessert die Chancen auf dem Arbeitsmarkt." },
+            { qId: "39a", text: "Durch welche Verträge schloss sich die Bundesrepublik Deutschland mit anderen Staaten zur Europäischen Wirtschaftsgemeinschaft zusammen?", options: { a: "durch die „Pariser Verträge“", b: "durch die „Hamburger Verträge“", c: "durch die „Römischen Verträge“", d: "durch die „Londoner Verträge“" }, correct: "c", explanation: "Die Römischen Verträge gründeten die EWG." },
+            { qId: "39b", text: "Im Parlament steht der Begriff „Opposition“ für …", options: { a: "alle Abgeordneten, die nicht zu der Regierungspartei/den Regierungsparteien gehören.", b: "die regierenden Parteien.", c: "alle Parteien, die bei der letzten Wahl die 5 %-Hürde erreichen konnten.", d: "die Fraktion mit den meisten Abgeordneten." }, correct: "a", explanation: "Die Opposition sind die Abgeordneten, die nicht zur Regierung gehören." },
+            { qId: "41a", text: "Welche Organisation in einer Firma hilft den Arbeitnehmern und Arbeitnehmerinnen bei Problemen mit der Arbeitgeberin/dem Arbeitgeber?", options: { a: "der Betriebsprüfer/die Betriebsprüferin", b: "das Betriebsmanagement", c: "der Betriebsrat", d: "die Betriebsgruppe" }, correct: "c", explanation: "Der Betriebsrat vertritt die Interessen der Arbeitnehmer." },
+            { qId: "42a", text: "Was darf das Jugendamt in Deutschland?", options: { a: "Es kontrolliert, ob das Kind einen Kindergarten besucht.", b: "Es kann ein Kind, das geschlagen wird oder hungern muss, aus der Familie nehmen.", c: "Es bezahlt das Kindergeld an die Eltern.", d: "Es entscheidet, welche Schule das Kind besucht." }, correct: "b", explanation: "Das Jugendamt kann bei Gefahr für das Kindeswohl eingreifen." },
+            { qId: "44a", text: "Das Berufsinformationszentrum BIZ bei der Bundesagentur für Arbeit in Deutschland hilft bei der …", options: { a: "Lehrstellensuche", b: "Steuererklärung", c: "Rentenberechnung", d: "Krankenversicherung" }, correct: "a", explanation: "Das BIZ hilft bei der Berufs- und Lehrstellensuche." },
+            { qId: "45a", text: "Sie möchten bei einer Firma in Deutschland Ihr Arbeitsverhältnis beenden. Was müssen Sie beachten?", options: { a: "die Kündigungsfrist", b: "die Versicherungspflicht", c: "die Gehaltszahlungen", d: "die Arbeitszeit" }, correct: "a", explanation: "Bei einer Kündigung muss die Kündigungsfrist beachtet werden." },
+            { qId: "46a", text: "Aus welchem Land sind die meisten Migranten und Migrantinnen nach Deutschland gekommen?", options: { a: "Italien", b: "Türkei", c: "Polen", d: "Marokko" }, correct: "b", explanation: "Die meisten Migranten kamen aus der Türkei." },
+            { qId: "47a", text: "Die Zusammenarbeit von Parteien zur Bildung einer Regierung nennt man in Deutschland …", options: { a: "Ministerium.", b: "Koalition.", c: "Fraktion.", d: "Einheit." }, correct: "b", explanation: "Eine Koalition ist die Zusammenarbeit von Parteien zur Regierungsbildung." },
+            { qId: "48a", text: "Was kann ich in Deutschland machen, wenn mir meine Arbeitgeberin/mein Arbeitgeber zu Unrecht gekündigt hat?", options: { a: "Kündigungsschutzklage erheben", b: "die Arbeitgeberin/den Arbeitgeber bei der Polizei anzeigen", c: "weiterarbeiten und freundlich zur Chefin/zum Chef sein", d: "ein Mahnverfahren gegen den Arbeitgeber/die Arbeitgeberin führen" }, correct: "a", explanation: "Gegen ungerechtfertigte Kündigung kann man Kündigungsschutzklage erheben." },
+            { qId: "48b", text: "Welches heutige deutsche Bundesland gehörte früher zum Gebiet der DDR?", options: { a: "Hessen", b: "Saarland", c: "Brandenburg", d: "Bayern" }, correct: "c", explanation: "Brandenburg gehörte zur DDR." },
+            { qId: "50a", text: "Ein Mann möchte mit 30 Jahren in Deutschland sein Abitur nachholen. Wo kann er das tun? An …", options: { a: "einer Hauptschule", b: "einem Abendgymnasium", c: "einer Hochschule", d: "einer Privatuniversität" }, correct: "b", explanation: "Das Abitur kann am Abendgymnasium nachgeholt werden." },
+            { qId: "51a", text: "In Deutschland dürfen Menschen offen etwas gegen die Regierung sagen, weil?", options: { a: "hier Meinungsfreiheit gilt.", b: "die Menschen das Wahlrecht haben.", c: "hier Religionsfreiheit gilt.", d: "die Menschen Steuern zahlen." }, correct: "a", explanation: "Die Meinungsfreiheit erlaubt Kritik an der Regierung." },
+            { qId: "51b", text: "Wann kommt es in Deutschland zu einem Prozess vor Gericht? Wenn jemand …", options: { a: "eine andere Meinung als die der Regierung vertritt", b: "sein Auto falsch geparkt hat und es abgeschleppt wird", c: "zu einer anderen Religion übertritt", d: "eine Straftat begangen hat und angeklagt wird" }, correct: "d", explanation: "Ein Strafprozess findet statt, wenn jemand einer Straftat angeklagt wird." },
+            { qId: "52a", text: "Ausländische Arbeitnehmer und Arbeitnehmerinnen, die in den 50er und 60er Jahren von der Bundesrepublik Deutschland angeworben wurden, nannte man …", options: { a: "Gastarbeiter/Gastarbeiterinnen", b: "Zeitarbeiter/Zeitarbeiterinnen", c: "Schwarzarbeiter/Schwarzarbeiterinnen", d: "Schichtarbeiter/Schichtarbeiterinnen" }, correct: "a", explanation: "Sie wurden Gastarbeiter genannt." },
+            { qId: "53a", text: "In Deutschland sind Jugendliche ab 14 Jahren strafmündig. Das bedeutet: Jugendliche, die 14 Jahre und älter sind und gegen Strafgesetze verstoßen, …", options: { a: "werden bestraft.", b: "teilen die Strafe mit ihren Eltern.", c: "werden wie Erwachsene behandelt.", d: "werden nicht bestraft." }, correct: "a", explanation: "Ab 14 Jahren sind Jugendliche strafmündig." },
+            { qId: "53b", text: "Wie werden die Regierungschefinnen/Regierungschefs der meisten Bundesländer in Deutschland genannt?", options: { a: "Senator/Senatorin", b: "Erster Minister/Erste Ministerin", c: "Premierminister/Premierministerin", d: "Ministerpräsident/Ministerpräsidentin" }, correct: "d", explanation: "In den meisten Ländern heißt der Regierungschef Ministerpräsident." },
+            { qId: "55a", text: "Aus welchem Land kamen die ersten Gastarbeiter und Gastarbeiterinnen nach Deutschland?", options: { a: "Italien", b: "Portugal", c: "Türkei", d: "Spanien" }, correct: "a", explanation: "Die ersten Gastarbeiter kamen aus Italien." },
+            { qId: "55b", text: "Welche Hauptaufgabe hat die deutsche Bundespräsidentin/der deutsche Bundespräsident? Sie/Er …", options: { a: "repräsentiert das Land.", b: "regiert das Land.", c: "überwacht die Einhaltung der Gesetze.", d: "entwirft die Gesetze" }, correct: "a", explanation: "Der Bundespräsident repräsentiert das Land." },
+            { qId: "56a", text: "Was ist die Hauptaufgabe einer Richterin/eines Richters in Deutschland? Eine Richterin/ein Richter …", options: { a: "ändert Gesetze", b: "betreut Jugendliche vor Gericht", c: "vertritt Bürger und Bürgerinnen vor einem Gericht", d: "arbeitet an einem Gericht und spricht Urteile" }, correct: "d", explanation: "Richter sprechen Urteile." },
+            { qId: "57a", text: "Eine junge Frau in Deutschland, 22 Jahre alt, lebt mit ihrem Freund zusammen. Die Eltern der Frau finden das nicht gut, weil ihnen der Freund nicht gefällt. Was können die Eltern tun?", options: { a: "Sie können zur Polizei gehen und die Tochter anzeigen.", b: "Sie haben das Recht, die Tochter in die elterliche Wohnung zurückzuholen.", c: "Sie suchen einen anderen Mann für die Tochter.", d: "Sie müssen die Entscheidung der volljährigen Tochter respektieren." }, correct: "d", explanation: "Volljährige entscheiden selbst über ihr Zusammenleben." },
+            { qId: "60a", text: "Ein Richter/eine Richterin in Deutschland gehört zur …", options: { a: "Operative", b: "Exekutive.", c: "Judikative", d: "Legislative" }, correct: "c", explanation: "Richter gehören zur Judikative." },
+            { qId: "60b", text: "In Deutschland können Eltern bis zum 14. Lebensjahr ihres Kindes entscheiden, ob es in der Schule am …", options: { a: "Religionsunterricht teilnimmt", b: "Politikunterricht teilnimmt.", c: "Geschichtsunterricht teilnimmt.", d: "Sprachunterricht teilnimmt." }, correct: "a", explanation: "Bis 14 Jahre entscheiden die Eltern über den Religionsunterricht." },
+            { qId: "61a", text: "Eine junge Frau will den Führerschein machen. Sie hat Angst vor der Prüfung, weil ihre Muttersprache nicht Deutsch ist. Was ist richtig?", options: { a: "Wenn sie kein Deutsch kann, darf sie keinen Führerschein haben.", b: "Sie muss den Führerschein in dem Land machen, in dem man ihre Sprache spricht.", c: "Sie kann die Theorie-Prüfung vielleicht in ihrer Muttersprache machen. Es gibt mehr als zehn Sprachen zur Auswahl.", d: "Sie muss mindestens zehn Jahre in Deutschland leben, bevor sie den Führerschein machen kann." }, correct: "c", explanation: "Die Theorieprüfung kann in mehreren Sprachen abgelegt werden." },
+            { qId: "62a", text: "Warum gibt es in einer Demokratie mehr als eine Partei?", options: { a: "damit Bestechung in der Politik begrenzt wird", b: "um wirtschaftlichen Wettbewerb anzuregen", c: "um politische Demonstrationen zu verhindern", d: "weil dadurch die unterschiedlichen Meinungen der Bürger und Bürgerinnen vertreten werden" }, correct: "d", explanation: "Mehrere Parteien ermöglichen die Vertretung unterschiedlicher Meinungen." },
+            { qId: "62b", text: "Warum muss man in Deutschland bei der Steuererklärung aufschreiben, ob man zu einer Kirche gehört oder nicht? Weil …", options: { a: "die Kirche für die Steuererklärung verantwortlich ist.", b: "das für die Statistik in Deutschland wichtig ist.", c: "man mehr Steuern zahlen muss, wenn man nicht zu einer Kirche gehört.", d: "es eine Kirchensteuer gibt, die an die Einkommen- und Lohnsteuer geknüpft ist." }, correct: "d", explanation: "Die Kirchensteuer ist an die Einkommenssteuer gekoppelt." },
+            { qId: "63a", text: "Welches heutige deutsche Bundesland gehörte früher zum Gebiet der DDR?", options: { a: "Saarland", b: "Nordrhein-Westfalen", c: "Hessen", d: "Sachsen-Anhalt" }, correct: "d", explanation: "Sachsen-Anhalt gehörte zur DDR." },
+            { qId: "64a", text: "In Deutschland haben Kinder ab dem Alter von drei Jahren bis zur Ersteinschulung einen Anspruch auf …", options: { a: "einen Platz in einem Sportverein.", b: "einen Kindergartenplatz.", c: "monatliches Taschengeld.", d: "einen Ferienpass." }, correct: "b", explanation: "Es gibt einen Rechtsanspruch auf einen Kindergartenplatz." },
+            { qId: "65a", text: "Deutschland ist ein Rechtsstaat. Was ist damit gemeint?", options: { a: "Die Gerichte machen die Gesetze.", b: "Nur Deutsche müssen die Gesetze befolgen.", c: "Alle Einwohner/Einwohnerinnen und der Staat müssen sich an die Gesetze halten.", d: "Der Staat muss sich nicht an die Gesetze halten." }, correct: "c", explanation: "Im Rechtsstaat sind alle – auch der Staat – an das Recht gebunden." },
+            { qId: "65b", text: "Die Menschen in Deutschland leben nach dem Grundsatz der religiösen Toleranz. Was bedeutet das?", options: { a: "Jeder kann glauben, was er möchte.", b: "Alle Menschen glauben an Gott.", c: "Es dürfen keine Moscheen gebaut werden.", d: "Der Staat entscheidet, an welchen Gott die Menschen glauben." }, correct: "a", explanation: "Religiöse Toleranz bedeutet Glaubensfreiheit." },
+            { qId: "66a", text: "In Deutschland wird die Staatsgewalt geteilt. Für welche Staatsgewalt arbeitet ein Richter/eine Richterin? Für die …", options: { a: "Legislative", b: "Judikative", c: "Exekutive", d: "Presse" }, correct: "b", explanation: "Richter arbeiten für die Judikative." },
+            { qId: "66b", text: "Wer wählt in Deutschland die Bundespräsidentin/den Bundespräsidenten?", options: { a: "der Bundesrat", b: "das Bundesverfassungsgericht", c: "die Bundesversammlung", d: "das Bundesparlament" }, correct: "c", explanation: "Der Bundespräsident wird von der Bundesversammlung gewählt." },
+            { qId: "69a", text: "Warum nennt man die Zeit im Herbst 1989 in der DDR „Die Wende“? In dieser Zeit veränderte sich die DDR politisch …", options: { a: "von einem religiösen Staat zu einem kommunistischen Staat.", b: "von einer Monarchie zur Sozialdemokratie", c: "von einer Diktatur zur Demokratie", d: "von einer liberalen Marktwirtschaft zum Sozialismus." }, correct: "c", explanation: "Die Wende brachte den Übergang von der Diktatur zur Demokratie." },
+            { qId: "69b", text: "Welche Religion hat die europäische und deutsche Kultur geprägt?", options: { a: "das Christentum", b: "der Hinduismus", c: "der Buddhismus", d: "der Islam" }, correct: "a", explanation: "Das Christentum hat die europäische und deutsche Kultur stark geprägt." },
+            { qId: "71a", text: "Was ist die Arbeit eines Richters/einer Richterin in Deutschland?", options: { a: "Recht sprechen", b: "Pläne erstellen", c: "Gesetze erlassen", d: "Deutschland regieren" }, correct: "a", explanation: "Richter sprechen Recht." },
+            { qId: "74a", text: "Welches heutige deutsche Bundesland gehörte früher zum Gebiet der DDR?", options: { a: "Hessen", b: "Bayern", c: "Bremen", d: "Thüringen" }, correct: "d", explanation: "Thüringen gehörte zur DDR." },
+            { qId: "75a", text: "Die parlamentarische Opposition im Deutschen Bundestag …", options: { a: "bestimmt, wer im Bundesrat sitzt.", b: "schlägt die Regierungschefs/Regierungschefinnen der Länder vor.", c: "kontrolliert die Regierung.", d: "entscheidet, wer Bundesminister/Bundesministerin wird." }, correct: "c", explanation: "Die Opposition kontrolliert die Regierung." },
+            { qId: "78", text: "Welches heutige deutsche Bundesland gehörte früher zum Gebiet der DDR?", options: { a: "Baden-Württemberg", b: "Sachsen", c: "Bayern", d: "Niedersachsen" }, correct: "b", explanation: "Sachsen gehörte zur DDR." },
+            { qId: "79", text: "Wen kann man als Bürgerin/Bürger in Deutschland nicht direkt wählen?", options: { a: "Landtagsabgeordnete", b: "Abgeordnete des EU-Parlaments", c: "den Bundespräsidenten/die Bundespräsidentin", d: "Bundestagsabgeordnete" }, correct: "c", explanation: "Der Bundespräsident wird nicht direkt vom Volk gewählt." },
+            { qId: "80", text: "Wie nennt man in Deutschland die Vereinigung von Abgeordneten einer Partei im Parlament?", options: { a: "Fraktion", b: "Opposition", c: "Ältestenrat", d: "Verband" }, correct: "a", explanation: "Abgeordnete einer Partei bilden eine Fraktion." },
+            { qId: "81", text: "Man will die Buslinie abschaffen, mit der Sie immer zur Arbeit fahren. Was können Sie machen, um die Buslinie zu erhalten?", options: { a: "Ich werde Mitglied in einem Sportverein und trainiere Rad fahren.", b: "Ich beteilige mich an einer Bürgerinitiative für die Erhaltung der Buslinie oder gründe selber eine Initiative.", c: "Ich schreibe einen Brief an das Forstamt der Gemeinde.", d: "Ich wende mich an das Finanzamt, weil ich als Steuerzahler / Steuerzahlerin ein Recht auf die Buslinie habe." }, correct: "b", explanation: "Bürgerinitiativen sind ein Mittel der politischen Beteiligung." },
+            { qId: "82", text: "Welches Recht gehört zu den Grundrechten, die nach der deutschen Verfassung garantiert werden? Das Recht auf …", options: { a: "Arbeit", b: "Wohnung", c: "Glaubens- und Gewissensfreiheit", d: "Unterhaltung" }, correct: "c", explanation: "Glaubens- und Gewissensfreiheit ist ein Grundrecht." },
+            { qId: "84", text: "Welches Organ gehört nicht zu den Verfassungsorganen Deutschlands?", options: { a: "die Regierung", b: "die Bürgerversammlung", c: "der Bundesrat", d: "die Bundespräsidentin/der Bundespräsident" }, correct: "b", explanation: "Eine Bürgerversammlung ist kein Verfassungsorgan." },
+            { qId: "85", text: "Die deutschen Bundesländer wirken an der Gesetzgebung des Bundes mit durch …", options: { a: "den Bundestag.", b: "die Bundesregierung.", c: "den Bundesrat.", d: "die Bundesversammlung." }, correct: "c", explanation: "Die Länder wirken über den Bundesrat mit." },
+            { qId: "87", text: "Maik und Sybille wollen mit Freunden an ihrem deutschen Wohnort eine Demonstration auf der Straße abhalten. Was müssen sie vorher tun?", options: { a: "Sie müssen die Demonstration anmelden.", b: "Maik und Sybille müssen einen neuen Verein gründen, weil nur Vereine demonstrieren dürfen", c: "Sie können gar nichts tun, denn Demonstrationen sind in Deutschland grundsätzlich verboten", d: "Sie müssen nichts tun. Man darf in Deutschland jederzeit überall demonstrieren." }, correct: "a", explanation: "Demonstrationen müssen angemeldet werden." },
+            { qId: "89", text: "Welches heutige deutsche Bundesland gehörte früher zum Gebiet der DDR?", options: { a: "Saarland", b: "Schleswig-Holstein", c: "Hessen", d: "Mecklenburg-Vorpommern" }, correct: "d", explanation: "Mecklenburg-Vorpommern gehörte zur DDR." },
+            { qId: "90", text: "In Deutschland kann ein Regierungswechsel in einem Bundesland Auswirkungen auf die Bundespolitik haben. Das Regieren wird …", options: { a: "leichter, wenn dadurch neue Parteien in den Bundesrat kommen.", b: "leichter, wenn es sich um ein reiches Bundesland handelt.", c: "schwieriger, wenn sich dadurch die Mehrheit im Bundestag ändert.", d: "schwieriger, wenn dadurch die Mehrheit im Bundesrat verändert wird." }, correct: "d", explanation: "Eine veränderte Mehrheit im Bundesrat kann die Bundespolitik erschweren." },
+            { qId: "91", text: "Welches Grundrecht gilt in Deutschland nur für Ausländerinnen/Ausländer? Das Grundrecht auf …", options: { a: "Menschenwürde", b: "Meinungsfreiheit", c: "Schutz der Familie", d: "Asyl" }, correct: "d", explanation: "Das Asylrecht gilt für politisch Verfolgte (meist Ausländer)." },
+            { qId: "95", text: "Welche der folgenden Auflistungen enthält nur Bundesländer, die zum Gebiet der früheren DDR gehörten?", options: { a: "Sachsen, Thüringen, Hessen, Niedersachsen, Brandenburg", b: "Bayern, Baden-Württemberg, Rheinland-Pfalz, Thüringen, Sachsen", c: "Niedersachsen, Nordrhein-Westfalen, Hessen, Schleswig-Holstein, Brandenburg", d: "Mecklenburg-Vorpommern, Brandenburg, Sachsen, Sachsen-Anhalt, Thüringen" }, correct: "d", explanation: "Das sind die fünf neuen Bundesländer der ehemaligen DDR." },
+            { qId: "97", text: "Wohin muss man in Deutschland zuerst gehen, wenn man heiraten möchte?", options: { a: "zum Ordnungsamt", b: "zum Einwohnermeldeamt", c: "zum Standesamt", d: "zur Agentur für Arbeit" }, correct: "c", explanation: "Heiraten erfolgt beim Standesamt." },
+            { qId: "98", text: "Je mehr „Zweitstimmen“ eine Partei bei einer Bundestagswahl bekommt, desto …", options: { a: "mehr Sitze erhält die Partei im Parlament.", b: "größer ist das Risiko, eine Koalition bilden zu müssen.", c: "weniger Erststimmen kann sie haben.", d: "mehr Direktkandidaten der Partei ziehen ins Parlament ein." }, correct: "a", explanation: "Die Zweitstimme entscheidet über die Sitzverteilung." },
+            { qId: "101", text: "Eine Partei im Deutschen Bundestag will die Pressefreiheit abschaffen. Ist das möglich?", options: { a: "Nein, denn die Pressefreiheit ist ein Grundrecht. Sie kann nicht abgeschafft werden", b: "Nein, denn nur der Bundesrat kann die Pressefreiheit abschaffen.", c: "Ja, aber dazu müssen zwei Drittel der Abgeordneten im Bundestag dafür sein", d: "Ja, wenn mehr als die Hälfte der Abgeordneten im Bundestag dafür sind." }, correct: "a", explanation: "Grundrechte können nicht einfach abgeschafft werden." },
+            { qId: "104", text: "Wer wird meistens zur Präsidentin/zum Präsidenten des Deutschen Bundestages gewählt?", options: { a: "ein ehemaliger Bundeskanzler/eine ehemalige Bundeskanzlerin", b: "eine Abgeordnete/ein Abgeordneter der stärksten Fraktion", c: "der/die älteste Abgeordnete im Parlament", d: "der Ministerpräsident/die Ministerpräsidentin des größten Bundeslandes" }, correct: "b", explanation: "Meist kommt der Bundestagspräsident aus der stärksten Fraktion." },
+            { qId: "106", text: "Wenn Abgeordnete im Deutschen Bundestag ihre Fraktion wechseln, …", options: { a: "kann die Regierung ihre Mehrheit verlieren.", b: "muss der Bundespräsident/die Bundespräsidentin zuvor sein/ihr Einverständnis geben.", c: "dürfen die Wähler/Wählerinnen dieser Abgeordneten noch einmal wählen.", d: "dürfen sie nicht mehr an den Sitzungen des Parlaments teilnehmen" }, correct: "a", explanation: "Ein Fraktionswechsel kann die Mehrheitsverhältnisse verändern." },
+            { qId: "107", text: "Wie wird die Verfassung der Bundesrepublik Deutschland genannt?", options: { a: "Verfassungsvertrag", b: "Gesetzbuch", c: "Grundgesetz", d: "Bundesverfassung" }, correct: "c", explanation: "Die Verfassung heißt Grundgesetz." },
+            { qId: "108", text: "Was sollten Sie tun, wenn Sie von Ihrer Ansprechpartnerin / Ihrem Ansprechpartner in einer deutschen Behörde schlecht behandelt werden?", options: { a: "Ich drohe der Person.", b: "Ich kann nichts tun.", c: "Ich muss mir diese Behandlung gefallen lassen.", d: "Ich kann mich beim Behördenleiter/bei der Behördenleiterin beschweren." }, correct: "d", explanation: "Man kann sich beim Behördenleiter beschweren." },
+            { qId: "109", text: "Wer ernennt in Deutschland die Ministerinnen/die Minister der Bundesregierung?", options: { a: "die Bundestagspräsidentin/der Bundestagspräsident", b: "der Präsident/die Präsidentin des Bundesverfassungsgerichtes", c: "der Bundesratspräsident/die Bundesratspräsidentin", d: "der Bundespräsident/die Bundespräsidentin" }, correct: "d", explanation: "Der Bundespräsident ernennt die Minister auf Vorschlag des Kanzlers." },
+            { qId: "110", text: "Was wird in Deutschland als „Ampelkoalition“ bezeichnet? Die Zusammenarbeit …", options: { a: "von CSU, Die LINKE und Bündnis 90/Die Grünen in einer Regierung", b: "der Bundestagsfraktionen von CDU und SPD", c: "der Bundestagsfraktionen von CDU und CSU", d: "von SPD, FDP und Bündnis 90/Die Grünen in einer Regierung" }, correct: "d", explanation: "Ampelkoalition = SPD (rot), FDP (gelb), Grüne." },
+            { qId: "111", text: "Wie wurden die Bundesrepublik Deutschland und die DDR zu einem Staat?", options: { a: "Die DDR hat die Bundesrepublik Deutschland besetzt.", b: "Die westlichen Bundesländer sind der DDR beigetreten.", c: "Die Bundesrepublik Deutschland hat die DDR besetzt.", d: "Die heutigen fünf östlichen Bundesländer sind der Bundesrepublik Deutschland beigetreten." }, correct: "d", explanation: "Die DDR trat der Bundesrepublik bei." },
+            { qId: "112", text: "In den meisten Mietshäusern in Deutschland gibt es eine „Hausordnung“. Was steht in einer solchen „Hausordnung“? Sie nennt …", options: { a: "die Adresse des nächsten Ordnungsamtes.", b: "Regeln für die Benutzung öffentlicher Einrichtungen.", c: "alle Mieter und Mieterinnen im Haus.", d: "Regeln, an die sich alle Bewohner und Bewohnerinnen halten müssen." }, correct: "d", explanation: "Die Hausordnung enthält Regeln für die Bewohner." },
+            { qId: "113", text: "Meinungsfreiheit in Deutschland heißt, dass ich …", options: { a: "meine Meinung in Leserbriefen äußern kann.", b: "Passanten auf der Straße beschimpfen darf.", c: "meine Meinung nur dann äußern darf, solange ich der Regierung nicht widerspreche.", d: "Nazi-, Hamas- oder Islamischer Staat-Symbole öffentlich tragen darf." }, correct: "a", explanation: "Meinungsfreiheit erlaubt die freie Äußerung der Meinung (innerhalb der gesetzlichen Grenzen)." },
+            { qId: "114", text: "Auf welcher rechtlichen Grundlage wurde der Staat Israel gegründet?", options: { a: "eine Resolution der Vereinten Nationen", b: "ein Vorschlag der Bundesregierung", c: "ein Vorschlag der UdSSR", d: "ein Beschluss des Zionistenkongresses" }, correct: "a", explanation: "Israel wurde auf Grundlage einer UN-Resolution gegründet." },
+            { qId: "115", text: "Was ist eine Aufgabe von Wahlhelferinnen/Wahlhelfern in Deutschland?", options: { a: "Sie geben Zwischenergebnisse an die Medien weiter.", b: "Sie helfen alten Menschen bei der Stimmabgabe in der Wahlkabine.", c: "Sie zählen die Stimmen nach dem Ende der Wahl.", d: "Sie schreiben die Wahlbenachrichtigungen vor der Wahl." }, correct: "c", explanation: "Wahlhelfer zählen die Stimmen aus." },
+            { qId: "116", text: "Wenn Sie sich in Deutschland gegen einen falschen Steuerbescheid wehren wollen, müssen Sie …", options: { a: "Einspruch einlegen.", b: "den Bescheid wegwerfen.", c: "warten, bis ein anderer Bescheid kommt.", d: "nichts machen." }, correct: "a", explanation: "Gegen einen Steuerbescheid legt man Einspruch ein." },
+            { qId: "117", text: "Mit dem Beitritt der DDR zur Bundesrepublik Deutschland gehören die neuen Bundesländer nun auch …", options: { a: "zur Europäischen Verteidigungsgemeinschaft.", b: "zum Warschauer Pakt.", c: "zur Europäischen Union.", d: "zur OPEC." }, correct: "c", explanation: "Mit der Wiedervereinigung wurden die neuen Länder Teil der EU." },
+            { qId: "120", text: "In Deutschland helfen ehrenamtliche Wahlhelfer und Wahlhelferinnen bei den Wahlen. Was ist eine Aufgabe von Wahlhelfern/Wahlhelferinnen?", options: { a: "Sie schreiben Karten und Briefe mit der Angabe des Wahllokals.", b: "Sie geben Zwischenergebnisse an Journalisten weiter.", c: "Sie zählen die Stimmen nach dem Ende der Wahl.", d: "Sie helfen Kindern und alten Menschen beim Wählen." }, correct: "c", explanation: "Eine zentrale Aufgabe ist das Auszählen der Stimmen." },
+            { qId: "121", text: "Was tun Sie, wenn Sie eine falsche Rechnung von einer deutschen Behörde bekommen?", options: { a: "Ich schicke die Rechnung an die Behörde zurück.", b: "Ich lasse die Rechnung liegen.", c: "Ich lege Widerspruch bei der Behörde ein.", d: "Ich gehe mit der Rechnung zum Finanzamt." }, correct: "c", explanation: "Gegen eine falsche Rechnung legt man Widerspruch ein." },
+            { qId: "123", text: "Wann ist die Meinungsfreiheit in Deutschland eingeschränkt?", options: { a: "bei Kritik am Staat", b: "bei Meinungsäusserungen über die Bundesregierung", c: "bei der öffentlichen Verbreitung falscher Behauptungen über einzelne Personen", d: "bei Diskussionen über Religionen" }, correct: "c", explanation: "Falsche Behauptungen (z. B. Verleumdung) sind strafbar." },
+            { qId: "125", text: "Wenn das Parlament eines deutschen Bundeslandes gewählt wird, nennt man das …", options: { a: "Europawahl.", b: "Landtagswahl.", c: "Bundestagswahl.", d: "Kommunalwahl." }, correct: "b", explanation: "Die Wahl des Landesparlaments heißt Landtagswahl." },
+            { qId: "127", text: "Welche Städte haben die größten jüdischen Gemeinden in Deutschland?", options: { a: "Nürnberg und Stuttgart", b: "Berlin und München", c: "Hamburg und Essen", d: "Worms und Speyer" }, correct: "b", explanation: "Berlin und München haben die größten jüdischen Gemeinden." },
+            { qId: "128", text: "Bei einer Bundestagswahl in Deutschland darf jeder wählen, die/der …", options: { a: "seit mindestens 3 Jahren in der Bundesrepublik Deutschland lebt.", b: "Bürger/Bürgerin der Bundesrepublik Deutschland ist und mindestens 21 Jahre alt ist.", c: "in der Bundesrepublik Deutschland wohnt und wählen möchte.", d: "Bürger/Bürgerin der Bundesrepublik Deutschland ist und mindestens 18 Jahre alt ist." }, correct: "d", explanation: "Wahlberechtigt sind deutsche Staatsbürger ab 18 Jahren." },
+            { qId: "129", text: "Die deutschen Gesetze verbieten …", options: { a: "Ungleichbehandlung der Bürger und Bürgerinnen durch den Staat.", b: "Versammlungsfreiheit der Einwohner und Einwohnerinnen.", c: "Meinungsfreiheit der Einwohner und Einwohnerinnen.", d: "Petitionen der Bürger und Bürgerinnen." }, correct: "a", explanation: "Ungleichbehandlung durch den Staat ist verboten (Gleichheitsgrundsatz)." },
+            { qId: "133", text: "Sie haben in Deutschland einen Fernseher gekauft. Zu Hause packen Sie den Fernseher aus, doch er funktioniert nicht. Der Fernseher ist kaputt. Was können Sie machen?", options: { a: "den Fernseher reklamieren", b: "eine Anzeige schreiben", c: "die Garantie verlängern", d: "das Gerät ungefragt austauschen" }, correct: "a", explanation: "Bei einem Mangel kann man reklamieren." },
+            { qId: "134", text: "Welches Grundrecht ist in Artikel 1 des Grundgesetzes der Bundesrepublik Deutschland garantiert?", options: { a: "Religionsfreiheit", b: "die Unantastbarkeit der Menschenwürde", c: "das Recht auf Leben", d: "Meinungsfreiheit" }, correct: "b", explanation: "Artikel 1 garantiert die Unantastbarkeit der Menschenwürde." },
+            { qId: "138", text: "Was versteht man unter dem Recht der „Freizügigkeit“ in Deutschland?", options: { a: "Man darf sich in der Öffentlichkeit nur leicht bekleidet bewegen.", b: "Man darf sich seinen Wohnort selbst aussuchen.", c: "Man kann seinen Beruf wechseln.", d: "Man darf sich für eine andere Religion entscheiden." }, correct: "b", explanation: "Freizügigkeit bedeutet die freie Wahl des Wohnorts." },
+            { qId: "141", text: "Woraus begründet sich Deutschlands besondere Verantwortung für Israel?", options: { a: "aus dem Grundgesetz der Bundesrepublik Deutschland", b: "aus der Mitgliedschaft in der Europäischen Union (EU)", c: "aus den nationalsozialistischen Verbrechen gegen Juden", d: "aus der christlichen Tradition" }, correct: "c", explanation: "Die Verantwortung ergibt sich aus den NS-Verbrechen." },
+            { qId: "142", text: "Eine Partei in Deutschland verfolgt das Ziel, eine Diktatur zu errichten. Sie ist dann …", options: { a: "verfassungswidrig.", b: "gesetzestreu.", c: "tolerant.", d: "rechtsstaatlich orientiert." }, correct: "a", explanation: "Eine solche Partei ist verfassungswidrig." },
+            { qId: "144", text: "Was ist in Deutschland vor allem eine Aufgabe der Bundesländer?", options: { a: "Verteidigungspolitik", b: "Schulpolitik", c: "Außenpolitik", d: "Wirtschaftspolitik" }, correct: "b", explanation: "Schulpolitik ist Ländersache." },
+            { qId: "146", text: "Was bedeutet in Deutschland der Grundsatz der Gleichbehandlung?", options: { a: "Niemand darf gegen Personen klagen, wenn sie benachteiligt wurden.", b: "Niemand darf z. B. wegen einer Behinderung benachteiligt werden.", c: "Es ist für alle Gesetz, benachteiligten Gruppen jährlich Geld zu spenden.", d: "Man darf andere Personen benachteiligen, wenn ausreichende persönliche Gründe hierfür vorliegen." }, correct: "b", explanation: "Niemand darf wegen bestimmter Merkmale benachteiligt werden." },
+            { qId: "148", text: "Warum kontrolliert der Staat in Deutschland das Schulwesen?", options: { a: "weil es in den Bundesländern verschiedene Schulen gibt", b: "weil es in Deutschland nur staatliche Schulen gibt", c: "weil es nach dem Grundgesetz seine Aufgabe ist", d: "weil alle Schüler und Schülerinnen einen Schulabschluss haben müssen" }, correct: "c", explanation: "Das Schulwesen unterliegt der staatlichen Aufsicht nach dem Grundgesetz." },
+            { qId: "150", text: "Sie haben in Deutschland absichtlich einen Brief geöffnet, der an eine andere Person adressiert ist. Was haben Sie nicht beachtet?", options: { a: "die Meinungsfreiheit", b: "die Schweigepflicht", c: "das Schweigerecht", d: "das Briefgeheimnis" }, correct: "d", explanation: "Das Briefgeheimnis schützt die Vertraulichkeit von Post." },
+            { qId: "152", text: "Wahlen in Deutschland gewinnt die Partei, die …", options: { a: "die meisten Männer mehrheitlich gewählt haben.", b: "die meisten Stimmen bei den Arbeitern/Arbeiterinnen bekommen hat.", c: "die meisten Erststimmen für ihren Kanzlerkandidaten /ihre Kanzlerkandidatin erhalten hat.", d: "die meisten Stimmen bekommt." }, correct: "d", explanation: "Gewählt wird nach Stimmenanteil (Zweitstimmen)." },
+            { qId: "153", text: "Die Bundesrepublik Deutschland hat einen dreistufigen Verwaltungsaufbau. Wie heißt die unterste politische Stufe?", options: { a: "Bezirksämter", b: "Gemeinden", c: "Stadträte", d: "Landräte" }, correct: "b", explanation: "Die unterste Stufe sind die Gemeinden." },
+            { qId: "155", text: "Eine Frau, die ein zweijähriges Kind hat, bewirbt sich in Deutschland um eine Stelle. Was ist ein Beispiel für Diskriminierung? Sie bekommt die Stelle nur deshalb nicht, weil sie …", options: { a: "keine Erfahrungen in diesem Beruf hat.", b: "kein Englisch spricht.", c: "Mutter ist.", d: "zu hohe Gehaltsvorstellungen hat." }, correct: "c", explanation: "Eine Ablehnung wegen Mutterschaft ist Diskriminierung." },
+            { qId: "157", text: "Die Bundesrepublik Deutschland ist ein demokratischer und sozialer …", options: { a: "Zentralstaat.", b: "Staatenverbund.", c: "Bundesstaat.", d: "Staatenbund." }, correct: "c", explanation: "Deutschland ist ein Bundesstaat." },
+            { qId: "158", text: "Der deutsche Bundespräsident Gustav Heinemann gibt Helmut Schmidt 1974 die Ernennungsurkunde zum deutschen Bundeskanzler. Was gehört zu den Aufgaben der deutschen Bundespräsidentin/des deutschen Bundespräsidenten?", options: { a: "Er/Sie kontrolliert die Regierungspartei.", b: "Er/Sie schlägt den Kanzler/die Kanzlerin zur Wahl vor.", c: "Er/Sie führt die Regierungsgeschäfte.", d: "Er/Sie wählt die Minister/Ministerinnen aus." }, correct: "b", explanation: "Der Bundespräsident schlägt den Kanzler zur Wahl vor und ernennt ihn." },
+            { qId: "160", text: "Ein Mann im Rollstuhl hat sich auf eine Stelle als Buchhalter beworben. Was ist ein Beispiel für Diskriminierung? Er bekommt die Stelle nur deshalb nicht, weil er …", options: { a: "zu hohe Gehaltsvorstellungen hat.", b: "keine Erfahrung hat.", c: "im Rollstuhl sitzt.", d: "kein Englisch spricht." }, correct: "c", explanation: "Ablehnung wegen einer Behinderung ist Diskriminierung." },
+            { qId: "162", text: "Wo hält sich der deutsche Bundeskanzler/die deutsche Bundeskanzlerin am häufigsten auf? Am häufigsten ist er/sie …", options: { a: "auf Schloss Meseberg, dem Gästehaus der Bundesregierung, um Staatsgäste zu empfangen.", b: "in Berlin, weil sich dort das Bundeskanzleramt und der Bundestag befinden.", c: "auf Schloss Bellevue, dem Amtssitz der Bundespräsidentin/des Bundespräsidenten, um Staatsgäste zu empfangen.", d: "in Bonn, weil sich dort das Bundeskanzleramt und der Bundestag befinden." }, correct: "b", explanation: "Der Kanzler arbeitet vor allem in Berlin." },
+            { qId: "164", text: "Welches Symbol ist im Plenarsaal des Deutschen Bundestages zu sehen?", options: { a: "der Reichsadler", b: "die Reichskrone", c: "der Bundesadler", d: "die Fahne der Stadt Berlin" }, correct: "c", explanation: "Im Plenarsaal ist der Bundesadler zu sehen." },
+            { qId: "165", text: "Zwei Freunde wollen in ein öffentliches Schwimmbad in Deutschland. Beide haben eine dunkle Hautfarbe und werden deshalb nicht hineingelassen. Welches Recht wird in dieser Situation verletzt? Das Recht auf …", options: { a: "Gleichbehandlung", b: "Versammlungsfreiheit", c: "Freizügigkeit", d: "Meinungsfreiheit" }, correct: "a", explanation: "Das Recht auf Gleichbehandlung wird verletzt." },
+            { qId: "166", text: "Wenn Sie bei einer Bundestagswahl in Deutschland wählen dürfen, heißt das …", options: { a: "aktives Wahlrecht.", b: "aktiver Wahlkampf.", c: "aktive Wahlkampagne.", d: "aktives Wahlverfahren." }, correct: "a", explanation: "Das Recht zu wählen heißt aktives Wahlrecht." },
+            { qId: "167", text: "Wie heißt die jetzige Bundeskanzlerin/der jetzige Bundeskanzler von Deutschland?", options: { a: "Gerhard Schröder", b: "Angela Merkel", c: "Friedrich Merz", d: "Ursula von der Leyen" }, correct: "c", explanation: "Friedrich Merz ist der aktuelle Bundeskanzler (Stand 2025/2026)." },
+            { qId: "169", text: "In welchem Zeitraum gab es die Deutsche Demokratische Republik (DDR)?", options: { a: "1949 bis 1990", b: "1945 bis 1961", c: "1933 bis 1945", d: "1919 bis 1927" }, correct: "a", explanation: "Die DDR existierte von 1949 bis 1990." },
+            { qId: "170", text: "Ein Mann mit dunkler Hautfarbe bewirbt sich um eine Stelle als Kellner in einem Restaurant in Deutschland. Was ist ein Beispiel für Diskriminierung? Er bekommt die Stelle nur deshalb nicht, weil …", options: { a: "er keine Erfahrungen im Beruf hat.", b: "er eine dunkle Haut hat.", c: "seine Deutschkenntnisse zu gering sind.", d: "er zu hohe Gehaltsvorstellungen hat." }, correct: "b", explanation: "Ablehnung wegen der Hautfarbe ist Diskriminierung." },
+            { qId: "171", text: "Wie viel Prozent der Zweitstimmen müssen Parteien mindestens bekommen, um in den Deutschen Bundestag gewählt zu werden?", options: { a: "3%", b: "4%", c: "5%", d: "6%" }, correct: "c", explanation: "Die 5%-Hürde gilt für den Einzug über die Landesliste." },
+            { qId: "172", text: "Der deutsche Staat hat viele Aufgaben. Welche Aufgabe gehört dazu?", options: { a: "Er versorgt alle Einwohner und Einwohnerinnen kostenlos mit Zeitungen.", b: "Er produziert Autos und Busse.", c: "Er baut Straßen und Schulen.", d: "Er verkauft Lebensmittel und Kleidung." }, correct: "c", explanation: "Der Staat baut u. a. Straßen und Schulen." },
+            { qId: "173", text: "Die beiden größten Fraktionen im Deutschen Bundestag heißen zurzeit …", options: { a: "CDU/CSU und AfD.", b: "Die Linke und Bündnis 90/Die Grünen.", c: "Bündnis 90/Die Grünen und SPD.", d: "Die Linke und CDU/CSU." }, correct: "a", explanation: "CDU/CSU und AfD sind derzeit die größten Fraktionen (Stand nach aktueller Wahl)." },
+            { qId: "174", text: "Zu welchem Fest tragen Menschen in Deutschland bunte Kostüme und Masken?", options: { a: "an Pfingsten", b: "beim Oktoberfest", c: "am Rosenmontag", d: "am Maifeiertag" }, correct: "c", explanation: "Am Rosenmontag (Karneval) trägt man Kostüme und Masken." },
+            { qId: "175", text: "Wie viele Bundesländer kamen bei der Wiedervereinigung 1990 zur Bundesrepublik Deutschland hinzu?", options: { a: "4", b: "5", c: "6", d: "7" }, correct: "b", explanation: "Fünf neue Bundesländer kamen hinzu." },
+            { qId: "176", text: "Der deutsche Staat hat viele Aufgaben. Welche Aufgabe gehört nicht dazu?", options: { a: "Er fördert Sportler und Sportlerinnen.", b: "Er unterstützt Museen.", c: "Er zahlt Kindergeld.", d: "Er bezahlt für alle Staatsangehörigen Urlaubsreisen." }, correct: "d", explanation: "Der Staat bezahlt keine Urlaubsreisen für alle." },
+            { qId: "183", text: "Wahlen in Deutschland sind frei. Was bedeutet das?", options: { a: "Jede Person kann ohne Zwang entscheiden, ob sie wählen möchte und wen sie wählen möchte.", b: "Ich kann frei entscheiden, wo ich wählen gehen möchte.", c: "Alle verurteilten Straftäter/Straftäterinnen dürfen nicht wählen.", d: "Wenn ich wählen gehen möchte, muss mein Arbeitgeber/meine Arbeitgeberin mir frei geben" }, correct: "a", explanation: "Frei bedeutet ohne Zwang und Einflussnahme." },
+            { qId: "186", text: "Der 27. Januar ist in Deutschland ein offizieller Gedenktag. Woran erinnert dieser Tag?", options: { a: "an die Verabschiedung des Grundgesetzes", b: "an die Opfer des Nationalsozialismus", c: "an das Ende des Zweiten Weltkrieges", d: "an die Wiedervereinigung Deutschlands" }, correct: "b", explanation: "Der 27. Januar ist der Gedenktag für die Opfer des Nationalsozialismus." },
+            { qId: "193", text: "Was bedeutet „Volkssouveränität“?", options: { a: "Das Bundesverfassungsgericht steht über der Verfassung.", b: "Die Interessenverbände üben die Souveränität zusammen mit der Regierung aus.", c: "Die Staatsgewalt geht vom Volke aus.", d: "Der König/die Königin herrscht über das Volk." }, correct: "c", explanation: "Volkssouveränität: Alle Staatsgewalt geht vom Volke aus." },
+            { qId: "194", text: "Wie wird der Beitritt der DDR zur Bundesrepublik Deutschland im Jahr 1990 allgemein genannt?", options: { a: "EU-Osterweiterung", b: "Europäische Gemeinschaft", c: "NATO-Osterweiterung", d: "Deutsche Wiedervereinigung" }, correct: "d", explanation: "Es wird Deutsche Wiedervereinigung genannt." },
+            { qId: "195", text: "Eine Partei möchte in den Deutschen Bundestag. Sie muss aber einen Mindestanteil an Wählerstimmen haben. Das heißt …", options: { a: "Basiswert.", b: "5 %-Hürde.", c: "Richtlinie.", d: "Zulassungsgrenze." }, correct: "b", explanation: "Die 5%-Hürde muss überschritten werden." },
+            { qId: "197", text: "In Deutschland nennt man die letzten vier Wochen vor Weihnachten …", options: { a: "die Adventszeit.", b: "Allerheiligen.", c: "das Erntedankfest.", d: "den Buß- und Bettag." }, correct: "a", explanation: "Die Zeit vor Weihnachten heißt Adventszeit." },
+            { qId: "198", text: "Welche Handlungen mit Bezug auf den Staat Israel sind in Deutschland verboten?", options: { a: "die Politik Israels öffentlich kritisieren", b: "das Aufhängen einer israelischen Flagge auf dem Privatgrundstück", c: "der öffentliche Aufruf zur Vernichtung Israels", d: "eine Diskussion über die Politik Israels" }, correct: "c", explanation: "Der Aufruf zur Vernichtung Israels ist strafbar." },
+            { qId: "200", text: "Welchem Grundsatz unterliegen Wahlen in Deutschland? Wahlen in Deutschland sind …", options: { a: "geschlossen, gleich, sicher.", b: "frei, gleich, geheim.", c: "sicher, offen, freiwillig.", d: "offen, sicher, frei." }, correct: "b", explanation: "Die Wahlgrundsätze sind u. a. frei, gleich und geheim." },
+            { qId: "201", text: "Welches Gericht in Deutschland ist zuständig für die Auslegung des Grundgesetzes?", options: { a: "Bundesverfassungsgericht", b: "Verwaltungsgericht", c: "Oberlandesgericht", d: "Amtsgericht" }, correct: "a", explanation: "Das Bundesverfassungsgericht wacht über das Grundgesetz." },
+            { qId: "203", text: "Wer wählt die Bundeskanzlerin/den Bundeskanzler in Deutschland?", options: { a: "das Volk", b: "der Bundesrat", c: "der Bundestag", d: "die Bundesversammlung" }, correct: "c", explanation: "Der Bundestag wählt den Bundeskanzler." },
+            { qId: "206", text: "In einer Demokratie ist eine Funktion von regelmäßigen Wahlen, …", options: { a: "im Land bestehende Gesetze beizubehalten.", b: "den Armen mehr Macht zu geben.", c: "die Bürger und Bürgerinnen zu zwingen, ihre Stimme abzugeben.", d: "nach dem Willen der Wählermehrheit den Wechsel der Regierung zu ermöglichen." }, correct: "d", explanation: "Wahlen ermöglichen den Regierungswechsel nach dem Willen der Mehrheit." },
+            { qId: "207", text: "Wer wählt die deutsche Bundeskanzlerin/den deutschen Bundeskanzler?", options: { a: "die Bundesversammlung", b: "die Bundesregierung", c: "das Volk", d: "der Bundestag" }, correct: "d", explanation: "Der Bundestag wählt den Kanzler." },
+            { qId: "208", text: "Was bekommen wahlberechtigte Bürgerinnen und Bürger in Deutschland vor einer Wahl?", options: { a: "eine Benachrichtigung von der Bundesversammlung", b: "eine Benachrichtigung vom Pfarramt", c: "eine Wahlbenachrichtigung von der Gemeinde", d: "eine Wahlerlaubnis vom Bundespräsidenten/von der Bundespräsidentin" }, correct: "c", explanation: "Man erhält eine Wahlbenachrichtigung von der Gemeinde." },
+            { qId: "209", text: "Warum gibt es die 5 %-Hürde im Wahlgesetz der Bundesrepublik Deutschland? Es gibt sie, weil …", options: { a: "viele kleine Parteien die Regierungsbildung erschweren.", b: "die kleinen Parteien nicht so viel Geld haben, um die Politiker und Politikerinnen zu bezahlen.", c: "die Programme von vielen kleinen Parteien viele Gemeinsamkeiten haben.", d: "die Bürgerinnen und Bürger bei vielen kleinen Parteien die Orientierung verlieren können." }, correct: "a", explanation: "Die Hürde soll die Zersplitterung des Parlaments verhindern." },
+            { qId: "210", text: "Parlamentsmitglieder, die von den Bürgerinnen und Bürgern gewählt werden, nennt man …", options: { a: "Botschafter/Botschafterinnen.", b: "Ministerpräsidenten/Ministerpräsidentinnen.", c: "Abgeordnete.", d: "Kanzler/Kanzlerinnen." }, correct: "c", explanation: "Gewählte Parlamentsmitglieder heißen Abgeordnete." },
+            { qId: "211", text: "Vom Volk gewählt wird in Deutschland …", options: { a: "der Bundespräsident/die Bundespräsidentin.", b: "der Bundestag.", c: "der Ministerpräsident/die Ministerpräsidentin eines Bundeslandes.", d: "der Bundeskanzler/die Bundeskanzlerin." }, correct: "b", explanation: "Der Bundestag wird vom Volk gewählt." },
+            { qId: "213", text: "Was ist bei Bundestags- und Landtagswahlen in Deutschland erlaubt?", options: { a: "Man kann durch Briefwahl seine Stimme abgeben.", b: "Man kann am Wahltag telefonisch seine Stimme abgeben.", c: "Kinder ab dem Alter von 14 Jahren dürfen wählen.", d: "Der Ehemann wählt für seine Frau mit." }, correct: "a", explanation: "Briefwahl ist erlaubt." },
+            { qId: "216", text: "Deutschland ist Mitglied des Schengener Abkommens. Was bedeutet das?", options: { a: "Alle Menschen können ohne Personenkontrolle in Deutschland einreisen", b: "Deutsche können in viele Länder Europas ohne Passkontrolle reisen", c: "Deutsche können in jedem Land mit dem Euro bezahlen", d: "Deutsche können ohne Passkontrolle in jedes Land reisen" }, correct: "b", explanation: "Im Schengen-Raum entfallen in der Regel Passkontrollen." }
+        ]
+    }
+];
+
+// LocalStorage key
+const STORAGE_KEY = 'einbuergerungstest_progress_v1';
+
+// Load progress
+function loadProgress() {
+    try {
+        const data = localStorage.getItem(STORAGE_KEY);
+        return data ? JSON.parse(data) : {};
+    } catch (e) {
+        return {};
+    }
+}
+
+// Save progress
+function saveProgress(progress) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+}
+
+// Get unique question key
+function qKey(catId, qId) {
+    return catId + '_' + qId;
+}
+
+let progress = loadProgress();
+let currentCategoryId = null;
+
+// Count totals
+function countTotals() {
+    let total = 0;
+    quizData.forEach(cat => { total += cat.questions.length; });
+    return total;
+}
+
+// Update stats bar
+function updateStats() {
+    let answered = 0, correct = 0, incorrect = 0;
+    quizData.forEach(cat => {
+        cat.questions.forEach(q => {
+            const key = qKey(cat.id, q.qId);
+            if (progress[key]) {
+                answered++;
+                if (progress[key].correct) correct++;
+                else incorrect++;
+            }
+        });
+    });
+    document.getElementById('answered-count').textContent = answered;
+    document.getElementById('total-count').textContent = countTotals();
+    document.getElementById('correct-count').textContent = correct;
+    document.getElementById('incorrect-count').textContent = incorrect;
+}
+
+// Render category buttons
+function renderCategoryButtons() {
+    const nav = document.getElementById('category-buttons');
+    nav.innerHTML = '';
+    quizData.forEach(cat => {
+        const btn = document.createElement('button');
+        btn.className = 'cat-btn' + (currentCategoryId === cat.id ? ' active' : '');
+        btn.textContent = cat.title.split('.')[0] + '. ' + cat.title.split('. ')[1].split(' (')[0];
+        if (cat.title.length > 40) btn.textContent = cat.title.substring(0, 35) + '…';
+        btn.onclick = () => showCategory(cat.id);
+        nav.appendChild(btn);
+    });
+}
+
+// Show category
+// Show category
+function showCategory(catId) {
+    const catIdNum = Number(catId);
+    currentCategoryId = catIdNum;
+    const cat = quizData.find(c => c.id === catIdNum);
+    if (!cat) return;
+
+    renderCategoryButtons();
+
+    const overview = document.getElementById('chapter-overview-container');
+    overview.style.display = 'block';
+    overview.innerHTML = `
+        <h2>${cat.title}</h2>
+        <p style="white-space: pre-line;">${cat.description}</p>
+        <div class="merkhilfe">${cat.merkhilfe}</div>
+        <p class="progress-note">${cat.questions.length} Fragen in dieser Kategorie</p>
+    `;
+
+    const container = document.getElementById('questions-container');
+    container.innerHTML = '';
+
+    cat.questions.forEach((q, idx) => {
+        const key = qKey(cat.id, q.qId);
+        const saved = progress[key];
+        const statusClass = saved ? (saved.correct ? 'status-correct' : 'status-incorrect') : '';
+
+        const card = document.createElement('div');
+        card.className = 'question-card ' + statusClass;
+        card.id = 'qcard_' + key;
+
+        let optionsHtml = '';
+        ['a', 'b', 'c', 'd'].forEach(letter => {
+            if (!q.options[letter]) return;
+            let optClass = 'option-label';
+            let checked = '';
+            if (saved) {
+                if (saved.selected === letter) {
+                    optClass += saved.correct ? ' selected-correct' : ' selected-incorrect';
+                    checked = 'checked';
+                }
+                if (letter === q.correct) {
+                    optClass += ' show-correct';
+                }
+            }
+            optionsHtml += `
+                <li class="option-item">
+                    <label class="${optClass}">
+                        <input type="radio" name="q_${key}" value="${letter}" ${checked} ${saved ? 'disabled' : ''}>
+                        <span><strong>${letter})</strong> ${q.options[letter]}</span>
+                    </label>
+                </li>
+            `;
+        });
+
+        card.innerHTML = `
+            <div class="question-header">[${q.qId}] ${q.text}</div>
+            <ul class="options-list">${optionsHtml}</ul>
+            ${!saved ? `<button class="btn-submit" onclick="submitAnswer('${cat.id}', '${q.qId}')">Antwort prüfen</button>` : ''}
+            <div class="explanation-box">
+                <strong>Richtige Antwort: ${q.correct.toUpperCase()}</strong><br>
+                ${q.explanation}
+            </div>
+        `;
+        container.appendChild(card);
+    });
+
+    updateStats();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+// Submit answer
+
+// Submit answer
+
+// Submit answer
+function submitAnswer(catId, qId) {
+    const catIdNum = Number(catId);
+    const cat = quizData.find(c => c.id === catIdNum);
+    if (!cat) {
+        console.error('Category not found:', catId);
+        return;
+    }
+    const q = cat.questions.find(x => String(x.qId) === String(qId));
+    if (!q) {
+        console.error('Question not found:', qId);
+        return;
+    }
+    const key = qKey(catIdNum, q.qId);
+    const radios = document.querySelectorAll(`input[name="q_${key}"]`);
+    let selected = null;
+    radios.forEach(r => { if (r.checked) selected = r.value; });
+
+    if (!selected) {
+        alert('Bitte wählen Sie eine Antwort aus.');
+        return;
+    }
+
+    const isCorrect = selected === q.correct;
+    progress[key] = { selected, correct: isCorrect };
+    saveProgress(progress);
+
+    // Update the card directly without calling showCategory() or scrolling
+    const card = document.getElementById('qcard_' + key);
+    if (card) {
+        card.className = 'question-card ' + (isCorrect ? 'status-correct' : 'status-incorrect');
+        
+        // Update radio styles and disable them
+        radios.forEach(r => {
+            r.disabled = true;
+            const label = r.closest('label');
+            if (r.value === selected) {
+                label.classList.add(isCorrect ? 'selected-correct' : 'selected-incorrect');
+            }
+            if (r.value === q.correct) {
+                label.classList.add('show-correct');
+            }
+        });
+
+        // Hide submit button
+        const submitBtn = card.querySelector('.btn-submit');
+        if (submitBtn) submitBtn.remove();
+    }
+
+    updateStats();
+}
+
+// Reset progress
+function resetProgress() {
+    if (confirm('Möchten Sie den gesamten Fortschritt wirklich zurücksetzen?')) {
+        progress = {};
+        saveProgress(progress);
+        updateStats();
+        if (currentCategoryId) showCategory(currentCategoryId);
+        else {
+            document.getElementById('chapter-overview-container').style.display = 'none';
+            document.getElementById('questions-container').innerHTML = '';
+        }
+    }
+}
+
+// Init
+document.addEventListener('DOMContentLoaded', () => {
+    renderCategoryButtons();
+    updateStats();
+    // Auto-select first category
+    if (quizData.length > 0) showCategory(1);
+});
+</script>
+</body>
+</html>
