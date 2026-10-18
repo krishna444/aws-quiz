@@ -1,7 +1,17 @@
 const cfg = window.QUIZ_CONFIG || {};
-const STORAGE_KEY = cfg.storageKey || "quiz_grok_v1";
+
+// --- SUPABASE INITIALIZATION ---
+// Ensure <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script> is in your HTML
+const supabaseUrl = 'https://qlotppkpldbtokjlavbk.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFsb3RwcGtwbGRidG9ramxhdmJrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIzNDAxOTgsImV4cCI6MjEwNzkxNjE5OH0.te_hXIg6SrYzy0NnHjUymjn_d1nYX80xpqZ5uVZVYW0';
+const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+
 let BANK = [];
 let BY_ID = new Map();
+let currentUser = null;
+let state = { answers: {}, session: null };
+let draftChoice = null;
+let listLimit = 40;
 
 function normalizeBank(raw) {
   if (!Array.isArray(raw)) throw new Error("Question file must be a JSON array");
@@ -48,40 +58,47 @@ const els = {
   explain: document.getElementById("explain"),
   explainBox: document.getElementById("explain-box"),
   back: document.getElementById("back"),
+  login: document.getElementById("login"), // Container for login UI
+  logoutBtn: document.getElementById("logout-btn"),
+  userName: document.getElementById("user-name") 
+  
 };
 
-let memoryState = null;
-function storageGet(key) {
-  try { return localStorage.getItem(key); } catch (e) { return null; }
-}
-function storageSet(key, value) {
-  try { localStorage.setItem(key, value); return true; }
-  catch (e) {
-    try { sessionStorage.setItem(key, value); return true; }
-    catch (e2) { return false; }
+// --- REMOTE STATE MANAGEMENT ---
+
+async function loadRemoteState() {
+  if (!currentUser) return { answers: {}, session: null };
+  
+  const { data, error } = await supabaseClient
+    .from('user_progress')
+    .select('state')
+    .eq('user_id', currentUser.id)
+    .eq('quiz_category', cfg.storageKey)
+    .single();
+
+  if (error && error.code !== 'PGRST116') {
+    console.error("Error loading state:", error);
   }
+  
+  return data?.state || { answers: {}, session: null };
 }
-function loadState() {
-  memoryState = null;
-  try {
-    const raw = storageGet(STORAGE_KEY);
-    if (!raw) return { answers: {}, session: null };
-    const data = JSON.parse(raw);
-    return {
-      answers: data.answers && typeof data.answers === "object" ? data.answers : {},
-      session: data.session || null,
-    };
-  } catch (e) {
-    return { answers: {}, session: null };
-  }
+
+async function saveState() {
+  if (!currentUser) return;
+
+  const { error } = await supabaseClient
+    .from('user_progress')
+    .upsert({ 
+      user_id: currentUser.id, 
+      quiz_category: cfg.storageKey,
+      state: state,
+      updated_at: new Date().toISOString()
+    });
+
+  if (error) console.error("Error saving state:", error);
 }
-function saveState() {
-  const ok = storageSet(STORAGE_KEY, JSON.stringify(state));
-  if (!ok) memoryState = state;
-}
-let state = loadState();
-let draftChoice = null;
-let listLimit = 40;
+
+// --- QUIZ LOGIC & UI ---
 
 function stats() {
   const ids = Object.keys(state.answers);
@@ -141,12 +158,9 @@ function escapeHtml(s) {
   });
 }
 
-/** Convert the quiz explanation markdown into safe HTML. */
 function markdownToHtml(md) {
   if (!md) return "";
-  // Normalize line endings and soft-wrapped breaks from JSON export
   let text = String(md).replace(/\r\n/g, "\n").replace(/\r/g, "\n");
-
   const lines = text.split("\n");
   const out = [];
   let inList = false;
@@ -159,13 +173,9 @@ function markdownToHtml(md) {
   }
 
   function inlineFormat(s) {
-    // Escape first, then restore intentional markdown
     let t = escapeHtml(s);
-    // Inline code `code`
     t = t.replace(/`([^`]+)`/g, "<code>$1</code>");
-    // Bold **text**
     t = t.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
-    // Italic *text* (avoid list markers already handled)
     t = t.replace(/(^|[^*])\*([^*]+)\*(?!\*)/g, "$1<em>$2</em>");
     return t;
   }
@@ -179,7 +189,6 @@ function markdownToHtml(md) {
       continue;
     }
 
-    // Bullet: * **A:** reason  or  * text
     const bullet = line.match(/^\*\s+(.*)$/);
     if (bullet) {
       if (!inList) {
@@ -192,14 +201,12 @@ function markdownToHtml(md) {
 
     closeList();
 
-    // Section headers that are fully bold on one line, e.g. **Detailed Explanation:**
     const section = line.match(/^\*\*(.+?)\*\*\s*$/);
     if (section) {
       out.push('<p class="section-title">' + inlineFormat("**" + section[1] + "**") + "</p>");
       continue;
     }
 
-    // Domain line or normal paragraph
     out.push("<p>" + inlineFormat(line) + "</p>");
   }
   closeList();
@@ -270,7 +277,7 @@ function startQuiz(opts) {
     };
     draftChoice = null;
     showQuiz();
-    saveState();
+    saveState(); // Non-blocking sync to Supabase
   } catch (err) {
     console.error(err);
     els.hint.textContent = "Could not start the quiz: " + (err && err.message ? err.message : err);
@@ -286,13 +293,16 @@ function resumeQuiz() {
 }
 
 function showSetup() {
-  els.quiz.classList.add("hidden");
-  els.setup.classList.remove("hidden");
+  if (els.quiz) els.quiz.classList.add("hidden");
+  if (els.setup) els.setup.classList.remove("hidden");
+  if (els.login) els.login.classList.add("hidden");
   renderResults();
 }
+
 function showQuiz() {
-  els.setup.classList.add("hidden");
-  els.quiz.classList.remove("hidden");
+  if (els.setup) els.setup.classList.add("hidden");
+  if (els.quiz) els.quiz.classList.remove("hidden");
+  if (els.login) els.login.classList.add("hidden");
   renderQuestion();
 }
 
@@ -393,17 +403,12 @@ function hideExplanation() {
 function showExplanation() {
   const q = currentQuestion();
   if (!q || !answerOf(q.id)) return;
-  // Toggle: second click hides the panel
   if (!els.explainBox.classList.contains("hidden")) {
     hideExplanation();
     return;
   }
   const text = (q.explanation || "").trim();
-  //const label = document.createElement("span");
-  //label.className = "explain-label";
-  //label.textContent = "Explanation";
   els.explainBox.innerHTML = "";
-  //els.explainBox.appendChild(label);
   if (!text) {
     const p = document.createElement("p");
     p.textContent = "No explanation has been added for this question yet.";
@@ -415,6 +420,8 @@ function showExplanation() {
   }
   els.explainBox.classList.remove("hidden");
 }
+
+// --- EVENT LISTENERS ---
 
 els.search.addEventListener("input", () => { listLimit = 40; renderResults(); });
 els.category.addEventListener("change", () => { listLimit = 40; renderResults(); });
@@ -451,11 +458,13 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
+// --- BOOTSTRAPPING & AUTH FLOW ---
+
 function boot() {
   if (cfg.label) {
     const set = document.getElementById("quiz-set");
     if (set) set.textContent = cfg.label;
-    document.title = "SAA-C03 Practice Quiz — " + cfg.label;
+    document.title = "Practice Quiz — " + cfg.label;
   }
   categories();
   stats();
@@ -464,7 +473,7 @@ function boot() {
     if (state.session.search) els.search.value = state.session.search;
     resumeQuiz();
   } else {
-    renderResults();
+    showSetup();
   }
 }
 
@@ -477,37 +486,95 @@ function useBank(raw) {
 async function loadBank() {
   if (!cfg.bankUrl) throw new Error("No question file configured");
   if (location.protocol === "file:") {
-    throw new Error("Open these files through a local web server, or choose the JSON file below. Browsers block a page opened from disk from reading the JSON next to it.");
+    throw new Error("Open these files through a local web server, or choose the JSON file below.");
   }
   const res = await fetch(cfg.bankUrl, { cache: "no-store" });
   if (!res.ok) throw new Error("Could not load " + cfg.bankUrl + " (" + res.status + ")");
   useBank(await res.json());
 }
 
-els.start.disabled = true;
-els.hint.textContent = "Loading questions…";
-const fileInput = document.getElementById("bank-file");
-const fileBtn = document.getElementById("pick-bank");
-if (fileBtn && fileInput) {
-  fileBtn.addEventListener("click", function () { fileInput.click(); });
-  fileInput.addEventListener("change", function () {
-    const file = fileInput.files && fileInput.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = function () {
-      try {
-        useBank(JSON.parse(String(reader.result)));
-        fileBtn.classList.add("hidden");
-      } catch (err) {
-        els.hint.textContent = "That file could not be read: " + (err && err.message ? err.message : err);
-      }
-    };
-    reader.readAsText(file);
+async function loginWithGoogle() {
+  await supabaseClient.auth.signInWithOAuth({ 
+    provider: 'google',
+    options: {
+      redirectTo: window.location.href
+    }
   });
 }
 
-loadBank().catch(function (err) {
-  console.error(err);
-  els.hint.textContent = (err && err.message ? err.message : String(err));
-  if (fileBtn) fileBtn.classList.remove("hidden");
-});
+async function loginWithGitHub() {
+  await supabaseClient.auth.signInWithOAuth({ 
+    provider: 'github',
+    options: {
+      redirectTo: window.location.href
+    }
+  });
+}
+async function logout() { 
+  await supabaseClient.auth.signOut(); 
+  window.location.reload(); 
+}
+
+async function handleAuth() {
+  const { data: { session }, error } = await supabaseClient.auth.getSession();
+  
+  if (session) {
+    currentUser = session.user;
+    // Extract the name from Google/GitHub metadata (fallback to email if missing)
+    const displayName = currentUser.user_metadata?.full_name || 
+                        currentUser.user_metadata?.name || 
+                        currentUser.email;
+    
+    // Display the welcome message
+    if (els.userName) els.userName.textContent = "Welcome, " + displayName;
+    if (els.hint) els.hint.textContent = "Loading your progress...";
+
+    if (els.logoutBtn) els.logoutBtn.classList.remove("hidden");
+
+    state = await loadRemoteState();
+    
+    const fileInput = document.getElementById("bank-file");
+    const fileBtn = document.getElementById("pick-bank");
+    if (fileBtn && fileInput) {
+      fileBtn.addEventListener("click", function () { fileInput.click(); });
+      fileInput.addEventListener("change", function () {
+        const file = fileInput.files && fileInput.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function () {
+          try {
+            useBank(JSON.parse(String(reader.result)));
+            fileBtn.classList.add("hidden");
+          } catch (err) {
+            els.hint.textContent = "That file could not be read: " + (err && err.message ? err.message : err);
+          }
+        };
+        reader.readAsText(file);
+      });
+    }
+
+    loadBank().catch(function (err) {
+      console.error(err);
+      els.hint.textContent = (err && err.message ? err.message : String(err));
+      if (fileBtn) fileBtn.classList.remove("hidden");
+    });
+
+  } else {
+    if (els.setup) els.setup.classList.add("hidden");
+    if (els.quiz) els.quiz.classList.add("hidden");
+    if (els.login) els.login.classList.remove("hidden");
+    // Hide the logout button when logged out
+    if(els.userName) els.userName.textContent = "";
+    if (els.logoutBtn) els.logoutBtn.classList.add("hidden");
+    if (els.hint) els.hint.textContent = "Please log in to continue.";
+  }
+
+  supabaseClient.auth.onAuthStateChange((event, newSession) => {
+    if ((event === 'SIGNED_IN' && !currentUser) || event === 'SIGNED_OUT') {
+      window.location.reload();
+    }
+  });
+}
+
+// Start the app sequence by checking auth first
+document.addEventListener('DOMContentLoaded', handleAuth);

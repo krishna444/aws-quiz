@@ -14,10 +14,31 @@
     <div class="stat"><b id="stat-correct">0</b><small>Correct</small></div>
     <div class="stat"><b id="stat-accuracy">0%</b><small>Accuracy</small></div>
   </div>
-  <a href="quiz_grok_detailed.html" class="primary" style="text-docoration: none">Detailed Quiz </a>
+  <div style="display: flex; gap: 1rem; align-items: center;">
+    <a href="quiz_grok_detailed.html" class="primary" style="text-decoration: none">Detailed Quiz</a>
+    
+    <!-- The new user name display -->
+    <span id="user-name" style="font-size: 0.9rem; font-weight: bold; color: #666;"></span>
+    
+    <button id="logout-btn" class="ghost hidden" type="button" onclick="logout()">Log Out</button>
+  </div>
 </header>
 <main>
-  <section id="setup" class="panel">
+  <!-- Global hint for loading/auth states -->
+  <p class="hint" id="filter-hint" style="text-align: center; margin-top: 1rem;"></p>
+
+  <!-- Login UI (Visible when logged out) -->
+  <section id="login" class="panel hidden" style="text-align: center; padding: 2rem;">
+    <h2>Authentication Required</h2>
+    <p style="margin-bottom: 1.5rem; color: #666;">Please log in to track and save your quiz progress.</p>
+    <div style="display: flex; justify-content: center; gap: 1rem;">
+      <button class="primary" type="button" onclick="loginWithGoogle()">Log in with Google</button>
+      <!--<button class="primary" type="button" onclick="loginWithGitHub()">Log in with GitHub</button>-->
+    </div>
+  </section>
+
+  <!-- Setup/Filter UI (Visible when logged in) -->
+  <section id="setup" class="panel hidden">
     <div class="row filters">
       <div>
         <label for="search">Search questions</label>
@@ -34,7 +55,7 @@
         <button id="start" class="primary" type="button">Start Quiz</button>
       </div>
     </div>
-    <p class="hint" id="filter-hint"></p>
+    
     <div class="actions-top">
       <button id="pick-bank" class="ghost hidden" type="button">Choose question JSON</button>
       <input id="bank-file" class="hidden" type="file" accept="application/json,.json" />
@@ -45,6 +66,7 @@
     <div id="results" class="list" aria-live="polite"></div>
   </section>
 
+  <!-- Active Quiz UI -->
   <section id="quiz" class="panel hidden">
     <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center;">
       <div id="q-meta" class="meta" style="color:var(--muted);font-size:.85rem;"></div>
@@ -74,6 +96,7 @@ window.QUIZ_CONFIG = {
   label: "Simple"
 };
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./quiz.js"></script>
 </body>
 </html>
