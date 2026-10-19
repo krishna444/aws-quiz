@@ -461,6 +461,8 @@ document.addEventListener("keydown", (e) => {
 // --- BOOTSTRAPPING & AUTH FLOW ---
 
 function boot() {
+  if(els.hint) els.hint.textContent="";
+
   if (cfg.label) {
     const set = document.getElementById("quiz-set");
     if (set) set.textContent = cfg.label;
