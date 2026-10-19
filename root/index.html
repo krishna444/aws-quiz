@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AWS Practice Exams Hub</title>
+    <link rel="stylesheet" href="index.css" />
+    <!-- Supabase Client Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Authentication Logic -->
+    <script src="index.js" defer></script>
+  </head>
+  <body>
+    <div class="quiz-container">
+      <div class="header">
+        <h1>AWS Certification Prep</h1>
+        <div id="auth-container">
+          <button id="login-btn" class="btn" onclick="signInWithGoogle()" style="display: none;">
+            Sign in with Google
+          </button>
+          <div id="user-profile" style="display: none;">
+            <span id="user-email"></span>
+            <button class="btn btn-secondary" onclick="signOut()" style="padding: 6px 12px; font-size: 0.85rem;">
+              Sign Out
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="module-links-container">
+        <p>Select a provider practice module below to begin testing your knowledge:</p>
+
+        <div class="module-list">
+          <a href="ditectrev/" class="btn btn-secondary module-card">
+            <span>Ditectrev Practice Exams</span>
+            <span>&rarr;</span>
+          </a>
+
+          <a href="grok/" class="btn btn-secondary module-card">
+            <span>Grok Modules</span>
+            <span>&rarr;</span>
+          </a>
+
+          <a href="comcave/" class="btn btn-secondary module-card">
+            <span>COMCAVE Training Material</span>
+            <span>&rarr;</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

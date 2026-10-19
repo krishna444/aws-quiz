@@ -1,9 +1,9 @@
 {
-  "public": ".",
+  "public": "./root",
   "directoryListing": false,
   "headers": [
     {
-      "source": "exams/**/*.json",
+      "source": "**/*.json",
       "headers": [
         {
           "key": "X-Content-Type-Options",
@@ -16,13 +16,9 @@
       ]
     }
   ],
-  "rewrites": [
+  "rewrites": [    
     {
-      "source": "exams/",
-      "destination": "/404"
-    },
-    {
-      "source": "exams/**/",
+      "source": "*/**/*.json",
       "destination": "/404"
     }
   ]

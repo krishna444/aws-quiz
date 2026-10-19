@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>SAA-C03 Practice Quiz — Simple</title>
+<title>SAA-C03 Practice Quiz — Detailed</title>
 <link rel="stylesheet" href="./quiz.css" />
 </head>
 <body>
@@ -15,7 +15,7 @@
     <div class="stat"><b id="stat-accuracy">0%</b><small>Accuracy</small></div>
   </div>
   <div style="display: flex; gap: 1rem; align-items: center;">
-    <a href="quiz_grok_detailed.html" class="primary" style="text-decoration: none">Detailed Quiz</a>
+    <a href="../grok/" class="primary" style="text-decoration: none">Simple Quiz</a>
     
     <!-- The new user name display -->
     <span id="user-name" style="font-size: 0.9rem; font-weight: bold; color: #666;"></span>
@@ -91,12 +91,12 @@
 </main>
 <script>
 window.QUIZ_CONFIG = {
-  bankUrl: "./saa_c03_simple.json",
-  storageKey: "quiz_grok_simple_v1",
-  label: "Simple"
+  bankUrl: "./saa_c03_detailed.json",
+  storageKey: "grok_saa_c03_detailed_v1",
+  label: "Detailed"
 };
 </script>
-<script src="./supabase.js" defer></script>
-<script src="./quiz.js" defer></script>
+<script src="./supabase.js"></script>
+<script src="./quiz.js"></script>
 </body>
 </html>

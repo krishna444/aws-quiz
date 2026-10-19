@@ -1,0 +1,102 @@
+/* Container & Layout */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: #f9fafb;
+  color: #111827;
+  margin: 0;
+  padding: 2rem;
+}
+
+.quiz-container {
+  max-width: 768px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.header h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* Auth Section */
+#auth-container {
+  display: flex;
+  align-items: center;
+}
+
+#user-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#user-email {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Links & Buttons */
+.btn {
+  background-color: #2563eb;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn:hover {
+  background-color: #1d4ed8;
+}
+
+.btn-secondary {
+  background-color: #f3f4f6;
+  color: #1f2937;
+  border: 1px solid #d1d5db;
+}
+
+.btn-secondary:hover {
+  background-color: #e5e7eb;
+}
+
+.module-links-container {
+  margin-top: 2rem;
+}
+
+.module-links-container p {
+  margin-bottom: 1.5rem;
+  color: #4b5563;
+}
+
+.module-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.module-card {
+  text-decoration: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+}
+
+.module-card span {
+  font-size: 1.05rem;
+  font-weight: 600;
+}

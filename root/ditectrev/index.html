@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SAA-C03 Practice Quiz — Merged</title>
+<link rel="stylesheet" href="./quiz.css" />
+</head>
+<body>
+<header>
+  <h1>AWS SAA-C03 <span>Practice Quiz</span> <span id="quiz-set"></span></h1>
+  <div class="stats" aria-live="polite">
+    <div class="stat"><b id="stat-attempted">0</b><small>Attempted</small></div>
+    <div class="stat"><b id="stat-correct">0</b><small>Correct</small></div>
+    <div class="stat"><b id="stat-accuracy">0%</b><small>Accuracy</small></div>
+  </div>
+  <div style="display: flex; gap: 1rem; align-items: center;">
+    <span id="user-name" style="font-size: 0.9rem; font-weight: bold; color: #666;"></span>
+    <button id="logout-btn" class="ghost hidden" type="button" onclick="logout()">Log Out</button>
+  </div>
+</header>
+<main>
+  <!-- Global hint for loading/auth states -->
+  <p class="hint" id="filter-hint" style="text-align: center; margin-top: 1rem;"></p>
+
+  <!-- Login UI (Visible when logged out) -->
+  <section id="login" class="panel hidden" style="text-align: center; padding: 2rem;">
+    <h2>Authentication Required</h2>
+    <p style="margin-bottom: 1.5rem; color: #666;">Please log in to track and save your quiz progress.</p>
+    <div style="display: flex; justify-content: center; gap: 1rem;">
+      <button class="primary" type="button" onclick="loginWithGoogle()">Log in with Google</button>
+    </div>
+  </section>
+
+  <!-- Setup/Filter UI (Visible when logged in) -->
+  <section id="setup" class="panel hidden">
+    <div class="row filters">
+      <div>
+        <label for="search">Search questions</label>
+        <input id="search" type="search" placeholder="Type to filter by wording, service, or topic" autocomplete="off" />
+      </div>
+      <div>
+        <label for="category">Category</label>
+        <select id="category">
+          <option value="">All categories (random order)</option>
+        </select>
+      </div>
+      <div>
+        <label>&nbsp;</label>
+        <button id="start" class="primary" type="button">Start Quiz</button>
+      </div>
+    </div>
+    
+    <div class="actions-top">
+      <button id="pick-bank" class="ghost hidden" type="button">Choose question JSON</button>
+      <input id="bank-file" class="hidden" type="file" accept="application/json,.json" />
+      <button id="resume" class="ghost hidden" type="button">Resume in-progress quiz</button>
+      <button id="reset-answers" class="ghost" type="button">Clear saved answers</button>
+    </div>
+    <p class="countline" id="match-count"></p>
+    <div id="results" class="list" aria-live="polite"></div>
+  </section>
+
+  <!-- Active Quiz UI -->
+  <section id="quiz" class="panel hidden">
+    <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center;">
+      <div id="q-meta" class="meta" style="color:var(--muted);font-size:.85rem;"></div>
+      <button id="back" class="ghost" type="button">Back to filters</button>
+    </div>
+    <div class="progress-wrap" aria-hidden="true"><div id="bar" class="progress-bar"></div></div>
+    <div id="banner" class="banner hidden"></div>
+    <div id="q-text" class="q-text"></div>
+    <p id="multi-hint" class="multi-hint hidden">Select all that apply</p>
+    <div id="options" class="options"></div>
+    <div class="nav">
+      <div class="group">
+        <button id="prev" class="ghost" type="button">Previous</button>
+        <button id="next" class="ghost" type="button">Next</button>
+      </div>
+      <div class="group">
+        <button id="explain" class="ghost" type="button" disabled>Explain</button>
+        <button id="submit" class="primary" type="button">Submit answer</button>
+      </div>
+    </div>
+    <div id="explain-box" class="explain hidden"></div>
+  </section>
+</main>
+<script>
+window.QUIZ_CONFIG = {
+  bankUrl: "./saa_c03_merged.json",
+  storageKey: "ditectrev_saa_c03_v1",
+  label: "Ditectrev Exams"
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="./quiz.js" defer></script>
+</body>
+</html>

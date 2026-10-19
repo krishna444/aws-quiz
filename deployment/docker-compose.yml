@@ -12,7 +12,7 @@ services:
       - quiz_net
     volumes:
       # Mount exams folder to sync JSON updates dynamically
-      - ../exams:/app/exams:ro
+      - ../root:/app/root:ro
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "npx", "serve", "--version"]

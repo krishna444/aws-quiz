@@ -10,14 +10,14 @@ COPY package*.json ./
 RUN npm ci --only=production || true
 
 # Copy static assets and exam data from the root build context
-COPY index.html /app/index.html
-COPY styles/quiz.css /app/styles/quiz.css
-COPY quiz_category.html /app/quiz_category.html
-COPY exams/ /app/exams/
+#COPY index.html /app/index.html
+#COPY styles/quiz.css /app/styles/quiz.css
+#COPY quiz_category.html /app/quiz_category.html
+COPY root/ /app/root/
 COPY serve.json /app/serve.json
-COPY ebTest.html /app/ebTest.html
-COPY comcaveAWSTest.html /app/aws.html
-COPY grok/ /app/grok/
+#COPY ebTest.html /app/ebTest.html
+#COPY comcaveAWSTest.html /app/aws.html
+#COPY grok/ /app/grok/
 
 # Install serve globally or execute via npx
 EXPOSE 3000
