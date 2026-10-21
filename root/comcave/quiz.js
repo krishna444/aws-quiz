@@ -677,3 +677,31 @@ async function handleAuth() {
 
 // Start the app sequence by checking auth first
 document.addEventListener('DOMContentLoaded', handleAuth);
+
+// Mobile header hamburger menu
+(function setupHeaderMenu() {
+  const header = document.querySelector("header");
+  const toggle = document.getElementById("menu-toggle");
+  if (!header || !toggle) return;
+
+  function closeMenu() {
+    header.classList.remove("menu-open");
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.setAttribute("aria-label", "Open menu");
+  }
+
+  function openMenu() {
+    header.classList.add("menu-open");
+    toggle.setAttribute("aria-expanded", "true");
+    toggle.setAttribute("aria-label", "Close menu");
+  }
+
+  toggle.addEventListener("click", function () {
+    if (header.classList.contains("menu-open")) closeMenu();
+    else openMenu();
+  });
+
+  window.addEventListener("resize", function () {
+    if (window.innerWidth >= 768) closeMenu();
+  });
+})();
