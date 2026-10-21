@@ -4,23 +4,27 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>SAA-C03 Practice Quiz — Detailed</title>
-<link rel="stylesheet" href="./quiz.css" />
+<link rel="stylesheet" href="../shared/quiz.css" />
 </head>
 <body>
 <header>
-  <h1><a href="/">AWS SAA-C03</a> <span>Practice Quiz</span> <span id="quiz-set"></span></h1>
-  <div class="stats" aria-live="polite">
-    <div class="stat"><b id="stat-attempted">0</b><small>Attempted</small></div>
-    <div class="stat"><b id="stat-correct">0</b><small>Correct</small></div>
-    <div class="stat"><b id="stat-accuracy">0%</b><small>Accuracy</small></div>
+  <div class="header-bar">
+    <h1><a href="/">AWS SAA-C03</a> <span>Practice Quiz</span> <span id="quiz-set"></span></h1>
+    <button id="menu-toggle" class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="header-panel">
+      <span class="menu-icon" aria-hidden="true"></span>
+    </button>
   </div>
-  <div style="display: flex; gap: 1rem; align-items: center;">
-    <a href="../grok/" class="primary" style="text-decoration: none">Simple Quiz</a>
-    
-    <!-- The new user name display -->
-    <span id="user-name" style="font-size: 0.9rem; font-weight: bold; color: #666;"></span>
-    
-    <button id="logout-btn" class="ghost hidden" type="button" onclick="logout()">Log Out</button>
+  <div id="header-panel" class="header-panel">
+    <div class="stats" aria-live="polite">
+      <div class="stat"><b id="stat-attempted">0</b><small>Attempted</small></div>
+      <div class="stat"><b id="stat-correct">0</b><small>Correct</small></div>
+      <div class="stat"><b id="stat-accuracy">0%</b><small>Accuracy</small></div>
+    </div>
+    <div class="header-user">
+      <a href="../grok/" class="primary" style="text-decoration: none">Simple Quiz</a>
+      <span id="user-name"></span>
+      <button id="logout-btn" class="ghost hidden" type="button" onclick="logout()">Log Out</button>
+    </div>
   </div>
 </header>
 <main>
@@ -93,10 +97,10 @@
 window.QUIZ_CONFIG = {
   bankUrl: "./saa_c03_detailed.json",
   storageKey: "grok_saa_c03_detailed_v1",
-  label: "Detailed"
+  label: "Grok Detailed"
 };
 </script>
 <script src="./supabase.js"></script>
-<script src="./quiz.js"></script>
+<script src="../shared/quiz.js" defer></script>
 </body>
 </html>

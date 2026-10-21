@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>SAA-C03 Practice Quiz — Simple</title>
-<link rel="stylesheet" href="./quiz.css" />
+<link rel="stylesheet" href="../shared/quiz.css" />
 </head>
 <body>
 <header>
@@ -21,6 +21,7 @@
       <div class="stat"><b id="stat-accuracy">0%</b><small>Accuracy</small></div>
     </div>
     <div class="header-user">
+      <a href="quiz_grok_detailed.html" class="primary" style="text-decoration: none">Detailed Quiz</a>
       <span id="user-name"></span>
       <button id="logout-btn" class="ghost hidden" type="button" onclick="logout()">Log Out</button>
     </div>
@@ -96,10 +97,10 @@
 window.QUIZ_CONFIG = {
   bankUrl: "./saa_c03_simple.json",
   storageKey: "grok_saa_c03_simple_v1",
-  label: "Simple"
+  label: "Grok Simple"
 };
 </script>
 <script src="./supabase.js" defer></script>
-<script src="./quiz.js" defer></script>
+<script src="../shared/quiz.js" defer></script>
 </body>
 </html>
