@@ -1,4 +1,5 @@
 version: '3.8'
+name: aws-quiz-app
 
 services:
   aws-quiz-app:
