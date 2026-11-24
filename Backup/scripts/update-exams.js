@@ -4,8 +4,10 @@ const path = require('path');
 const OpenAI = require('openai');
 
 const openai = new OpenAI({
-    baseURL: 'https://openrouter.ai/api/v1',
-    apiKey: process.env.OPENROUTER_API_KEY,
+    //baseURL: 'https://openrouter.ai/api/v1',
+    //apiKey: process.env.OPENROUTER_API_KEY,
+    baseURL:"http://10.0.0.13:8081/v1",
+    apiKey:"not-needed",    
     defaultHeaders: {
         'HTTP-Referer': 'http://localhost',
         'X-Title': 'AWS Quiz Generator'
@@ -13,7 +15,8 @@ const openai = new OpenAI({
 });
 
 // Reliable OpenRouter models
-const MODEL_NAME = 'google/gemma-4-31b-it'; 
+//const MODEL_NAME = 'google/gemma-4-31b-it'; 
+const MODEL_NAME = 'Qwen3-30B-A3B-Instruct-2507-IQ4_NL.gguf'
 
 function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -150,20 +153,22 @@ async function main() {
     console.log("🚀 Starting Local JSON Explanation Generator...\n");
 
     // Example 1: Target an entire folder (processes all JSON files in the path)
-    const targetFolder = path.join(__dirname, 'exams', 'saa-c03', 'Ditectrev', 'normal');
+    //const targetFolder = path.join(__dirname, 'exams', 'saa-c03', 'Ditectrev', 'normal');
     
     // Example 2: Target a specific file
     //const targetFile = path.join(__dirname, 'exams', 'saa-c03', 'Ditectrev', 'normal', 'practice-exam-1.json');
     //const targetFile = path.join(__dirname, 'exams', 'backup', 'saa-c03-practice-questions.json');
 
-    if (fs.existsSync(targetFolder)) {
-        await processDirectory(targetFolder);
-    } else {
-        console.log(`Target directory ${targetFolder} does not exist. Update path in script.`);
-    }
-    //await processLocalJsonFile(targetFile);
+    //if (fs.existsSync(targetFolder)) {
+    //    await processDirectory(targetFolder);
+    //} else {
+    //    console.log(`Target directory ${targetFolder} does not exist. Update path in script.`);
+    //}
+    const targetFile = path.join(__dirname, 'comcave_saa_c03.json');
+    await processLocalJsonFile(targetFile);
 
     console.log("\n🎉 All tasks finished!");
+
 }
 
 main();
