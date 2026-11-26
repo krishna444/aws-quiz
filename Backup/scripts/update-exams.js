@@ -4,10 +4,10 @@ const path = require('path');
 const OpenAI = require('openai');
 
 const openai = new OpenAI({
-    //baseURL: 'https://openrouter.ai/api/v1',
-    //apiKey: process.env.OPENROUTER_API_KEY,
-    baseURL:"http://10.0.0.13:8081/v1",
-    apiKey:"not-needed",    
+    baseURL: 'https://openrouter.ai/api/v1',
+    apiKey: process.env.OPENROUTER_API_KEY,
+    //baseURL:"http://10.0.0.13:8081/v1",
+    //apiKey:"not-needed",    
     defaultHeaders: {
         'HTTP-Referer': 'http://localhost',
         'X-Title': 'AWS Quiz Generator'
@@ -15,8 +15,8 @@ const openai = new OpenAI({
 });
 
 // Reliable OpenRouter models
-//const MODEL_NAME = 'google/gemma-4-31b-it'; 
-const MODEL_NAME = 'Qwen3-30B-A3B-Instruct-2507-IQ4_NL.gguf'
+const MODEL_NAME = '@preset/n8n-glm-relace'; 
+//const MODEL_NAME = 'Qwen3-30B-A3B-Instruct-2507-IQ4_NL.gguf'
 
 function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -38,18 +38,26 @@ Format your response in Markdown strictly using this layout. Output each bullet 
 **AWS Domain:** [Specify AWS Domain : Secure Architectures / Resilient Architectures / High Performance Architectures / Cost Optimized Architectures]
 
 **Detailed Explanation:**
-[Some sentences (3-5) explaining the core concept, and why the correct answer is right]
+[Explain underlying AWS concepts, and why the correct answer best satisfies the scenario. Focus on understanding how the services work, not just memorizing the answer]
 
 **Why Other Options are Incorrect:**
+Explain each incorrect option individually. Mention when an alternative would actually be appropriate if useful.
 * **A:** [Explanation text on the same line]
 * **B:** [Explanation text on the same line]
-* **C:** [Explanation text on the same line]
+* **C:** [Explanation text on the same line] 
+* **D:** [Explanation text on the same line] and so on for all options
 
 **💡 Exam Tip:**
-[High-yield tip or keywords]
+[Highlight important keywords, recognition patterns and concepts worth remembering for SAA-C03 exam]
 
 **⚠️ Trap Alert:**
-[Common misconception or distractor to avoid]`;
+[Explain common misconceptions, confusing AWS services, technical limitations and likely exam distractors]
+
+** Related AWS Concepts and Services:**
+[Mention 2 to 4 closely related AWS services, technologies or concepts that are important to understand for this topic. Briefly explain their relevance]
+
+Keep explanations concise but technically accurate. Use simple, clear English. Avoid repetition, unsupported claims and unnecessary details. Never guess when uncertain.
+`;
 
     let attempts = 0;
     while (attempts < 5) {
